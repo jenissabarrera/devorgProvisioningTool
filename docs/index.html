@@ -1,0 +1,457 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://sdk-cdn.mypurecloud.com/javascript/68.0.0/purecloud-platform-client-v2.min.js"></script>
+</head>
+
+<body style="font-family: Roboto;">
+
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+    
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn"  type="submit" style="background-color:#FF4F1F; border:#FF4F1F; font:#FDFDFD;">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Welcome to the Developer Org Provisioning Tool!</h1>
+      <p>What would you like to do?</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button" style="background-color:#2A60C8; border:#2A60C8;">Learn more »</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Provision Telephony</h2>
+        <p>Setup your telephony in an instant. Choose between Twillio or Nexmo</p>
+        <p><button type="button" onclick="listProducts()" class="btn btn-success" data-toggle="modal" data-target="#byocModal" style="background-color:#FF4F1F; border:#FF4F1F; ">Start »</button></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Dev Org Kick Starter</h2>
+        <p>Setup your Purecloud essentials easily. Create accounts,groups,roles and queues for your Dev Org.</p>
+        <p><a class="btn btn-success" href="#" role="button" style="background-color:#FF4F1F; border:#FF4F1F;">Start »</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
+          felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+          massa justo sit amet risus.</p>
+        <p><a class="btn btn-success" href="#" role="button" style="background-color:#FF4F1F; border:#FF4F1F;">View details »</a></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+          condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+          Donec sed odio dui. </p>
+        <p><a class="btn btn-success" href="#" role="button" style="background-color:#FF4F1F; border:#FF4F1F;">View details »</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
+          felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+          massa justo sit amet risus.</p>
+        <p><a class="btn btn-success" href="#" role="button" style="background-color:#FF4F1F; border:#FF4F1F;">View details »</a></p>
+      </div>
+    </div>
+
+    <hr>
+
+  </div>
+
+
+  <!-- BYOC Capable -->
+<div class="modal fade" id="byocenableModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3>Provision Telephony</h3>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          <p class="card-text">
+            <p>Your org has BYOC Capability.</p>
+            <p>Please proceed.</p>
+          </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mainModal">Next</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+ <!-- BYOC Incapable -->
+ <div class="modal fade" id="byocdisableModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3>Provision Telephony</h3>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          <p class="card-text">
+            <p>Your org has no BYOC Capability.</p>
+            <p>Please contact administrator.</p>
+          </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+  <!-- Main Modal -->
+  <div class="modal fade" id="mainModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Select Telephony</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="card-deck">
+            <div class="card bg-primary" data-dismiss="modal" data-toggle="modal" data-target="#twilioModal" style="background-color:#2A60C8; border:#2A60C8;">
+              <div class="card-body text-center">
+                <p class="card-text"> <a href="#" style="color: white;"> Twilio </a> </p>
+              </div>
+            </div>
+            <div class="card bg-primary" style="background-color:#2A60C8; border:#2A60C8;">
+              <div class="card-body text-center">
+                <p class="card-text"> <a href="#" style="color: white;"> Nexmo </a> </p>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Twilio Modal -->
+    <div class="modal fade" id="twilioModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+
+          <div class="modal-body">
+              <p class="card-text">
+                <p>We will be provisioning the following items:</p>
+                <p>Create a Location</p>
+                <p>Create a Site</p>
+                <p>Create a BYOC SIP Trunk to Twilio</p>             
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#locationModal">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Modal -->
+    <div class="modal fade" id="locationModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <p class="card-text">
+                <h4>Create a Location</h4>
+                <p>To create a location we need the following information:</p>
+                <div class="form-group-inline">
+                  <label for="usr">Name of location:</label>
+                  <input type="text" class="form-control"  name="txtLocation">
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">Address:</label>
+                  <input type="text" class="form-control"  name="txtAddress">
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">City:</label>
+                  <input type="tel" class="form-control"  name="txtPhone">
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">State/Province/Region:</label>
+                  <input type="tel" class="form-control"  name="txtPhone">
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">Zip / Postal Code:</label>
+                  <input type="tel" class="form-control"  name="txtPhone">
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">Country:</label>
+                  <input type="tel" class="form-control"  name="txtPhone">
+                </div>
+                        
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#locationStatusModal">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Status Modal -->
+    <div class="modal fade" id="locationStatusModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <p class="card-text">
+                <p>Location and Site were created successfully!</p>
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#sipModal">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SIP Trunk Modal -->
+    <div class="modal fade" id="sipModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <p class="card-text">
+                <p>Create BYOC SIP Trunk</p>
+                <p>Now I’ll provision a SIP trunk for your new site that is linked to your Twilio SIP trunk.  I need the following information:
+                </p>
+                <div class="form-group-inline">
+                  <label for="usr">FQDN for Inbound calls:</label>
+                  <input type="text" class="form-control"  name="txtLocation">
+                </div>
+                <div class="form-group-inline">
+                  <label for="usr">Twilio username:</label>
+                  <input type="text" class="form-control"  name="txtLocation">
+                </div>
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#sipStatusModal">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SIP Trunk Status Message -->
+    <div class="modal fade" id="sipStatusModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <p class="card-text">
+                <p>BYOC SIP Trunk was successfully created!</p>
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#outboundRouteModal">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Outbound Route for Site using new SIP trunk -->
+    <div class="modal fade" id="outboundRouteModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <p class="card-text">
+                <p>Outbound Route for Site using new SIP trunk was successfully created!</p>
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#twilioSuccessModal">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+<!-- Twilio Success Message -->
+<div class="modal fade" id="twilioSuccessModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3>Provision Telephony - Twilio</h3>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          <p class="card-text">
+            <p>Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please try to simulate an outbound call to verify that all of the telephony components are probably working.</p>
+          </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Return to Home</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
+
+<script>
+
+const clientId = '83d37bf5-e050-47bf-9937-0314b259c9c4';
+const redirectUri = window.location.href;
+const platformClient = require('platformClient');
+const client = platformClient.ApiClient.instance;
+
+let AuthorizationApi = new platformClient.AuthorizationApi();
+
+
+// Set PureCloud settings
+client.setEnvironment('mypurecloud.com');
+    $(document).ready(() => {
+        client.loginImplicitGrant(clientId, redirectUri)
+            .then(() => {
+                console.log('Logged in');
+                let token = client.authData.accessToken;
+            })
+            .catch((err) => console.error(err));
+    })
+
+function listProducts () {
+  let products = [];
+  AuthorizationApi.getAuthorizationProducts()
+  .then((data) => {
+    console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
+    products = data.entities;
+    checkBYOC(products);
+  })
+  .catch((err) => {
+    console.log('There was a failure calling getAuthorizationProducts');
+    console.error(err);
+  });
+  
+}
+
+function checkBYOC(products) {
+let byoc =""
+   products.forEach(product => { 
+     if(product.id=="byoc") {
+     byoc = product.id;
+     }
+     
+   });
+
+   if(byoc !="") {
+     $("#byocenableModal").modal();}
+   else {
+     $("#byocdisableModal").modal();}
+
+  
+}
+
+</script>
