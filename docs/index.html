@@ -29,7 +29,7 @@
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn"  type="submit" style="background-color:#FF4F1F; border:#FF4F1F; font:#FDFDFD;">Search</button>
+        <button class="btn" type="submit" style="background-color:#FF4F1F; border:#FF4F1F; font:#FDFDFD;">Search</button>
       </form>
     </div>
   </nav>
@@ -193,7 +193,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#locationModal">Next</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#locationModal" id = "gotoLocation">Next</button>
           </div>
 
         </div>
@@ -218,39 +218,41 @@
                 <p>To create a location we need the following information:</p>
                 <div class="form-group-inline">
                   <label for="usr">Name of location:</label>
-                  <input type="text" class="form-control"  name="txtLocation">
+                  <input type="text" class="form-control"  name="txtLocation" id="location">
                 </div>
 
                 <div class="form-group-inline">
                   <label for="usr">Address:</label>
-                  <input type="text" class="form-control"  name="txtAddress">
+                  <input type="text" class="form-control"  name="txtAddress" id="address">
                 </div>
 
                 <div class="form-group-inline">
                   <label for="usr">City:</label>
-                  <input type="tel" class="form-control"  name="txtPhone">
+                  <input type="tel" class="form-control"  name="txtCity" id="city">
                 </div>
 
                 <div class="form-group-inline">
                   <label for="usr">State/Province/Region:</label>
-                  <input type="tel" class="form-control"  name="txtPhone">
+                  <input type="tel" class="form-control"  name="txtState" id="state">
                 </div>
 
                 <div class="form-group-inline">
                   <label for="usr">Zip / Postal Code:</label>
-                  <input type="tel" class="form-control"  name="txtPhone">
+                  <input type="tel" class="form-control"  name="txtZip" id="zip">
                 </div>
 
                 <div class="form-group-inline">
                   <label for="usr">Country:</label>
-                  <input type="tel" class="form-control"  name="txtPhone">
+                  <select type="tel" class="form-control" id="country">
+                  </select>
+                  <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
                 </div>
                         
               </p>
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#locationStatusModal">Next</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" id="createLocation">Next</button>
           </div>
 
         </div>
@@ -398,18 +400,16 @@
 </div>
 
 </body>
-
 </html>
 
 <script>
-
 const clientId = '83d37bf5-e050-47bf-9937-0314b259c9c4';
 const redirectUri = window.location.href;
 const platformClient = require('platformClient');
 const client = platformClient.ApiClient.instance;
 
 let AuthorizationApi = new platformClient.AuthorizationApi();
-
+let locationsApi = new platformClient.LocationsApi();
 
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
@@ -433,8 +433,7 @@ function listProducts () {
   .catch((err) => {
     console.log('There was a failure calling getAuthorizationProducts');
     console.error(err);
-  });
-  
+  });  
 }
 
 function checkBYOC(products) {
@@ -450,8 +449,49 @@ let byoc =""
      $("#byocenableModal").modal();}
    else {
      $("#byocdisableModal").modal();}
-
-  
 }
 
+$("#createLocation").click(function(){
+  // get country value and text
+  let cntryOption = document.getElementById("country");
+  let cntryValue = cntryOption.options[cntryOption.selectedIndex].value;
+  let cntryText = cntryOption.options[cntryOption.selectedIndex].text;
+  // formulate the body of the request
+  let body = {
+      "name": $("#location").val(),
+      "address": {
+          "street1": $("#address").val(),
+          "city": $("#city").val(),
+          "state": $("#state").val(),
+          "zipcode": $("#zip").val(),
+          "country": cntryValue,
+          "countryFullName": cntryText
+      }
+    }
+    locationsApi.postLocations(body)
+    .then((data) => {
+      console.log(`postLocations success! data: ${JSON.stringify(data, null, 2)}`);
+      $("#locationStatusModal ").modal(); 
+    })
+    .catch((err) => {
+      console.log('There was a failure calling postLocations');
+      console.error(err);
+    });
+})
+</script>
+
+<script type="module">
+  import appConfig from './config/config.js';
+  $("#gotoLocation").click(function(){
+    let countryList = appConfig.countryListAllIsoData;
+    countryList.forEach(createList)
+  })
+
+  function createList(item) {
+    let name = document.getElementById("country");
+    let option = document.createElement("option");
+    option.text = item.name;
+    option.value = item.code;
+    name.add(option);
+  }
 </script>
