@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -15,4 +16,23 @@ app.get('/', function (req, res) {
 
 // Port Listen
 app.listen(3000);
+=======
+const express = require('express');
+const path = require('path');
+const app = express();
+
+app.use(express.static(__dirname+ "/styles"))
+app.use(express.static(__dirname+ "/docs"))
+// Routes
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname,'docs','index.html'));  
+    
+});
+
+
+
+
+// Port Listen
+app.listen(3000);
+>>>>>>> fef504f3d51887f5ecbf951cb54be960ee3b976c
 console.log("Running...");

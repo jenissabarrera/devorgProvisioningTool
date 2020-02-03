@@ -1,0 +1,611 @@
+{
+  "id": "c48faeea-0068-4d07-8371-ef45131c04c6",
+  "name": "New Sample Site",
+  "version": 1,
+  "dateCreated": "2020-01-31T08:47:03.701Z",
+  "dateModified": "2020-01-31T08:47:03.701Z",
+  "modifiedBy": "da93acf7-0350-48d9-8085-ddf557069a70",
+  "createdBy": "da93acf7-0350-48d9-8085-ddf557069a70",
+  "state": "active",
+  "modifiedByApp": "public-api-v2/3704 (i-09051f841665f3511)",
+  "createdByApp": "public-api-v2/3704 (i-09051f841665f3511)",
+  "primarySites": [
+    {
+      "id": "8af106da-a6d5-4966-9c1e-70c5a1584002",
+      "name": "PureCloud Voice - AWS",
+      "selfUri": "/api/v2/telephony/providers/edges/sites/8af106da-a6d5-4966-9c1e-70c5a1584002"
+    }
+  ],
+  "secondarySites": [
+    {
+      "id": "8af106da-a6d5-4966-9c1e-70c5a1584002",
+      "name": "PureCloud Voice - AWS",
+      "selfUri": "/api/v2/telephony/providers/edges/sites/8af106da-a6d5-4966-9c1e-70c5a1584002"
+    }
+  ],
+  "primaryEdges": [
+    {
+      "id": "3062c0ab-6cbd-4429-8f1d-ba8207689360",
+      "name": "virtual-edge-i-09672e9e6a4d8a04b",
+      "version": 8,
+      "dateCreated": "2020-01-28T09:47:55.529Z",
+      "dateModified": "2020-01-28T09:51:23.927Z",
+      "state": "active",
+      "modifiedByApp": "edge-adapter/2714 (i-0597c337b7d8c47c4)",
+      "createdByApp": "edge-provisioning/2148 (i-00df412780c85e28c)",
+      "interfaces": [
+        {
+          "type": "ip",
+          "ipAddress": "10.42.5.239",
+          "name": "Port 1 (WAN)",
+          "macAddress": "12:bc:32:12:cf:cf",
+          "ifName": "eth0",
+          "endpoints": [],
+          "addressFamilyId": "2"
+        }
+      ],
+      "model": "",
+      "softwareVersion": "1.0.0.8734",
+      "softwareVersionTimestamp": "2001041856",
+      "softwareVersionPlatform": "l64",
+      "softwareVersionConfiguration": "release",
+      "fullSoftwareVersion": "edgebin-1.0.0.8734.2001041856-l64r",
+      "edgeGroup": {
+        "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+        "name": "PureCloud Voice - AWS",
+        "dateCreated": "2016-12-12T14:21:27.390Z",
+        "dateModified": "2016-12-12T14:21:27.390Z",
+        "state": "active",
+        "managed": true,
+        "edgeTrunkBaseAssignment": {
+          "family": 2,
+          "trunkBase": {
+            "id": "26cd3cd0-64e2-47ad-8792-0a8aead5cd55",
+            "name": "Tie TrunkBase for EdgeGroup 37f88c8d-6255-4144-bdd2-f0d7c801b157",
+            "state": "active",
+            "trunkType": "EDGE",
+            "managed": true,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/26cd3cd0-64e2-47ad-8792-0a8aead5cd55"
+          }
+        },
+        "phoneTrunkBases": [
+          {
+            "id": "53de4962-f175-4895-ab57-801371605f0e",
+            "name": "PureCloud Voice - SIP Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/53de4962-f175-4895-ab57-801371605f0e"
+          },
+          {
+            "id": "1e7f2c76-2857-42d3-a6a5-248d650d9bfc",
+            "name": "PureCloud Voice - WebRTC Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/1e7f2c76-2857-42d3-a6a5-248d650d9bfc"
+          }
+        ],
+        "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+      },
+      "site": {
+        "id": "8af106da-a6d5-4966-9c1e-70c5a1584002",
+        "name": "PureCloud Voice - AWS",
+        "version": 6,
+        "dateCreated": "2017-04-05T09:08:12.897Z",
+        "dateModified": "2017-05-30T14:35:44.097Z",
+        "modifiedBy": "7c57ac1b-18b2-4b42-bf0c-02246803605c",
+        "state": "active",
+        "modifiedByApp": "Migrated from config-service to site-service by site-service.",
+        "createdByApp": "site-service",
+        "primarySites": [],
+        "secondarySites": [],
+        "primaryEdges": [],
+        "secondaryEdges": [],
+        "edges": [
+          {
+            "id": "3062c0ab-6cbd-4429-8f1d-ba8207689360",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/3062c0ab-6cbd-4429-8f1d-ba8207689360"
+          },
+          {
+            "id": "65df0edb-5fe9-4f67-b28d-7cf16c5c6b75",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/65df0edb-5fe9-4f67-b28d-7cf16c5c6b75"
+          }
+        ],
+        "edgeAutoUpdateConfig": {
+          "timeZone": "America/Indianapolis",
+          "rrule": "FREQ=DAILY",
+          "start": "2016-07-01T02:00:00.000",
+          "end": "2016-07-01T05:00:00.000"
+        },
+        "mediaRegionsUseLatencyBased": false,
+        "edgeGroup": {
+          "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+          "state": "active",
+          "managed": false,
+          "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+        },
+        "location": {
+          "id": "35e02c06-5bfc-4d08-8ec2-efaae607f7ce",
+          "name": "Genesys",
+          "selfUri": "/api/v2/locations/35e02c06-5bfc-4d08-8ec2-efaae607f7ce"
+        },
+        "managed": true,
+        "selfUri": "/api/v2/telephony/providers/edges/sites/8af106da-a6d5-4966-9c1e-70c5a1584002"
+      },
+      "onlineStatus": "ONLINE",
+      "serialNumber": "",
+      "physicalEdge": false,
+      "managed": true,
+      "edgeDeploymentType": "CDM",
+      "callDrainingState": "NONE",
+      "conversationCount": 0,
+      "proxy": "",
+      "offlineConfigCalled": false,
+      "osName": "Linux",
+      "selfUri": "/api/v2/telephony/providers/edges/3062c0ab-6cbd-4429-8f1d-ba8207689360"
+    },
+    {
+      "id": "65df0edb-5fe9-4f67-b28d-7cf16c5c6b75",
+      "name": "virtual-edge-i-0c45bd0e283282b3b",
+      "version": 8,
+      "dateCreated": "2020-01-28T09:47:55.060Z",
+      "dateModified": "2020-01-28T09:50:22.144Z",
+      "state": "active",
+      "modifiedByApp": "edge-adapter/2714 (i-00f0c91c3e1a1cd49)",
+      "createdByApp": "edge-provisioning/2148 (i-00df412780c85e28c)",
+      "interfaces": [
+        {
+          "type": "ip",
+          "ipAddress": "10.42.20.224",
+          "name": "Port 1 (WAN)",
+          "macAddress": "0e:3a:01:6e:46:43",
+          "ifName": "eth0",
+          "endpoints": [],
+          "addressFamilyId": "2"
+        }
+      ],
+      "model": "",
+      "softwareVersion": "1.0.0.8734",
+      "softwareVersionTimestamp": "2001041856",
+      "softwareVersionPlatform": "l64",
+      "softwareVersionConfiguration": "release",
+      "fullSoftwareVersion": "edgebin-1.0.0.8734.2001041856-l64r",
+      "edgeGroup": {
+        "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+        "name": "PureCloud Voice - AWS",
+        "dateCreated": "2016-12-12T14:21:27.390Z",
+        "dateModified": "2016-12-12T14:21:27.390Z",
+        "state": "active",
+        "managed": true,
+        "edgeTrunkBaseAssignment": {
+          "family": 2,
+          "trunkBase": {
+            "id": "26cd3cd0-64e2-47ad-8792-0a8aead5cd55",
+            "name": "Tie TrunkBase for EdgeGroup 37f88c8d-6255-4144-bdd2-f0d7c801b157",
+            "state": "active",
+            "trunkType": "EDGE",
+            "managed": true,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/26cd3cd0-64e2-47ad-8792-0a8aead5cd55"
+          }
+        },
+        "phoneTrunkBases": [
+          {
+            "id": "53de4962-f175-4895-ab57-801371605f0e",
+            "name": "PureCloud Voice - SIP Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/53de4962-f175-4895-ab57-801371605f0e"
+          },
+          {
+            "id": "1e7f2c76-2857-42d3-a6a5-248d650d9bfc",
+            "name": "PureCloud Voice - WebRTC Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/1e7f2c76-2857-42d3-a6a5-248d650d9bfc"
+          }
+        ],
+        "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+      },
+      "site": {
+        "id": "8af106da-a6d5-4966-9c1e-70c5a1584002",
+        "name": "PureCloud Voice - AWS",
+        "version": 6,
+        "dateCreated": "2017-04-05T09:08:12.897Z",
+        "dateModified": "2017-05-30T14:35:44.097Z",
+        "modifiedBy": "7c57ac1b-18b2-4b42-bf0c-02246803605c",
+        "state": "active",
+        "modifiedByApp": "Migrated from config-service to site-service by site-service.",
+        "createdByApp": "site-service",
+        "primarySites": [],
+        "secondarySites": [],
+        "primaryEdges": [],
+        "secondaryEdges": [],
+        "edges": [
+          {
+            "id": "3062c0ab-6cbd-4429-8f1d-ba8207689360",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/3062c0ab-6cbd-4429-8f1d-ba8207689360"
+          },
+          {
+            "id": "65df0edb-5fe9-4f67-b28d-7cf16c5c6b75",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/65df0edb-5fe9-4f67-b28d-7cf16c5c6b75"
+          }
+        ],
+        "edgeAutoUpdateConfig": {
+          "timeZone": "America/Indianapolis",
+          "rrule": "FREQ=DAILY",
+          "start": "2016-07-01T02:00:00.000",
+          "end": "2016-07-01T05:00:00.000"
+        },
+        "mediaRegionsUseLatencyBased": false,
+        "edgeGroup": {
+          "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+          "state": "active",
+          "managed": false,
+          "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+        },
+        "location": {
+          "id": "35e02c06-5bfc-4d08-8ec2-efaae607f7ce",
+          "name": "Genesys",
+          "selfUri": "/api/v2/locations/35e02c06-5bfc-4d08-8ec2-efaae607f7ce"
+        },
+        "managed": true,
+        "selfUri": "/api/v2/telephony/providers/edges/sites/8af106da-a6d5-4966-9c1e-70c5a1584002"
+      },
+      "onlineStatus": "ONLINE",
+      "serialNumber": "",
+      "physicalEdge": false,
+      "managed": true,
+      "edgeDeploymentType": "CDM",
+      "callDrainingState": "NONE",
+      "conversationCount": 0,
+      "proxy": "",
+      "offlineConfigCalled": false,
+      "osName": "Linux",
+      "selfUri": "/api/v2/telephony/providers/edges/65df0edb-5fe9-4f67-b28d-7cf16c5c6b75"
+    }
+  ],
+  "secondaryEdges": [
+    {
+      "id": "3062c0ab-6cbd-4429-8f1d-ba8207689360",
+      "name": "virtual-edge-i-09672e9e6a4d8a04b",
+      "version": 8,
+      "dateCreated": "2020-01-28T09:47:55.529Z",
+      "dateModified": "2020-01-28T09:51:23.927Z",
+      "state": "active",
+      "modifiedByApp": "edge-adapter/2714 (i-0597c337b7d8c47c4)",
+      "createdByApp": "edge-provisioning/2148 (i-00df412780c85e28c)",
+      "interfaces": [
+        {
+          "type": "ip",
+          "ipAddress": "10.42.5.239",
+          "name": "Port 1 (WAN)",
+          "macAddress": "12:bc:32:12:cf:cf",
+          "ifName": "eth0",
+          "endpoints": [],
+          "addressFamilyId": "2"
+        }
+      ],
+      "model": "",
+      "softwareVersion": "1.0.0.8734",
+      "softwareVersionTimestamp": "2001041856",
+      "softwareVersionPlatform": "l64",
+      "softwareVersionConfiguration": "release",
+      "fullSoftwareVersion": "edgebin-1.0.0.8734.2001041856-l64r",
+      "edgeGroup": {
+        "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+        "name": "PureCloud Voice - AWS",
+        "dateCreated": "2016-12-12T14:21:27.390Z",
+        "dateModified": "2016-12-12T14:21:27.390Z",
+        "state": "active",
+        "managed": true,
+        "edgeTrunkBaseAssignment": {
+          "family": 2,
+          "trunkBase": {
+            "id": "26cd3cd0-64e2-47ad-8792-0a8aead5cd55",
+            "name": "Tie TrunkBase for EdgeGroup 37f88c8d-6255-4144-bdd2-f0d7c801b157",
+            "state": "active",
+            "trunkType": "EDGE",
+            "managed": true,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/26cd3cd0-64e2-47ad-8792-0a8aead5cd55"
+          }
+        },
+        "phoneTrunkBases": [
+          {
+            "id": "53de4962-f175-4895-ab57-801371605f0e",
+            "name": "PureCloud Voice - SIP Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/53de4962-f175-4895-ab57-801371605f0e"
+          },
+          {
+            "id": "1e7f2c76-2857-42d3-a6a5-248d650d9bfc",
+            "name": "PureCloud Voice - WebRTC Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/1e7f2c76-2857-42d3-a6a5-248d650d9bfc"
+          }
+        ],
+        "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+      },
+      "site": {
+        "id": "8af106da-a6d5-4966-9c1e-70c5a1584002",
+        "name": "PureCloud Voice - AWS",
+        "version": 6,
+        "dateCreated": "2017-04-05T09:08:12.897Z",
+        "dateModified": "2017-05-30T14:35:44.097Z",
+        "modifiedBy": "7c57ac1b-18b2-4b42-bf0c-02246803605c",
+        "state": "active",
+        "modifiedByApp": "Migrated from config-service to site-service by site-service.",
+        "createdByApp": "site-service",
+        "primarySites": [],
+        "secondarySites": [],
+        "primaryEdges": [],
+        "secondaryEdges": [],
+        "edges": [
+          {
+            "id": "3062c0ab-6cbd-4429-8f1d-ba8207689360",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/3062c0ab-6cbd-4429-8f1d-ba8207689360"
+          },
+          {
+            "id": "65df0edb-5fe9-4f67-b28d-7cf16c5c6b75",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/65df0edb-5fe9-4f67-b28d-7cf16c5c6b75"
+          }
+        ],
+        "edgeAutoUpdateConfig": {
+          "timeZone": "America/Indianapolis",
+          "rrule": "FREQ=DAILY",
+          "start": "2016-07-01T02:00:00.000",
+          "end": "2016-07-01T05:00:00.000"
+        },
+        "mediaRegionsUseLatencyBased": false,
+        "edgeGroup": {
+          "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+          "state": "active",
+          "managed": false,
+          "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+        },
+        "location": {
+          "id": "35e02c06-5bfc-4d08-8ec2-efaae607f7ce",
+          "name": "Genesys",
+          "selfUri": "/api/v2/locations/35e02c06-5bfc-4d08-8ec2-efaae607f7ce"
+        },
+        "managed": true,
+        "selfUri": "/api/v2/telephony/providers/edges/sites/8af106da-a6d5-4966-9c1e-70c5a1584002"
+      },
+      "onlineStatus": "ONLINE",
+      "serialNumber": "",
+      "physicalEdge": false,
+      "managed": true,
+      "edgeDeploymentType": "CDM",
+      "callDrainingState": "NONE",
+      "conversationCount": 0,
+      "proxy": "",
+      "offlineConfigCalled": false,
+      "osName": "Linux",
+      "selfUri": "/api/v2/telephony/providers/edges/3062c0ab-6cbd-4429-8f1d-ba8207689360"
+    },
+    {
+      "id": "65df0edb-5fe9-4f67-b28d-7cf16c5c6b75",
+      "name": "virtual-edge-i-0c45bd0e283282b3b",
+      "version": 8,
+      "dateCreated": "2020-01-28T09:47:55.060Z",
+      "dateModified": "2020-01-28T09:50:22.144Z",
+      "state": "active",
+      "modifiedByApp": "edge-adapter/2714 (i-00f0c91c3e1a1cd49)",
+      "createdByApp": "edge-provisioning/2148 (i-00df412780c85e28c)",
+      "interfaces": [
+        {
+          "type": "ip",
+          "ipAddress": "10.42.20.224",
+          "name": "Port 1 (WAN)",
+          "macAddress": "0e:3a:01:6e:46:43",
+          "ifName": "eth0",
+          "endpoints": [],
+          "addressFamilyId": "2"
+        }
+      ],
+      "model": "",
+      "softwareVersion": "1.0.0.8734",
+      "softwareVersionTimestamp": "2001041856",
+      "softwareVersionPlatform": "l64",
+      "softwareVersionConfiguration": "release",
+      "fullSoftwareVersion": "edgebin-1.0.0.8734.2001041856-l64r",
+      "edgeGroup": {
+        "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+        "name": "PureCloud Voice - AWS",
+        "dateCreated": "2016-12-12T14:21:27.390Z",
+        "dateModified": "2016-12-12T14:21:27.390Z",
+        "state": "active",
+        "managed": true,
+        "edgeTrunkBaseAssignment": {
+          "family": 2,
+          "trunkBase": {
+            "id": "26cd3cd0-64e2-47ad-8792-0a8aead5cd55",
+            "name": "Tie TrunkBase for EdgeGroup 37f88c8d-6255-4144-bdd2-f0d7c801b157",
+            "state": "active",
+            "trunkType": "EDGE",
+            "managed": true,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/26cd3cd0-64e2-47ad-8792-0a8aead5cd55"
+          }
+        },
+        "phoneTrunkBases": [
+          {
+            "id": "53de4962-f175-4895-ab57-801371605f0e",
+            "name": "PureCloud Voice - SIP Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/53de4962-f175-4895-ab57-801371605f0e"
+          },
+          {
+            "id": "1e7f2c76-2857-42d3-a6a5-248d650d9bfc",
+            "name": "PureCloud Voice - WebRTC Phone Trunk",
+            "state": "active",
+            "trunkType": "PHONE",
+            "managed": false,
+            "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/1e7f2c76-2857-42d3-a6a5-248d650d9bfc"
+          }
+        ],
+        "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+      },
+      "site": {
+        "id": "8af106da-a6d5-4966-9c1e-70c5a1584002",
+        "name": "PureCloud Voice - AWS",
+        "version": 6,
+        "dateCreated": "2017-04-05T09:08:12.897Z",
+        "dateModified": "2017-05-30T14:35:44.097Z",
+        "modifiedBy": "7c57ac1b-18b2-4b42-bf0c-02246803605c",
+        "state": "active",
+        "modifiedByApp": "Migrated from config-service to site-service by site-service.",
+        "createdByApp": "site-service",
+        "primarySites": [],
+        "secondarySites": [],
+        "primaryEdges": [],
+        "secondaryEdges": [],
+        "edges": [
+          {
+            "id": "3062c0ab-6cbd-4429-8f1d-ba8207689360",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/3062c0ab-6cbd-4429-8f1d-ba8207689360"
+          },
+          {
+            "id": "65df0edb-5fe9-4f67-b28d-7cf16c5c6b75",
+            "state": "active",
+            "physicalEdge": false,
+            "managed": false,
+            "offlineConfigCalled": false,
+            "selfUri": "/api/v2/telephony/providers/edges/65df0edb-5fe9-4f67-b28d-7cf16c5c6b75"
+          }
+        ],
+        "edgeAutoUpdateConfig": {
+          "timeZone": "America/Indianapolis",
+          "rrule": "FREQ=DAILY",
+          "start": "2016-07-01T02:00:00.000",
+          "end": "2016-07-01T05:00:00.000"
+        },
+        "mediaRegionsUseLatencyBased": false,
+        "edgeGroup": {
+          "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+          "state": "active",
+          "managed": false,
+          "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+        },
+        "location": {
+          "id": "35e02c06-5bfc-4d08-8ec2-efaae607f7ce",
+          "name": "Genesys",
+          "selfUri": "/api/v2/locations/35e02c06-5bfc-4d08-8ec2-efaae607f7ce"
+        },
+        "managed": true,
+        "selfUri": "/api/v2/telephony/providers/edges/sites/8af106da-a6d5-4966-9c1e-70c5a1584002"
+      },
+      "onlineStatus": "ONLINE",
+      "serialNumber": "",
+      "physicalEdge": false,
+      "managed": true,
+      "edgeDeploymentType": "CDM",
+      "callDrainingState": "NONE",
+      "conversationCount": 0,
+      "proxy": "",
+      "offlineConfigCalled": false,
+      "osName": "Linux",
+      "selfUri": "/api/v2/telephony/providers/edges/65df0edb-5fe9-4f67-b28d-7cf16c5c6b75"
+    }
+  ],
+  "edges": [],
+  "mediaRegionsUseLatencyBased": false,
+  "edgeGroup": {
+    "id": "37f88c8d-6255-4144-bdd2-f0d7c801b157",
+    "name": "PureCloud Voice - AWS",
+    "dateCreated": "2016-12-12T14:21:27.390Z",
+    "dateModified": "2016-12-12T14:21:27.390Z",
+    "state": "active",
+    "managed": true,
+    "edgeTrunkBaseAssignment": {
+      "family": 2,
+      "trunkBase": {
+        "id": "26cd3cd0-64e2-47ad-8792-0a8aead5cd55",
+        "name": "Tie TrunkBase for EdgeGroup 37f88c8d-6255-4144-bdd2-f0d7c801b157",
+        "state": "active",
+        "trunkType": "EDGE",
+        "managed": true,
+        "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/26cd3cd0-64e2-47ad-8792-0a8aead5cd55"
+      }
+    },
+    "phoneTrunkBases": [
+      {
+        "id": "53de4962-f175-4895-ab57-801371605f0e",
+        "name": "PureCloud Voice - SIP Phone Trunk",
+        "state": "active",
+        "trunkType": "PHONE",
+        "managed": false,
+        "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/53de4962-f175-4895-ab57-801371605f0e"
+      },
+      {
+        "id": "1e7f2c76-2857-42d3-a6a5-248d650d9bfc",
+        "name": "PureCloud Voice - WebRTC Phone Trunk",
+        "state": "active",
+        "trunkType": "PHONE",
+        "managed": false,
+        "selfUri": "/api/v2/telephony/providers/edges/trunkbasesettings/1e7f2c76-2857-42d3-a6a5-248d650d9bfc"
+      }
+    ],
+    "selfUri": "/api/v2/telephony/providers/edges/edgegroups/37f88c8d-6255-4144-bdd2-f0d7c801b157"
+  },
+  "location": {
+    "id": "24c606c7-a1a1-4a1d-9fd8-f6a41b4d5eff",
+    "name": "Test",
+    "emergencyNumber": {
+      "e164": "+639262543854",
+      "number": "+63 926 254 3854",
+      "type": "default"
+    },
+    "address": {
+      "city": "uiouiouioui",
+      "country": "PH",
+      "countryName": "Philippines",
+      "street1": "ouiiouioui",
+      "zipcode": "1109"
+    },
+    "state": "active",
+    "version": 3,
+    "addressVerified": false,
+    "selfUri": "/api/v2/locations/24c606c7-a1a1-4a1d-9fd8-f6a41b4d5eff"
+  },
+  "managed": false,
+  "ntpSettings": {
+    "servers": []
+  },
+  "selfUri": "/api/v2/telephony/providers/edges/sites/c48faeea-0068-4d07-8371-ef45131c04c6"
+}
