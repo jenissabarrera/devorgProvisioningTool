@@ -49,6 +49,7 @@
         <h2>Provision Telephony</h2>
         <p>Setup your telephony in an instant. Choose between Twillio or Nexmo</p>
         <p><button type="button" onclick="listProducts()" class="btn btn-success" data-toggle="modal" data-target="#byocModal" style="background-color:#FF4F1F; border:#FF4F1F; ">Start »</button></p>
+        <p><button type="button" onclick="dummyFunction()" class="btn btn-success" data-toggle="modal" data-target="#byocModal" style="background-color:#FF4F1F; border:#FF4F1F; ">Check »</button></p>
       </div>
       <div class="col-md-4">
         <h2>Dev Org Kick Starter</h2>
@@ -259,6 +260,56 @@
       </div>
     </div>
 
+    
+    <!-- Site Modal -------------------------------------------------------------------------------------------------------------------------->
+    <div class="modal fade" id="siteModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <p class="card-text">
+                <h4>Create a Site</h4>
+                <p>To create a site we need the following information:</p>
+                
+                <div class="form-group-inline">
+                  <label for="usr">Site Name:</label>
+                  <input type="text" class="form-control"  name="txtSiteName" id="siteName">
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">Time Zone:</label>
+                  <select type="tel" class="form-control" id="timeZone">
+                  </select>
+                  <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+                </div>
+
+                <div class="form-group-inline">
+                  <label for="usr">Location:</label>
+                  <select type="tel" class="form-control" id="siteLocation">
+                  </select>
+                  <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+                </div>
+                        
+              </p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"  onclick = "getSites()" id="createLocation">Next</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    
+    
     <!-- Location Status Modal -->
     <div class="modal fade" id="locationStatusModal">
       <div class="modal-dialog modal-lg">
@@ -410,6 +461,8 @@ const client = platformClient.ApiClient.instance;
 
 let AuthorizationApi = new platformClient.AuthorizationApi();
 let locationsApi = new platformClient.LocationsApi();
+let TelephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
+
 
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
@@ -451,6 +504,8 @@ let byoc =""
      $("#byocdisableModal").modal();}
 }
 
+
+
 $("#createLocation").click(function(){
   // get country value and text
   let cntryOption = document.getElementById("country");
@@ -478,6 +533,163 @@ $("#createLocation").click(function(){
       console.error(err);
     });
 })
+
+// CREATE LIST FUNCTIONS ---------------------------------------------------------------------------------------------------------
+// Dummy function to call site modal
+function dummyFunction () {
+    getTimezone();
+    getLocationList();
+  $("#siteModal").modal(); 
+}
+// Get time zone and add to select option -------------------------------------
+function getTimezone () {
+  let opts = { 
+  'pageSize': 1000,
+  'pageNumber': 1
+  };
+
+  TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesTimezones(opts)
+  .then((data) => {
+    let timezone = data.entities;
+    timezone.forEach(addTimezoneToSelect);
+  })
+  .catch((err) => {
+    console.log('There was a failure calling getTimezones');
+    console.error(err);
+  });
+}
+
+// format timezone
+function addTimezoneToSelect(timeZone)
+{ 
+  let select = document.getElementById("timeZone");
+  let option = document.createElement("option");
+  
+  let thisTime = timeZone.offset;
+  let country = timeZone.id;  
+  let hours = Math.floor(thisTime / 60);  
+  // fomrat minutes
+  let minutes = formatNumber(Math.abs(thisTime) % 60);
+  let timeZoneFormat = country+"("+ hours + ":" + minutes +")"; 
+
+  option.text = timeZoneFormat;
+  option.value = country;
+  select.add(option);
+}
+function formatNumber (n) {
+  return n > 9 ? "" + n: "0" + n;
+}
+// --------------------------------------------------------------------------
+
+// Create location dropdown option ------------------------------------------
+function getLocationList () {
+  let opts = { 
+    'pageSize': 100, 
+    'pageNumber': 1, 
+    'sortOrder': "name" 
+  };
+  locationsApi.getLocations(opts)
+  .then((data) => {
+    let location = data.entities;
+    console.log(location)
+    location.forEach(locationOption);
+  })
+  .catch((err) => {
+    console.log('There was a failure calling getLocations');
+    console.error(err);
+  });
+}
+// Create Location dropdown
+function locationOption (location) {
+  let name = document.getElementById("siteLocation");
+  let option = document.createElement("option");
+  option.text = location.name;
+  option.value = location.id;
+  name.add(option);
+}
+// ----------------------------------------------------------------------------
+
+// Get the site list and find default site --PureCloud Voice - AWS-- which is used as Primary Site and Secondary Sites then create sites
+function getSites () {
+  let opts = { 
+    'pageSize': 25,
+    'pageNumber': 1,
+    'sortBy': "name",
+    'sortOrder': "ASC",
+  };
+  TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesSites(opts)
+  .then((data) => {
+    let awsItem = data.entities.find(entitiesItem => entitiesItem.name === "PureCloud Voice - AWS");
+    let locationId = $("#siteLocation").val();
+
+    locationsApi.getLocation(locationId)
+    .then((locInfo) => {
+      createSite(awsItem, locInfo);
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getLocation');
+      console.error(err);
+    });
+  })
+  .catch((err) => {
+    console.log('There was a failure calling getTelephonyProvidersEdgesSites');
+    console.error(err);
+  });
+}
+// --------------------------------------------------------------------------------------------------------
+
+
+// Create the site ----------------------------------------------------------------------------------------
+function createSite (awsItem, locInfo) {
+  // get information of the site
+  let awsItemId = awsItem.id;
+  let awsItemName = awsItem.name;
+  let awsItemSelfUri = awsItem.selfUri;
+  // get the date
+  let today = new Date();
+  dateConfig = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  startDateConfig = dateConfig+"T02:00:00.000";
+  endDateConfig = dateConfig+"T05:00:00.000";
+  
+  let body = {
+    "name": $("#siteName").val(),
+    "primarySites": [
+        {
+          "id": awsItemId,
+          "name": awsItemName,
+          "selfUri": awsItemSelfUri
+        }
+    ],
+    "secondarySites": [
+        {
+          "id": awsItemId,
+          "name": awsItemName,
+          "selfUri": awsItemSelfUri
+        }
+    ],
+    "edgeAutoUpdateConfig": {
+          "timeZone": $("#timeZone").val(),
+          "rrule": "FREQ=DAILY",
+          "start": startDateConfig,
+          "end": endDateConfig
+
+        },
+    "location": locInfo,
+    "ntpSettings": {
+        "servers": []
+    }
+  };
+
+  TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesSites(body)
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log('There was a failure calling postTelephonyProvidersEdgesSites');
+    console.error(err);
+  });
+}
+// ----------------------------------------------------------------------------------------------------------------------------
 </script>
 
 <script type="module">
