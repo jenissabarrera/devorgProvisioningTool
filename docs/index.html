@@ -1,0 +1,991 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://sdk-cdn.mypurecloud.com/javascript/68.0.0/purecloud-platform-client-v2.min.js"></script>
+
+
+</head>
+
+
+<body style="font-family: Roboto;">
+  <!-- Welcome Banner -->
+  <div class="jumbotron" style="background-image: linear-gradient( to right, #5D3D5D, #FF4F1F);">
+    <div class="container">
+      <h1 class="display-3" style="color: white;">Welcome to the Developer Org Provisioning Tool!</h1>
+      <p style="color: white;">What would you like to do?</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Provision Telephony</h2>
+        <p>Setup your telephony in an instant. Choose between Twillio or Nexmo</p>
+        <p><button type="submit" style=“disable all styles” onclick="listProducts()"
+            class="btn btn-success-modified">Start »</button></p>
+
+      <!-- <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#siteModal" style="background-color:#FF4F1F; border:#FF4F1F; ">Check »</button></p> -->
+     
+      </div>
+
+      <div class="col-md-4">
+        <h2>Dev Org Kick Starter</h2>
+        <p>Setup your Purecloud essentials easily. Create accounts,groups,roles and queues for your Dev Org.</p>
+        <p><a class="btn btn-success-modified" href="#" role="button">Start
+            »</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
+          felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+          massa justo sit amet risus.</p>
+        <p><a class="btn btn-success-modified" href="#" role="button">Start »</a></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+          condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+          Donec sed odio dui. </p>
+        <p><a class="btn btn-success-modified" href="#" role="button">Start »</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
+          felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+          massa justo sit amet risus.</p>
+        <p><a class="btn btn-success-modified" href="#" role="button">Start »</a></p>
+      </div>
+    </div>
+
+    <hr>
+
+  </div>
+
+
+  <!-- BYOC Capable -->
+  <div class="modal fade" id="byocenableModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>Your org has BYOC Capability. Please proceed.</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#mainModal">Next</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BYOC Incapable -->
+  <div class="modal fade" id="byocdisableModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+            </div>
+            <p>Your org has no BYOC Capability.</p>
+            <p>Please contact administrator.</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Main Modal -->
+  <div class="modal fade" id="mainModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Select Telephony</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="card-deck">
+            <div class="card bg-primary-modified" data-dismiss="modal" data-toggle="modal" data-target="#twilioModal">
+              <div class="card-body text-center">
+                <p class="card-text"> <a href="#" style="color: white;"> Twilio </a> </p>
+              </div>
+            </div>
+            <div class="card bg-primary-modified">
+              <div class="card-body text-center">
+                <p class="card-text"> <a href="#" style="color: white;"> Nexmo </a> </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Twilio Modal -->
+  <div class="modal fade" id="twilioModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+
+        <div class="modal-body">
+          <p class="card-text">
+            <p>We will be provisioning the following items:</p>
+            <p>Create a Location</p>
+            <p>Create a Site</p>
+            <p>Create a BYOC SIP Trunk to Twilio</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#locationModal" id="gotoLocation" >Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Modal -->
+  <div class="modal fade" id="locationModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p class="card-text">
+            <h4>Create a Location</h4>
+            <p>To create a location we need the following information:</p>
+            <div class="form-group-inline">
+              <label>Name of location:</label>
+              <input type="text" class="form-control" name="txtLocation" id="location">
+            </div>
+
+            <div class="form-group-inline">
+              <label>Address:</label>
+              <input type="text" class="form-control" name="txtAddress" id="address">
+            </div>
+
+            <div class="form-group-inline">
+              <label>City:</label>
+              <input type="tel" class="form-control" name="txtCity" id="city">
+            </div>
+
+            <div class="form-group-inline">
+              <label>State/Province/Region:</label>
+              <input type="tel" class="form-control" name="txtState" id="state">
+            </div>
+
+            <div class="form-group-inline">
+              <label>Zip / Postal Code:</label>
+              <input type="tel" class="form-control" name="txtZip" id="zip">
+            </div>
+
+            <div class="form-group-inline">
+              <label>Country:</label>
+              <select type="tel" class="form-control" id="country"></select>
+            </div>
+
+          </p>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#siteModal" id="createLocation">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Modal-->
+  <div class="modal fade" id="siteModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <p class="card-text">
+              <h4>Create a Site</h4>
+              <p>To create a site we need the following information:</p>
+              
+              <div class="form-group-inline">
+                <label for="usr">Site Name:</label>
+                <input type="text" class="form-control"  name="txtSiteName" id="siteName">
+              </div>
+
+              <div class="form-group-inline">
+                <label for="usr">Time Zone:</label>
+                <select type="tel" class="form-control" id="timeZone">
+                </select>
+                <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+              </div>
+
+              <div class="form-group-inline">
+                <label for="usr">Location:</label>
+                <select type="tel" class="form-control" id="siteLocation">
+                </select>
+                <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+              </div>
+                      
+            </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"  onclick = "getSites()" id="createLocation">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Site and Location Status Modal -->
+  <div class="modal fade" id="siteAndLocationStatusModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>Location and Site were created successfully!</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#sipModal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SIP Trunk Modal -->
+  <div class="modal fade" id="sipModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <form id="formCreateTrunk" class="needs-validation" novalidate method="dialog">
+          <div class="modal-header">
+            <h3>Provision Telephony - Twilio</h3>
+            <button type="button" class="close" data-dismiss="modal" onclick="refreshForm()">×</button>
+          </div>
+
+          <!-- Modal body -->
+
+          <div class="modal-body">
+
+            <div class="card-text">
+
+              <p>Create BYOC SIP Trunk</p>
+              <p>Now I’ll provision a SIP trunk for your new site that is linked to your Twilio SIP trunk. I need the
+                following information:
+              </p>
+              <div class="form-row">
+                <div class="form-group-inline col-md-4 mb-3">
+                  <label>External Trunk Name:</label>
+                  <input type="text" class="form-control" id="txtSIPExternalTrunk" required>
+                  <div class="invalid-feedback"> Please provide a valid External Trunk Name. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+                <div class="form-group-inline col-md-4 mb-3">
+                  <label>Inbound SIP Termination Identifier:</label>
+                  <input type="text" class="form-control" id="txtInboundSIP" required>
+                  <div class="invalid-feedback"> Please provide a valid Inbound SIP Termination Identifier. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+                <div class="form-group-inline col-md-4 mb-3">
+                  <label>SIP Servers or Proxies:</label>
+                  <input type="text" class="form-control" id="txtSIPServers" required>
+                  <div class="invalid-feedback"> Please provide a valid SIP Servers or Proxies. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group-inline col-md-4">
+                  <label>User Name:</label>
+                  <input type="text" class="form-control" id="txtUserName" required>
+                  <div class="invalid-feedback"> Please provide a valid User Name. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+                <div class="form-group-inline col-md-4 mb-3">
+                  <label>Password:</label>
+                  <input type="password" class="form-control" id="txtSIPPassword" required>
+                  <div class="invalid-feedback"> Please provide a valid password. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+                <div class="form-group-inline col-md-4 mb-3">
+                  <label>Realm:</label>
+                  <input type="text" class="form-control" id="txtSIPRealm" required>
+                  <div class="invalid-feedback"> Please provide a valid Realm. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group-inline col-md-5 mb-3">
+                  <label>Address:</label>
+                  <input type="text" class="form-control" id="txtSIPCallingAddress" required>
+                  <div class="invalid-feedback"> Please provide a valid Address. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+                <div class="form-group-inline col-md-5 mb-3">
+                  <label>Name:</label>
+                  <input type="text" class="form-control" id="txtSIPCallingName" required>
+                  <div class="invalid-feedback"> Please provide a valid Name. </div>
+                  <div class="valid-feedback"> Looks good! </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success-modified" onclick="validateCreateTrunk()">Next</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SIP Trunk Success Status Message -->
+  <div class="modal fade" id="sipStatusModalSuccess">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>BYOC SIP Trunk was successfully created!</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#outboundRouteModal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SIP Trunk Failed Status Message -->
+  <div class="modal fade" id="sipStatusFailed">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+              <p>BYOC SIP Trunk was not successful. Please try again!</p>
+            </div>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Outbound Route for Site using new SIP trunk -->
+  <div class="modal fade" id="outboundRouteModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>Outbound Route for Site using new SIP trunk was successfully created!</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#twilioSuccessModal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Twilio Success Message -->
+  <div class="modal fade" id="twilioSuccessModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p class="card-text">
+            <p>Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please
+              try to simulate an outbound call to verify that all of the telephony components are probably working.</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Return to Home</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  const clientId = '83d37bf5-e050-47bf-9937-0314b259c9c4';
+  const redirectUri = window.location.href;
+  const platformClient = require('platformClient');
+  const client = platformClient.ApiClient.instance;
+
+  let AuthorizationApi = new platformClient.AuthorizationApi();
+  let TelephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
+  let locationsApi = new platformClient.LocationsApi();
+
+  let entryIndicator = "";
+
+  // Set PureCloud settings
+  client.setEnvironment('mypurecloud.com');
+  $(document).ready(() => {
+    client.loginImplicitGrant(clientId, redirectUri)
+      .then(() => {
+        console.log('Logged in');
+        let token = client.authData.accessToken;
+      })
+      .catch((err) => console.error(err));
+  })
+
+  function listProducts() {
+    let products = [];
+    AuthorizationApi.getAuthorizationProducts()
+      .then((data) => {
+        console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
+        products = data.entities;
+        checkBYOC(products);
+      })
+      .catch((err) => {
+        console.log('There was a failure calling getAuthorizationProducts');
+        console.error(err);
+      });
+
+  }
+
+  function checkBYOC(products) {
+    let byoc = ""
+    products.forEach(product => {
+      if (product.id == "byoc") {
+        byoc = product.id;
+      }
+
+    });
+
+    if (byoc != "") {
+      $("#byocenableModal").modal();
+    } else {
+      $("#byocdisableModal").modal();
+    }
+
+
+  }
+
+  function validateCreateTrunk() {
+    
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    let forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    let validation = Array.prototype.filter.call(forms, function (form) {
+      form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+          entryIndicator = 0;
+          event.preventDefault();
+          event.stopPropagation();
+    
+        }
+        else if (form.checkValidity() === true)  {
+          entryIndicator = 1;
+        } 
+        form.classList.add('was-validated');
+      }, true)
+    })
+
+    if(entryIndicator ==1) {
+      createTrunk();
+    }
+ 
+  }
+
+
+  function createTrunk() {
+
+    $('#sipModal').modal('hide');
+    let trunkBody = {
+
+      name: document.getElementById('txtSIPExternalTrunk').value, // External Trunk Name
+      state: "active",
+      trunkMetabase: {
+        id: "external_sip_pcv_byoc_carrier.json",
+        name: "Generic BYOC Carrier"
+      },
+      properties: {
+        trunk_type: {
+          type: "string",
+          value: {
+            default: "external.pcv.byoc.carrier",
+            instance: "external.pcv.byoc.carrier"
+          }
+        },
+        trunk_label: {
+          type: "string",
+          value: {
+            default: "Generic BYOC Carrier",
+            instance: "Sample Trunk"
+          }
+        },
+        trunk_enabled: {
+          type: "boolean",
+          value: {
+            default: true,
+            instance: true
+          }
+        },
+
+        trunk_transport_serverProxyList: {
+          type: "array",
+          items: {
+            type: "string"
+          },
+          uniqueItems: true,
+          value: {
+            default: null,
+            instance: [document.getElementById('txtSIPServers').value] //SIP Servers or Proxies
+          },
+          required: true
+        },
+        trunk_access_acl_allowList: {
+          type: "array",
+          items: {
+            type: "string"
+          },
+          value: {
+            default: [],
+            instance: ["54.172.60.0/23", "34.203.250.0/23", "54.244.51.0/24", "54.65.63.192/26", "3.112.80.0/24",
+              "54.169.127.128/26", "3.1.77.0/24"
+            ]
+          }
+        },
+        trunk_protocol: {
+          type: "string",
+          enum: ["SIP"],
+          value: {
+            default: "SIP",
+            instance: "SIP"
+          }
+        },
+
+        trunk_sip_authentication_credentials_realm: {
+          type: "string",
+          value: {
+            default: "",
+            instance: document.getElementById('txtSIPRealm').value // Realm
+          }
+        },
+        trunk_sip_authentication_credentials_username: {
+          type: "string",
+          value: {
+            default: "",
+            instance: document.getElementById('txtUserName').value // User Name
+          }
+        },
+        trunk_sip_authentication_credentials_password: {
+          type: "string",
+          value: {
+            default: "",
+            instance: document.getElementById('txtSIPPassword').value // Password
+          }
+        },
+        trunk_outboundIdentity_callingName: {
+          type: "string",
+          pattern: "^[\\S ]{0,40}$",
+          value: {
+            default: "",
+            instance: document.getElementById('txtSIPCallingName').value // Calling Name
+          }
+        },
+        trunk_outboundIdentity_callingName_overrideMethod: {
+          type: "string",
+          enum: ["Always", "Unassigned DID"],
+          value: {
+            default: "Always",
+            instance: "Always"
+          }
+        },
+        trunk_outboundIdentity_callingAddress: {
+          type: "string",
+          value: {
+            default: "",
+            instance: document.getElementById('txtSIPCallingAddress').value // Calling Address
+          }
+        },
+        trunk_outboundIdentity_callingAddress_overrideMethod: {
+          type: "string",
+          enum: ["Always", "Unassigned DID"],
+          value: {
+            default: "Always",
+            instance: "Always"
+          }
+        },
+        trunk_outboundIdentity_calledAddress_omitPlusPrefix: {
+          type: "boolean",
+          value: {
+            default: false,
+            instance: false
+          }
+        },
+        trunk_outboundIdentity_callingAddress_omitPlusPrefix: {
+          type: "boolean",
+          value: {
+            default: false,
+            instance: false
+          }
+        },
+        trunk_sip_termination_uri: {
+          type: "string",
+          value: {
+            instance: document.getElementById('txtInboundSIP').value // Inbound SIP Termination Identifier
+          },
+          required: false
+        }
+
+      },
+      trunkType: "EXTERNAL"
+
+
+    }; // Object | Trunk base settings
+
+    TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesTrunkbasesettings(trunkBody)
+      .then((trunkData) => {
+        $("#sipStatusModalSuccess").modal();
+        console.log(
+          `postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);
+      })
+      .catch((err) => {
+        $("#sipStatusFailed").modal();
+        console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
+        console.error(err);
+      });
+
+
+  }
+
+  function refreshForm() {
+    $('#sipModal').reset();
+
+  }
+
+
+  $("#createLocation").click(function () {
+    // get country value and text
+    let cntryOption = document.getElementById("country");
+    let cntryValue = cntryOption.options[cntryOption.selectedIndex].value;
+    let cntryText = cntryOption.options[cntryOption.selectedIndex].text;
+    // formulate the body of the request
+    let body = {
+      "name": $("#location").val(),
+      "address": {
+        "street1": $("#address").val(),
+        "city": $("#city").val(),
+        "state": $("#state").val(),
+        "zipcode": $("#zip").val(),
+        "country": cntryValue,
+        "countryFullName": cntryText
+      }
+    }
+    locationsApi.postLocations(body)
+      .then((data) => {
+        console.log(`postLocations success! data: ${JSON.stringify(data, null, 2)}`);
+        $('#formCreateTrunk').reset();
+        $("#locationStatusModal ").modal();
+      })
+      .catch((err) => {
+        console.log('There was a failure calling postLocations');
+        console.error(err);
+      });
+  })
+
+  //   Create Site Functions 
+  $('#siteModal').on('show.bs.modal', function() {
+    getTimezone();
+    getLocationList();
+  })
+
+  // Get time zone and add to select option 
+  function getTimezone () {
+    let opts = { 
+    'pageSize': 1000,
+    'pageNumber': 1
+    };
+
+    TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesTimezones(opts)
+    .then((data) => {
+      let timezone = data.entities;
+      timezone.forEach(addTimezoneToSelect);
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getTimezones');
+      console.error(err);
+    });
+  }
+
+  // format timezone
+  function addTimezoneToSelect(timeZone)
+  { 
+    let select = document.getElementById("timeZone");
+    let option = document.createElement("option");
+    
+    let thisTime = timeZone.offset;
+    let country = timeZone.id;  
+    let hours = Math.floor(thisTime / 60);  
+    // fomrat minutes
+    let minutes = formatNumber(Math.abs(thisTime) % 60);
+    let timeZoneFormat = country+"("+ hours + ":" + minutes +")"; 
+
+    option.text = timeZoneFormat;
+    option.value = country;
+    select.add(option);
+  }
+  function formatNumber (n) {
+    return n > 9 ? "" + n: "0" + n;
+  }
+
+  // Create location dropdown option
+  function getLocationList () {
+    let opts = { 
+      'pageSize': 100, 
+      'pageNumber': 1, 
+      'sortOrder': "name" 
+    };
+    locationsApi.getLocations(opts)
+    .then((data) => {
+      let location = data.entities;
+      console.log(location)
+      location.forEach(locationOption);
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getLocations');
+      console.error(err);
+    });
+  }
+  // Create Location dropdown
+  function locationOption (location) {
+    let name = document.getElementById("siteLocation");
+    let option = document.createElement("option");
+    option.text = location.name;
+    option.value = location.id;
+    name.add(option);
+  }
+
+  // Get the site list and find default site --PureCloud Voice - AWS-- which is used as Primary Site and Secondary Sites then create sites
+  function getSites () {
+    let opts = { 
+      'pageSize': 25,
+      'pageNumber': 1,
+      'sortBy': "name",
+      'sortOrder': "ASC",
+    };
+    TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesSites(opts)
+    .then((data) => {
+      let awsItem = data.entities.find(entitiesItem => entitiesItem.name === "PureCloud Voice - AWS");
+      let locationId = $("#siteLocation").val();
+
+      locationsApi.getLocation(locationId)
+      .then((locInfo) => {
+        createSite(awsItem, locInfo);
+      })
+      .catch((err) => {
+        console.log('There was a failure calling getLocation');
+        console.error(err);
+      });
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getTelephonyProvidersEdgesSites');
+      console.error(err);
+    });
+  }
+
+  // Create the site 
+  function createSite (awsItem, locInfo) {
+    // get information of the site
+    let awsItemId = awsItem.id;
+    let awsItemName = awsItem.name;
+    let awsItemSelfUri = awsItem.selfUri;
+    // get the date
+    let today = new Date();
+    dateConfig = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    startDateConfig = dateConfig+"T02:00:00.000";
+    endDateConfig = dateConfig+"T05:00:00.000";
+    
+    let body = {
+      "name": $("#siteName").val(),
+      "primarySites": [
+          {
+            "id": awsItemId,
+            "name": awsItemName,
+            "selfUri": awsItemSelfUri
+          }
+      ],
+      "secondarySites": [
+          {
+            "id": awsItemId,
+            "name": awsItemName,
+            "selfUri": awsItemSelfUri
+          }
+      ],
+      "edgeAutoUpdateConfig": {
+            "timeZone": $("#timeZone").val(),
+            "rrule": "FREQ=DAILY",
+            "start": startDateConfig,
+            "end": endDateConfig
+
+          },
+      "location": locInfo,
+      "ntpSettings": {
+          "servers": []
+      }
+    };
+
+    TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesSites(body)
+    .then((data) => {
+      console.log(data);
+      $("#siteAndLocationStatusModal ").modal();
+    })
+    .catch((err) => {
+      console.log('There was a failure calling postTelephonyProvidersEdgesSites');
+      console.error(err);
+    });
+  }
+
+</script>
+
+<script type="module">
+  import appConfig from './config/config.js';
+  $("#gotoLocation").click(function(){
+    let countryList = appConfig.countryListAllIsoData;
+    countryList.forEach(createList)
+  })
+
+  function createList(item) {
+    let name = document.getElementById("country");
+    let option = document.createElement("option");
+    option.text = item.name;
+    option.value = item.code;
+    name.add(option);
+  }
+</script>

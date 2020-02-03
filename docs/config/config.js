@@ -250,8 +250,4 @@ export default {
 	{"code": "ZW", "code3": "ZWE", "name": "Zimbabwe", "number": "716"},
 	{"code": "AX", "code3": "ALA", "name": "Åland Islands", "number": "248"}
 ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fef504f3d51887f5ecbf951cb54be960ee3b976c
