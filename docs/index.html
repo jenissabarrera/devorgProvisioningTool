@@ -289,7 +289,7 @@
         <form id="formCreateTrunk" class="needs-validation" novalidate method="dialog">
           <div class="modal-header">
             <h3>Provision Telephony - Twilio</h3>
-            <button type="button" class="close" data-dismiss="modal">×</button>
+            <button type="button" class="close" data-dismiss="modal" onclick="refreshForm()">×</button>
           </div>
 
           <!-- Modal body -->
@@ -323,7 +323,7 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="form-group-inline col-md-4 mb-3">
+                <div class="form-group-inline col-md-4">
                   <label>User Name:</label>
                   <input type="text" class="form-control" id="txtUserName" required>
                   <div class="invalid-feedback"> Please provide a valid User Name. </div>
@@ -390,7 +390,7 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+          <button class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
             data-target="#outboundRouteModal">Next</button>
         </div>
 
@@ -450,7 +450,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
             data-target="#twilioSuccessModal">Next</button>
         </div>
 
@@ -478,7 +478,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Return to Home</button>
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Return to Home</button>
         </div>
 
       </div>
@@ -499,6 +499,7 @@
   let TelephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
   let locationsApi = new platformClient.LocationsApi();
 
+  let entryIndicator = "";
 
   // Set PureCloud settings
   client.setEnvironment('mypurecloud.com');
@@ -545,26 +546,33 @@
   }
 
   function validateCreateTrunk() {
-
+    
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     let forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
     let validation = Array.prototype.filter.call(forms, function (form) {
       form.addEventListener('submit', function (event) {
         if (form.checkValidity() === false) {
+          entryIndicator = 0;
           event.preventDefault();
           event.stopPropagation();
-        } else {
-          CreateTrunk();
+    
         }
+        else if (form.checkValidity() === true)  {
+          entryIndicator = 1;
+        } 
         form.classList.add('was-validated');
-      }, true);
-    });
+      }, true)
+    })
 
+    if(entryIndicator ==1) {
+      createTrunk();
+    }
+ 
   }
 
 
-  function CreateTrunk() {
+  function createTrunk() {
 
     $('#sipModal').modal('hide');
     let trunkBody = {
@@ -725,6 +733,12 @@
 
 
   }
+
+  function refreshForm() {
+    $('#sipModal').reset();
+
+  }
+
 
   $("#createLocation").click(function () {
     // get country value and text

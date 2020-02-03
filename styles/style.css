@@ -13,6 +13,12 @@
   }
 
   .form-control.active.focus, .form-control.active:focus, .form-control.focus, .form-control.focus:active, .form-control:active:focus, .form-control:focus {
+    background-image: #2A60C8 !important;
+    outline: 10;
+    -webkit-box-shadow: #2A60C8 !important;
+    box-shadow: #2A60C8 !important;
+  }
+  .was-validated.active.focus, .was-validated.active:focus, .was-validated.focus, .was-validated.focus:active, .was-validated:active:focus, .was-validated:focus {
     background-image: none;
     outline: 0;
     -webkit-box-shadow: none;
@@ -54,12 +60,11 @@
   }
 
   .valid-feedback {
-    color: #2A60C8; 
-
+    color: #2A60C8;
   }
 
   .custom-select.is-valid, .form-control.is-valid, .was-validated .custom-select:valid, .was-validated .form-control:valid {
-    border-color: #2A60C8; 
+    border-color: #2A60C8;
 }
 
   .invalid-feedback {
