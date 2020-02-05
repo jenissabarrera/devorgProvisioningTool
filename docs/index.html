@@ -238,13 +238,19 @@
               <select type="tel" class="form-control" id="country"></select>
             </div>
 
+            <div class="form-group-inline">
+              <label>Emergency Number:</label>
+              <input type="tel" id="emergencyNumber" class="form-control" name="emergencyNumberInput" placeholder="+63 999 999 999">
+            </div>
+
+           </p>
           </p>
 
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteModal" id="createLocation">Next</button>
+             id="createLocation">Next</button>
         </div>
 
       </div>
@@ -264,43 +270,42 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <p class="card-text">
-            <h4>Create a Site</h4>
-            <p>To create a site we need the following information:</p>
+            <p class="card-text">
+              <h4>Create a Site</h4>
+              <p>To create a site we need the following information:</p>
+              
+              <div class="form-group-inline">
+                <label for="usr">Site Name:</label>
+                <input type="text" class="form-control"  name="txtSiteName" id="siteName">
+              </div>
 
-            <div class="form-group-inline">
-              <label for="usr">Site Name:</label>
-              <input type="text" class="form-control" name="txtSiteName" id="siteName">
-            </div>
+              <div class="form-group-inline">
+                <label for="usr">Time Zone:</label>
+                <select type="tel" class="form-control" id="timeZone">
+                </select>
+                <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+              </div>
 
-            <div class="form-group-inline">
-              <label for="usr">Time Zone:</label>
-              <select type="tel" class="form-control" id="timeZone">
-              </select>
-              <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
-            </div>
-
-            <div class="form-group-inline">
-              <label for="usr">Location:</label>
-              <select type="tel" class="form-control" id="siteLocation">
-              </select>
-              <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
-            </div>
-
-          </p>
+              <div class="form-group-inline">
+                <label for="usr">Location:</label>
+                <input type="text" class="form-control"  name="txtLocation" id="inputLocation">
+                <!-- <select type="tel" class="form-control" id="siteLocation">
+                </select> -->
+                <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+              </div>
+                      
+            </p>
         </div>
 
         <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"  onclick = "getSites()" id="createLocation">Next</button> -->
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteAndLocationStatusModal">Next</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"  onclick = "getSites()" id="createLocation">Next</button>
         </div>
 
       </div>
     </div>
   </div>
 
-
+  
   <!-- Site and Location Status Modal -->
   <div class="modal fade" id="siteAndLocationStatusModal">
     <div class="modal-dialog modal-lg">
@@ -324,7 +329,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#sipModal" onclick=validateCreateTrunk()>Next</button>
+            data-target="#sipModal">Next</button>
         </div>
 
       </div>
