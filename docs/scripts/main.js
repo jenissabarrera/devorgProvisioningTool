@@ -8,6 +8,9 @@ let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
 
 let entryIndicator = "";
+let letSiteId ="";
+let locationId = ""; 
+let locationText = "";
 
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
@@ -20,8 +23,13 @@ $(document).ready(() => {
     .catch((err) => console.error(err));
 })
 
+function clearModal () {
+  $("#locationModal").removeData('bs.modal').empty();
+}
+
 function listProducts() {
   let products = [];
+  clearModal ();
   AuthorizationApi.getAuthorizationProducts()
     .then((data) => {
       console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
@@ -229,17 +237,18 @@ function createTrunk() {
 
   telephonyProvidersEdgeApi.postTelephonyProvidersEdgesTrunkbasesettings(trunkBody)
     .then((trunkData) => {
-      $("#sipStatusModalSuccess").modal();
-      console.log(
-        `postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);       
-        siteOutboundroutes (trunkData)   
+      console.log(`postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);     
+      siteOutboundroutes(trunkData)   
+      
+      $("#sipStatusModalSuccess").modal();  
     })
     .catch((err) => {
       $("#sipStatusFailed").modal();
-      document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
       console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
       console.error(err);
-      console.error(err.body.message);
+      // console.error(err.body.message);
+      
+      // document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
     });
 
 
@@ -250,6 +259,25 @@ $('#sipModal').on('hidden', function() {
 });
 
 
+$("#gotoLocation").click(function () {
+  $.ajax({
+    // Get countries via API
+    url: "https://restcountries.eu/rest/v2/all?fields=name;callingCode;alpha2Code",
+    success: function (result) {
+      let countryList = result;
+      countryList.forEach(createList)
+    }
+  });
+  
+})
+
+function createList(item) {
+let name = document.getElementById("country");
+let option = document.createElement("option");
+option.text = item.name;
+option.value = item.alpha2Code;
+name.add(option);
+}
 
 $("#createLocation").click(function () {
   // get country value and text
@@ -265,7 +293,7 @@ $("#createLocation").click(function () {
       "city": $("#city").val(),
       "state": $("#state").val(),
       "zipcode": $("#zip").val(),
-      "country": cntryValue,
+      "country": cntryValue.trim(),
       "countryFullName": cntryText
     }
   }
@@ -275,11 +303,13 @@ $("#createLocation").click(function () {
       locationId = data.id
       locationText = data.name
       // $('#formCreateTrunk').reset();
-      $("#siteModal").modal();
+      $("#locationSuccessStatusModal").modal();
     })
     .catch((err) => {
       console.log('There was a failure calling postLocations');
       console.error(err);
+      $("#locationFailedModal").modal();
+      document.getElementById("locationError").innerHTML =  err.body.message;
     });
 })
 
@@ -304,6 +334,8 @@ function getTimezone () {
   .catch((err) => {
     console.log('There was a failure calling getTimezones');
     console.error(err);
+    $("#siteFailedModal").modal();
+    document.getElementById("siteError").innerHTML =  err.body.message;
   });
 }
 
@@ -352,6 +384,8 @@ function getSites () {
   .catch((err) => {
     console.log('There was a failure calling getTelephonyProvidersEdgesSites');
     console.error(err);
+    $("#siteFailedModal").modal();
+      document.getElementById("siteError").innerHTML =  err.body.message;
   });
 }
 
@@ -400,26 +434,24 @@ function createSite (awsItem, locInfo) {
   .then((siteData) => {
     console.log(siteData);
     letSiteId = siteData.id;
-    $("#siteAndLocationStatusModal ").modal();
+    $("#siteStatusModal ").modal();
   })
   .catch((err) => {
     console.log('There was a failure calling postTelephonyProvidersEdgesSites');
     console.error(err);
+    $("#siteFailedModal").modal();
+      document.getElementById("siteError").innerHTML =  err.body.message;
   });
 }
 
 // add trunk details in Site created
 function siteOutboundroutes (trunkData) {
-  let trunkId = trunkData.id;
-  let trunkName = trunkData.name;
-  let trunkSelfuri = trunkData.selfUri;
-  let siteId = letSiteId; // String | Site ID
   let opts = { 
     'pageSize': 25,
     'pageNumber': 1
   };
   // get outbound routes and delete them
-  telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSiteOutboundroutes(siteId, opts)
+  telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSiteOutboundroutes(letSiteId, opts)
   .then((outboundRoute) => {
     routeEntities = outboundRoute.entities 
     routeEntities.forEach(entity => {
@@ -427,10 +459,11 @@ function siteOutboundroutes (trunkData) {
       telephonyProvidersEdgeApi.deleteTelephonyProvidersEdgesOutboundroute(entityId)
       .then(() => {
           console.log('deleteTelephonyProvidersEdgesOutboundroute returned successfully.');
+          createOutboundRoute(trunkData);
       })
       .catch((err) => {
-          console.log('There was a failure calling deleteTelephonyProvidersEdgesOutboundroute');
-          console.error(err);
+        console.log('There was a failure calling getTelephonyProvidersEdgesSiteOutboundroutes');
+        console.error(err);
       });
     });
   //   console.log(routes.id);
@@ -439,7 +472,12 @@ function siteOutboundroutes (trunkData) {
     console.log('There was a failure calling getTelephonyProvidersEdgesSiteOutboundroutes');
     console.error(err);
   });
+}
 
+function createOutboundRoute (trunkData) {
+  let trunkId = trunkData.id;
+  let trunkName = trunkData.name;
+  let trunkSelfuri = trunkData.selfUri;
   let body = {
     "name": "Outbound Route",
     "classificationTypes": ["National", "International"],
@@ -454,7 +492,7 @@ function siteOutboundroutes (trunkData) {
     ]
   };
 
-  telephonyProvidersEdgeApi.postTelephonyProvidersEdgesSiteOutboundroutes(siteId, body)
+  telephonyProvidersEdgeApi.postTelephonyProvidersEdgesSiteOutboundroutes(letSiteId, body)
   .then((data) => {
       console.log(`postTelephonyProvidersEdgesSiteOutboundroutes success! data: ${JSON.stringify(data, null, 2)}`);
   })
@@ -462,24 +500,4 @@ function siteOutboundroutes (trunkData) {
       console.log('There was a failure calling postTelephonyProvidersEdgesSiteOutboundroutes');
       console.error(err);
   });
-}
-
-$("#gotoLocation").click(function () {
-  $.ajax({
-    // Get countries via API
-    url: "https://restcountries.eu/rest/v2/all?fields=name;callingCode;alpha3Code",
-    success: function (result) {
-      let countryList = result;
-      countryList.forEach(createList)
-    }
-  });
-  
-})
-
-function createList(item) {
-let name = document.getElementById("country");
-let option = document.createElement("option");
-option.text = item.name;
-option.value = item.alpha3Code;
-name.add(option);
 }
