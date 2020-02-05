@@ -4,7 +4,7 @@ const platformClient = require('platformClient');
 const client = platformClient.ApiClient.instance;
 
 let AuthorizationApi = new platformClient.AuthorizationApi();
-let TelephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
+let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
 
 let entryIndicator = "";
@@ -236,11 +236,12 @@ function createTrunk() {
 
   }; // Object | Trunk base settings
 
-  TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesTrunkbasesettings(trunkBody)
+  telephonyProvidersEdgeApi.postTelephonyProvidersEdgesTrunkbasesettings(trunkBody)
     .then((trunkData) => {
       $("#sipStatusModalSuccess").modal();
       console.log(
-        `postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);          
+        `postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);       
+        siteOutboundroutes (trunkData)   
     })
     .catch((err) => {
       $("#sipStatusFailed").modal();
@@ -258,6 +259,7 @@ $('#sipModal').on('hidden', function() {
 });
 
 
+
 $("#createLocation").click(function () {
   // get country value and text
   let cntryOption = document.getElementById("country");
@@ -266,6 +268,7 @@ $("#createLocation").click(function () {
   // formulate the body of the request
   let body = {
     "name": $("#location").val(),
+    "emergencyNumber": {"number": $("#emergencyNumber").val(), "type": "default"},
     "address": {
       "street1": $("#address").val(),
       "city": $("#city").val(),
@@ -278,8 +281,10 @@ $("#createLocation").click(function () {
   locationsApi.postLocations(body)
     .then((data) => {
       console.log(`postLocations success! data: ${JSON.stringify(data, null, 2)}`);
-      $('#formCreateTrunk').reset();
-      $("#locationStatusModal ").modal();
+      locationId = data.id
+      locationText = data.name
+      // $('#formCreateTrunk').reset();
+      $("#siteModal").modal();
     })
     .catch((err) => {
       console.log('There was a failure calling postLocations');
@@ -289,8 +294,8 @@ $("#createLocation").click(function () {
 
 //   Create Site Functions 
 $('#siteModal').on('show.bs.modal', function() {
-  getTimezone();
-  getLocationList();
+  getTimezone();   
+  document.getElementById("inputLocation").value = locationText;
 })
 
 // Get time zone and add to select option 
@@ -300,7 +305,7 @@ function getTimezone () {
   'pageNumber': 1
   };
 
-  TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesTimezones(opts)
+  telephonyProvidersEdgeApi.getTelephonyProvidersEdgesTimezones(opts)
   .then((data) => {
     let timezone = data.entities;
     timezone.forEach(addTimezoneToSelect);
@@ -332,33 +337,6 @@ function formatNumber (n) {
   return n > 9 ? "" + n: "0" + n;
 }
 
-// Create location dropdown option
-function getLocationList () {
-  let opts = { 
-    'pageSize': 100, 
-    'pageNumber': 1, 
-    'sortOrder': "name" 
-  };
-  locationsApi.getLocations(opts)
-  .then((data) => {
-    let location = data.entities;
-    console.log(location)
-    location.forEach(locationOption);
-  })
-  .catch((err) => {
-    console.log('There was a failure calling getLocations');
-    console.error(err);
-  });
-}
-// Create Location dropdown
-function locationOption (location) {
-  let name = document.getElementById("siteLocation");
-  let option = document.createElement("option");
-  option.text = location.name;
-  option.value = location.id;
-  name.add(option);
-}
-
 // Get the site list and find default site --PureCloud Voice - AWS-- which is used as Primary Site and Secondary Sites then create sites
 function getSites () {
   let opts = { 
@@ -367,10 +345,9 @@ function getSites () {
     'sortBy': "name",
     'sortOrder': "ASC",
   };
-  TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesSites(opts)
+  telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSites(opts)
   .then((data) => {
     let awsItem = data.entities.find(entitiesItem => entitiesItem.name === "PureCloud Voice - AWS");
-    let locationId = $("#siteLocation").val();
 
     locationsApi.getLocation(locationId)
     .then((locInfo) => {
@@ -386,7 +363,6 @@ function getSites () {
     console.error(err);
   });
 }
-
 
 // Create the site 
 function createSite (awsItem, locInfo) {
@@ -429,9 +405,10 @@ function createSite (awsItem, locInfo) {
     }
   };
 
-  TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesSites(body)
-  .then((data) => {
-    console.log(data);
+  telephonyProvidersEdgeApi.postTelephonyProvidersEdgesSites(body)
+  .then((siteData) => {
+    console.log(siteData);
+    letSiteId = siteData.id;
     $("#siteAndLocationStatusModal ").modal();
   })
   .catch((err) => {
@@ -440,6 +417,61 @@ function createSite (awsItem, locInfo) {
   });
 }
 
+// add trunk details in Site created
+function siteOutboundroutes (trunkData) {
+  let trunkId = trunkData.id;
+  let trunkName = trunkData.name;
+  let trunkSelfuri = trunkData.selfUri;
+  let siteId = letSiteId; // String | Site ID
+  let opts = { 
+    'pageSize': 25,
+    'pageNumber': 1
+  };
+  // get outbound routes and delete them
+  telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSiteOutboundroutes(siteId, opts)
+  .then((outboundRoute) => {
+    routeEntities = outboundRoute.entities 
+    routeEntities.forEach(entity => {
+      entityId = entity.id;
+      telephonyProvidersEdgeApi.deleteTelephonyProvidersEdgesOutboundroute(entityId)
+      .then(() => {
+          console.log('deleteTelephonyProvidersEdgesOutboundroute returned successfully.');
+      })
+      .catch((err) => {
+          console.log('There was a failure calling deleteTelephonyProvidersEdgesOutboundroute');
+          console.error(err);
+      });
+    });
+  //   console.log(routes.id);
+  })
+  .catch((err) => {
+    console.log('There was a failure calling getTelephonyProvidersEdgesSiteOutboundroutes');
+    console.error(err);
+  });
+
+  let body = {
+    "name": "Outbound Route",
+    "classificationTypes": ["National", "International"],
+    "enabled": true,
+    "distribution": "",
+    "externalTrunkBases": [
+      {
+        "id": trunkId,
+        "name": trunkName,
+        "selfUri": trunkSelfuri
+      }
+    ]
+  };
+
+  telephonyProvidersEdgeApi.postTelephonyProvidersEdgesSiteOutboundroutes(siteId, body)
+  .then((data) => {
+      console.log(`postTelephonyProvidersEdgesSiteOutboundroutes success! data: ${JSON.stringify(data, null, 2)}`);
+  })
+  .catch((err) => {
+      console.log('There was a failure calling postTelephonyProvidersEdgesSiteOutboundroutes');
+      console.error(err);
+  });
+}
 
 $("#gotoLocation").click(function () {
   $.ajax({
