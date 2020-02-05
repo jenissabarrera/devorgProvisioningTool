@@ -32,7 +32,7 @@
         <p><button type="submit" style=“disable all styles” onclick="listProducts()"
             class="btn btn-success-modified">Start »</button></p>
 
-      <!-- <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#siteModal" style="background-color:#FF4F1F; border:#FF4F1F; ">Check »</button></p> -->
+      <p><button type="button" class="btn btn-success" data-toggle="modal" onclick="siteOutboundroutes()" style="background-color:#FF4F1F; border:#FF4F1F; ">Check »</button></p>
      
       </div>
 
@@ -241,13 +241,17 @@
               <select type="tel" class="form-control" id="country"></select>
             </div>
 
-          </p>
+            <div class="form-group-inline">
+                <label>Emergency Number:</label>
+                <input type="tel" id="emergencyNumber" class="form-control" name="emergencyNumberInput" placeholder="+63 999 999 999">
+              </div>
+             </p>
 
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteModal" id="createLocation">Next</button>
+           id="createLocation">Next</button>
         </div>
 
       </div>
@@ -285,8 +289,9 @@
 
               <div class="form-group-inline">
                 <label for="usr">Location:</label>
-                <select type="tel" class="form-control" id="siteLocation">
-                </select>
+                <input type="text" class="form-control"  name="txtLocation" id="inputLocation">
+                <!-- <select type="tel" class="form-control" id="siteLocation">
+                </select> -->
                 <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
               </div>
                       
@@ -547,10 +552,11 @@
   const client = platformClient.ApiClient.instance;
 
   let AuthorizationApi = new platformClient.AuthorizationApi();
-  let TelephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
+  let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
   let locationsApi = new platformClient.LocationsApi();
 
   let entryIndicator = "";
+  let letSiteId, locationId, locationText;
 
   // Set PureCloud settings
   client.setEnvironment('mypurecloud.com');
@@ -770,11 +776,14 @@
 
     }; // Object | Trunk base settings
 
-    TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesTrunkbasesettings(trunkBody)
+    telephonyProvidersEdgeApi.postTelephonyProvidersEdgesTrunkbasesettings(trunkBody)
       .then((trunkData) => {
         $("#sipStatusModalSuccess").modal();
         console.log(
           `postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);
+          
+        // add trunk to Site
+        siteOutboundroutes(trunkData);
       })
       .catch((err) => {
         $("#sipStatusFailed").modal();
@@ -799,6 +808,7 @@
     // formulate the body of the request
     let body = {
       "name": $("#location").val(),
+      "emergencyNumber": {"number": $("#emergencyNumber").val(), "type": "default"},
       "address": {
         "street1": $("#address").val(),
         "city": $("#city").val(),
@@ -811,8 +821,10 @@
     locationsApi.postLocations(body)
       .then((data) => {
         console.log(`postLocations success! data: ${JSON.stringify(data, null, 2)}`);
-        $('#formCreateTrunk').reset();
-        $("#locationStatusModal ").modal();
+        locationId = data.id
+        locationText = data.name
+        // $('#formCreateTrunk').reset();
+        $("#siteModal").modal();
       })
       .catch((err) => {
         console.log('There was a failure calling postLocations');
@@ -822,8 +834,8 @@
 
   //   Create Site Functions 
   $('#siteModal').on('show.bs.modal', function() {
-    getTimezone();
-    getLocationList();
+    getTimezone();   
+    document.getElementById("inputLocation").value = locationText;
   })
 
   // Get time zone and add to select option 
@@ -833,7 +845,7 @@
     'pageNumber': 1
     };
 
-    TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesTimezones(opts)
+    telephonyProvidersEdgeApi.getTelephonyProvidersEdgesTimezones(opts)
     .then((data) => {
       let timezone = data.entities;
       timezone.forEach(addTimezoneToSelect);
@@ -865,33 +877,6 @@
     return n > 9 ? "" + n: "0" + n;
   }
 
-  // Create location dropdown option
-  function getLocationList () {
-    let opts = { 
-      'pageSize': 100, 
-      'pageNumber': 1, 
-      'sortOrder': "name" 
-    };
-    locationsApi.getLocations(opts)
-    .then((data) => {
-      let location = data.entities;
-      console.log(location)
-      location.forEach(locationOption);
-    })
-    .catch((err) => {
-      console.log('There was a failure calling getLocations');
-      console.error(err);
-    });
-  }
-  // Create Location dropdown
-  function locationOption (location) {
-    let name = document.getElementById("siteLocation");
-    let option = document.createElement("option");
-    option.text = location.name;
-    option.value = location.id;
-    name.add(option);
-  }
-
   // Get the site list and find default site --PureCloud Voice - AWS-- which is used as Primary Site and Secondary Sites then create sites
   function getSites () {
     let opts = { 
@@ -900,10 +885,9 @@
       'sortBy': "name",
       'sortOrder': "ASC",
     };
-    TelephonyProvidersEdgeApi.getTelephonyProvidersEdgesSites(opts)
+    telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSites(opts)
     .then((data) => {
       let awsItem = data.entities.find(entitiesItem => entitiesItem.name === "PureCloud Voice - AWS");
-      let locationId = $("#siteLocation").val();
 
       locationsApi.getLocation(locationId)
       .then((locInfo) => {
@@ -961,9 +945,10 @@
       }
     };
 
-    TelephonyProvidersEdgeApi.postTelephonyProvidersEdgesSites(body)
-    .then((data) => {
-      console.log(data);
+    telephonyProvidersEdgeApi.postTelephonyProvidersEdgesSites(body)
+    .then((siteData) => {
+      console.log(siteData);
+      letSiteId = siteData.id;
       $("#siteAndLocationStatusModal ").modal();
     })
     .catch((err) => {
@@ -972,7 +957,62 @@
     });
   }
 
-  
+  // add trunk details in Site created
+  function siteOutboundroutes (trunkData) {
+    let trunkId = trunkData.id;
+    let trunkName = trunkData.name;
+    let trunkSelfuri = trunkData.selfUri;
+    let siteId = letSiteId; // String | Site ID
+    let opts = { 
+      'pageSize': 25,
+      'pageNumber': 1
+    };
+    // get outbound routes and delete them
+    telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSiteOutboundroutes(siteId, opts)
+    .then((outboundRoute) => {
+      routeEntities = outboundRoute.entities 
+      routeEntities.forEach(entity => {
+        entityId = entity.id;
+        telephonyProvidersEdgeApi.deleteTelephonyProvidersEdgesOutboundroute(entityId)
+        .then(() => {
+            console.log('deleteTelephonyProvidersEdgesOutboundroute returned successfully.');
+        })
+        .catch((err) => {
+            console.log('There was a failure calling deleteTelephonyProvidersEdgesOutboundroute');
+            console.error(err);
+        });
+      });
+    //   console.log(routes.id);
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getTelephonyProvidersEdgesSiteOutboundroutes');
+      console.error(err);
+    });
+
+    let body = {
+      "name": "Outbound Route",
+      "classificationTypes": ["National", "International"],
+      "enabled": true,
+      "distribution": "",
+      "externalTrunkBases": [
+        {
+          "id": trunkId,
+          "name": trunkName,
+          "selfUri": trunkSelfuri
+        }
+      ]
+    };
+
+    telephonyProvidersEdgeApi.postTelephonyProvidersEdgesSiteOutboundroutes(siteId, body)
+    .then((data) => {
+        console.log(`postTelephonyProvidersEdgesSiteOutboundroutes success! data: ${JSON.stringify(data, null, 2)}`);
+    })
+    .catch((err) => {
+        console.log('There was a failure calling postTelephonyProvidersEdgesSiteOutboundroutes');
+        console.error(err);
+    });
+  }
+
 </script>
 
 <script type="module">
