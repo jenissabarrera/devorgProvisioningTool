@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./styles/style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -78,7 +78,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h3>Provision Telephony</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
+          <button type="button" class="close" data-dismiss="modal" onclick="refresh()">×</button>
         </div>
 
         <!-- Modal body -->
@@ -324,7 +324,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#sipModal" onclick=validateCreateTrunk()>Next</button>
+            data-target="#sipModal">Next</button>
         </div>
 
       </div>
@@ -410,7 +410,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success-modified" onclick="validateCreateTrunk()">Next</button>
+            <button type="submit" id="btnCreateTrunk" class="btn btn-success-modified" onclick="createTrunk()" disabled>Next</button>
           </div>
         </form>
 
