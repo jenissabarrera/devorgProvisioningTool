@@ -220,27 +220,32 @@
 
             <div class="form-group-inline">
               <label>City:</label>
-              <input type="tel" class="form-control" name="txtCity" id="city">
+              <input type="text" class="form-control" name="txtCity" id="city">
             </div>
 
             <div class="form-group-inline">
               <label>State/Province/Region:</label>
-              <input type="tel" class="form-control" name="txtState" id="state">
+              <input type="text" class="form-control" name="txtState" id="state">
             </div>
 
             <div class="form-group-inline">
               <label>Zip / Postal Code:</label>
-              <input type="tel" class="form-control" name="txtZip" id="zip">
+              <input type="text" class="form-control" name="txtZip" id="zip">
             </div>
 
             <div class="form-group-inline">
               <label>Country:</label>
-              <select type="tel" class="form-control" id="country"></select>
+              <select type="text" class="form-control" id="country">
+                <option selected>Choose Country</option>
+              </select>
             </div>
 
-            <div class="form-group-inline">
+            <div class="input-field form-group-inline">
               <label>Emergency Number:</label>
-              <input type="tel" id="emergencyNumber" class="form-control" name="emergencyNumberInput" placeholder="+63 999 999 999">
+              <label for= "emergencyNumber" class="static-value">+</label>
+              <input type="tel" maxlength="13"
+              required id="emergencyNumber" class="form-control" name="emergencyNumberInput" placeholder="+XX XXX XXX XXXX">
+              
             </div>
 
            </p>
@@ -251,6 +256,66 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
              id="createLocation">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Status Modal -->
+  <div class="modal fade" id="locationSuccessStatusModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>Location is created successfully!</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#siteModal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Failed Modal -->
+  <div class="modal fade" id="locationFailedModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+              <p>Location was not successful. Please try again!</p>
+              <p id="locationError"></p>
+            </div>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
         </div>
 
       </div>
@@ -281,17 +346,14 @@
 
               <div class="form-group-inline">
                 <label for="usr">Time Zone:</label>
-                <select type="tel" class="form-control" id="timeZone">
+                <select type="text" class="form-control" id="timeZone">
+                  <option selected>Choose Time Zone</option>
                 </select>
-                <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
               </div>
 
               <div class="form-group-inline">
                 <label for="usr">Location:</label>
-                <input type="text" class="form-control"  name="txtLocation" id="inputLocation">
-                <!-- <select type="tel" class="form-control" id="siteLocation">
-                </select> -->
-                <!-- <input type="tel" class="form-control"  name="txtCountry" id="country"  onchange="changeOptions()"> -->
+                <input type="text" class="form-control"  name="txtLocation" id="inputLocation" disabled>
               </div>
                       
             </p>
@@ -306,8 +368,8 @@
   </div>
 
   
-  <!-- Site and Location Status Modal -->
-  <div class="modal fade" id="siteAndLocationStatusModal">
+  <!-- Site Status Modal -->
+  <div class="modal fade" id="siteStatusModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
@@ -336,6 +398,37 @@
     </div>
   </div>
 
+  
+  <!-- Site Failed Modal -->
+  <div class="modal fade" id="siteFailedModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+              <p>Site was not successful. Please try again!</p>
+              <p id="siteError"></p>
+            </div>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
   <!-- SIP Trunk Modal -->
   <div class="modal fade" id="sipModal">
     <div class="modal-dialog modal-lg">
