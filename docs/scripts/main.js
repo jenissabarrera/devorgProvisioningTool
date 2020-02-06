@@ -7,14 +7,10 @@ let AuthorizationApi = new platformClient.AuthorizationApi();
 let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
 
-<<<<<<< HEAD
-=======
-let entryIndicator = "";
 let letSiteId ="";
 let locationId = ""; 
 let locationText = "";
 
->>>>>>> 5680e3d6b448e9e17a2659446a960095c75f121f
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
 $(document).ready(() => {
@@ -26,18 +22,20 @@ $(document).ready(() => {
     .catch((err) => console.error(err));
 })
 
-function clearModal () {
-  $("#locationModal").removeData('bs.modal').empty();
-}
+//  Commented out.
+// function clearModal () {
+//   $("#locationModal").removeData('bs.modal').empty();
+// }
 
 function listProducts() {
-  let products = [];
-  clearModal ();
+  let productsArray = [];
+  //  Commented out.
+  // clearModal ();
   AuthorizationApi.getAuthorizationProducts()
     .then((data) => {
       console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
       products = data.entities;
-      checkBYOC(products);
+      checkBYOC(productsArray);
     })
     .catch((err) => {
       console.log('There was a failure calling getAuthorizationProducts');
@@ -46,16 +44,16 @@ function listProducts() {
 
 }
 
-function checkBYOC(products) {
-  let byoc = ""
-  products.forEach(product => {
+function checkBYOC(productsArray) {
+  let byocId = ""
+  productsArray.forEach(product => {
     if (product.id == "byoc") {
-      byoc = product.id;
+      byocId = product.id;
     }
 
   });
 
-  if (byoc != "") {
+  if (byocId != "") {
     $("#byocenableModal").modal();
   } else {
     $("#byocdisableModal").modal();
@@ -255,27 +253,16 @@ function createTrunk() {
       $("#sipStatusModalSuccess").modal();  
     })
     .catch((err) => {
-<<<<<<< HEAD
       console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
       console.error(err);
       console.error(err.body.message);
       document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
       $("#sipStatusFailed").modal();
-=======
-      $("#sipStatusFailed").modal();
-      console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
-      console.error(err);
-      // console.error(err.body.message);
-      
-      // document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
->>>>>>> 5680e3d6b448e9e17a2659446a960095c75f121f
     });
 
 
 }
 
-<<<<<<< HEAD
-=======
 $('#sipModal').on('hidden', function() {
   $(this).removeData('modal');
 });
@@ -284,7 +271,7 @@ $('#sipModal').on('hidden', function() {
 $("#gotoLocation").click(function () {
   $.ajax({
     // Get countries via API
-    url: "https://restcountries.eu/rest/v2/all?fields=name;callingCode;alpha2Code",
+    url: "https://restcountries.eu/rest/v2/all?fields=name;callingCodes;alpha2Code",
     success: function (result) {
       let countryList = result;
       countryList.forEach(createList)
@@ -300,7 +287,6 @@ option.text = item.name;
 option.value = item.alpha2Code;
 name.add(option);
 }
->>>>>>> 5680e3d6b448e9e17a2659446a960095c75f121f
 
 $("#createLocation").click(function () {
   // get country value and text
@@ -525,47 +511,17 @@ function createOutboundRoute (trunkData) {
       console.error(err);
   });
 }
-// <<<<<<< master
-// =======
-
-// $("#gotoLocation").click(function () {
-//   $.ajax({
-//     // Get countries via API
-//     url: "https://restcountries.eu/rest/v2/all?fields=name;callingCodes;alpha3Code",
-//     success: function (result) {
-//       let countryList = result;
-//       countryList.forEach(createList)
-//     }
-//   });
-  
-// })
-
-// function createList(item) {
-// let name = document.getElementById("country");
-// let option = document.createElement("option");
-// option.text = item.name;
-// option.value = item.alpha3Code;
-// name.add(option);
-// }
 
 
-<<<<<<< HEAD
 // Delete contents of modal when closed
 $('#sipModal').on('hidden.bs.modal', function (e) {
   $(this).find("input").val('').end()
-=======
-// // Delete contents of modal when closed
-// $('#sipModal').on('hidden.bs.modal', function (e) {
-//   $(this).find("input").val('').end()
-//   $("#sipModal").reload();
->>>>>>> 5680e3d6b448e9e17a2659446a960095c75f121f
+  document.getElementById("sipModal").className = "needs-validation";
   
-// })
-
-// $('#sipModal').on('shown.bs.modal', function () {
-//   validateCreateTrunk();
-// })
-
+})
+$('#sipModal').on('shown.bs.modal', function () {
+  validateCreateTrunk();
+})
 
 
-// >>>>>>> master
+
