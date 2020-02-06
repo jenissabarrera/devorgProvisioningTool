@@ -62,29 +62,38 @@ function checkBYOC(products) {
 }
 
 function validateCreateTrunk() {
-  
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   let forms = document.getElementsByClassName('needs-validation');
   // Loop over them and prevent submission
   let validation = Array.prototype.filter.call(forms, function (form) {
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('input', function (event) {
       if (form.checkValidity() === false) {
-        entryIndicator = 0;
         event.preventDefault();
         event.stopPropagation();
   
       }
       else if (form.checkValidity() === true)  {
-        entryIndicator = 1;
+        checkSipInput();
       } 
       form.classList.add('was-validated');
     }, true)
   })
 
-  if(entryIndicator ==1) {
-    createTrunk();
-  }
 
+}
+
+function checkSipInput () {
+  if(document.getElementById("txtSIPExternalTrunk").value != "" && document.getElementById("txtInboundSIP").value != ""
+  && document.getElementById("txtSIPServers").value != "" && document.getElementById("txtUserName").value != "" 
+  && document.getElementById("txtSIPPassword").value != "" && document.getElementById("txtSIPRealm").value != ""
+  && document.getElementById("txtSIPCallingAddress").value != "" && document.getElementById("txtSIPCallingName").value != "" ){
+    document.getElementById("btnCreateTrunk").disabled = false
+  }
+  else {
+      validateCreateTrunk()
+      form.classList.add('needs-validation');
+     
+    }
 }
 
 
@@ -501,3 +510,41 @@ function createOutboundRoute (trunkData) {
       console.error(err);
   });
 }
+// <<<<<<< master
+// =======
+
+// $("#gotoLocation").click(function () {
+//   $.ajax({
+//     // Get countries via API
+//     url: "https://restcountries.eu/rest/v2/all?fields=name;callingCodes;alpha3Code",
+//     success: function (result) {
+//       let countryList = result;
+//       countryList.forEach(createList)
+//     }
+//   });
+  
+// })
+
+// function createList(item) {
+// let name = document.getElementById("country");
+// let option = document.createElement("option");
+// option.text = item.name;
+// option.value = item.alpha3Code;
+// name.add(option);
+// }
+
+
+// // Delete contents of modal when closed
+// $('#sipModal').on('hidden.bs.modal', function (e) {
+//   $(this).find("input").val('').end()
+//   $("#sipModal").reload();
+  
+// })
+
+// $('#sipModal').on('shown.bs.modal', function () {
+//   validateCreateTrunk();
+// })
+
+
+
+// >>>>>>> master
