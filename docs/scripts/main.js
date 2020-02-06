@@ -7,8 +7,6 @@ let AuthorizationApi = new platformClient.AuthorizationApi();
 let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
 
-let entryIndicator = "";
-
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
 $(document).ready(() => {
@@ -244,20 +242,15 @@ function createTrunk() {
         siteOutboundroutes (trunkData)   
     })
     .catch((err) => {
-      $("#sipStatusFailed").modal();
-      document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
       console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
       console.error(err);
       console.error(err.body.message);
+      document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
+      $("#sipStatusFailed").modal();
     });
 
 
 }
-
-$('#sipModal').on('hidden', function() {
-  $(this).removeData('modal');
-});
-
 
 
 $("#createLocation").click(function () {
@@ -293,6 +286,7 @@ $("#createLocation").click(function () {
 })
 
 //   Create Site Functions 
+   
 $('#siteModal').on('show.bs.modal', function() {
   getTimezone();   
   document.getElementById("inputLocation").value = locationText;
@@ -497,7 +491,6 @@ name.add(option);
 // Delete contents of modal when closed
 $('#sipModal').on('hidden.bs.modal', function (e) {
   $(this).find("input").val('').end()
-  $("#sipModal").reload();
   
 })
 
