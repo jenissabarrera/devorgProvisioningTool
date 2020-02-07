@@ -6,6 +6,7 @@ const client = platformClient.ApiClient.instance;
 let AuthorizationApi = new platformClient.AuthorizationApi();
 let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
+let routingApi = new platformClient.RoutingApi();
 
 let letSiteId ="";
 let locationId = ""; 
@@ -34,7 +35,7 @@ function listProducts() {
   AuthorizationApi.getAuthorizationProducts()
     .then((data) => {
       console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
-      products = data.entities;
+      productsArray = data.entities;
       checkBYOC(productsArray);
     })
     .catch((err) => {
@@ -45,13 +46,16 @@ function listProducts() {
 }
 
 function checkBYOC(productsArray) {
-  let byocId = ""
+  let byocId = "";
   productsArray.forEach(product => {
     if (product.id == "byoc") {
+      console.log("product id" + product.id)
       byocId = product.id;
     }
 
   });
+
+  console.log("test test test..." + byocId)
 
   if (byocId != "") {
     $("#byocenableModal").modal();
@@ -512,7 +516,6 @@ function createOutboundRoute (trunkData) {
   });
 }
 
-
 // Delete contents of modal when closed
 $('#sipModal').on('hidden.bs.modal', function (e) {
   $(this).find("input").val('').end()
@@ -522,6 +525,59 @@ $('#sipModal').on('hidden.bs.modal', function (e) {
 $('#sipModal').on('shown.bs.modal', function () {
   validateCreateTrunk();
 })
+
+function getListofQueues () {
+
+  let opts = { 
+    'pageSize': 100
+  };
+  
+  routingApi.getRoutingQueues(opts)
+    .then((queueList) => {
+      console.log(`getRoutingQueues success! data: ${JSON.stringify(queueList, null, 2)}`);
+      let queues =  queueList.entities
+      queues.forEach(element => {
+        let queueSelect = document.getElementById("selectQueue");
+        let queueOption = document.createElement("option");
+        queueOption.text = element.name;
+        queueOption.value = element.id;
+        queueSelect.add(option);
+      });
+      initializeFlowCreation();
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getRoutingQueues');
+      console.error(err);
+    });
+  
+}
+
+
+function initializeFlowCreation () {
+  $("#architectFlowModal").modal();
+  $.ajax({
+    // Get countries via API
+    url: "https://raw.githubusercontent.com/jenissabarrera/callFlowFile/master/docs/callFLow",
+    success: function (callFlowFile) {
+      let callFlowJSON = callFlowFile;
+      decodeRawCallFlow(callFlowJSON);
+    }
+  })
+
+}
+
+function decodeRawCallFlow (callFlowJSON) {
+  let decodeRaw = window.atob(callFlowJSON);
+  encodeRawCallFlow(decodeRaw);
+}
+
+function encodeRawCallFlow (decodeRaw) {
+  let encodeUri = decodeURIComponent(decodeRaw);
+  console.log("encode URI" + (encodeUri));
+
+}
+
+
 
 
 

@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-app.use(express.static(__dirname+ "/styles"))
-app.use(express.static(__dirname+ "/docs"))
+app.use(express.static(__dirname+ '/styles'))
+app.use(express.static(__dirname+ '/docs'))
 
 // Routes
 app.get('/', function (req, res) {
@@ -16,4 +16,4 @@ app.get('/', function (req, res) {
 
 // Port Listen
 app.listen(3000);
-console.log("Running...");
+console.log('Running...');

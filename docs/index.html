@@ -15,9 +15,10 @@
   <!-- Welcome Banner -->
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3" >Welcome to the Developer Org Provisioning Tool!</h1>
+      <h1 class="display-3">Welcome to the Developer Org Provisioning Tool!</h1>
       <p style="color: white;">What would you like to do?</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button" data-dismiss="modal" data-toggle="modal"
+          data-target="#sipModal">Learn more »</a></p>
     </div>
   </div>
 
@@ -33,13 +34,14 @@
       <div class="col-md-4">
         <h2>Dev Org Kick Starter</h2>
         <p>Setup your Purecloud essentials easily. Create accounts,groups,roles and queues for your Dev Org.</p>
-        <p><a class="btn btn-success-modified" href="#" role="button">Start
+        <p><a class="btn btn-success-modified" href="#" role="button" disabled>Start
             »</a></p>
       </div>
       <div class="col-md-4">
         <h2>Architect Flow</h2>
-        <p>Here's a downloadable architect flow for your Org which you can import and use to setup Architect Flow seamlessly</p>
-        <p><a class="btn btn-success-modified" href="#" role="button" onclick="initializeFlowCreation()">Start »</a></p>
+        <p>Here's a downloadable architect flow for your Org which you can import and use to setup Architect Flow
+          seamlessly</p>
+        <p><a class="btn btn-success-modified" href="#" role="button" onclick="getListofQueues()" disabled>Start »</a></p>
       </div>
     </div>
 
@@ -47,14 +49,7 @@
       <div class="col-md-4">
         <h2>Create a developer role</h2>
         <p> Generate an admin role and assign your current user to it.</p>
-        <p><a class="btn btn-success-modified" href="#" role="button">Start »</a></p>
-      </div>
-      <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta
-          felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
-          massa justo sit amet risus.</p>
-        <p><a class="btn btn-success-modified" href="#" role="button">Start »</a></p>
+        <p><a class="btn btn-success-modified" href="#" role="button" disabled>Start »</a></p>
       </div>
     </div>
 
@@ -117,7 +112,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Dismiss</button>
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Dismiss</button>
         </div>
 
       </div>
@@ -202,52 +197,89 @@
             <h4>Create a Location</h4>
             <p>To create a location we need the following information:</p>
             <div class="form-group-inline">
-              <label>Name of location:</label>
+              <div style="align-items: initial; display: flex;">
+                <label>Name of location:</label>
+                <a href="#" data-toggle="tooltip" title="Enter your desired location name &#10 e.g: Headquarters ">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
               <input type="text" class="form-control" name="txtLocation" id="location">
+
             </div>
 
             <div class="form-group-inline">
-              <label>Address:</label>
+              <div style="align-items: initial; display: flex;">
+                <label>Address:</label>
+                <a href="#" data-toggle="tooltip" title="Please make sure that you will input a verified address">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
               <input type="text" class="form-control" name="txtAddress" id="address">
             </div>
 
             <div class="form-group-inline">
-              <label>City:</label>
+              <div style="align-items: initial; display: flex;">
+                <label>City:</label>
+                <a href="#" data-toggle="tooltip" title="Address">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
               <input type="text" class="form-control" name="txtCity" id="city">
             </div>
 
             <div class="form-group-inline">
-              <label>State/Province/Region:</label>
+              <div style="align-items: initial; display: flex;">
+                <label>State/Province/Region: </label>
+                <a href="#" data-toggle="tooltip" title="State or Province">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
               <input type="text" class="form-control" name="txtState" id="state">
             </div>
 
             <div class="form-group-inline">
-              <label>Zip / Postal Code:</label>
+              <div style="align-items: initial; display: flex;">
+                <label>Zip / Postal Code:</label>
+                <a href="#" data-toggle="tooltip" title="Zip or Postal Code">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
               <input type="text" class="form-control" name="txtZip" id="zip">
             </div>
 
             <div class="form-group-inline">
-              <label>Country:</label>
+              <div style="align-items: initial; display: flex;">
+                <label>Country:</label>
+                <a href="#" data-toggle="tooltip" title="Country">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
               <select type="text" class="form-control" id="country">
                 <option selected>Choose Country</option>
               </select>
             </div>
 
             <div class="input-field form-group-inline">
-              <label>Emergency Number:</label>
-              <label for= "emergencyNumber" class="static-value">+</label>
-              <input type="tel" maxlength="13"
-              required id="emergencyNumber" class="form-control" name="emergencyNumberInput" placeholder="+XX XXX XXX XXXX">
-              
+              <div style="align-items: initial; display: flex;">
+                <label>Emergency Number:</label>
+                <a href="#" data-toggle="tooltip"
+                  title="Please make sure to follow the number format &#10 e.g: +12345678911">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
+              <label for="emergencyNumber" class="static-value"></label>
+              <input type="tel" maxlength="13" required id="emergencyNumber" class="form-control"
+                name="emergencyNumberInput" placeholder="+XX XXX XXX XXXX">
+
             </div>
 
-           </p>
+          </p>
           </p>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-             id="createLocation">Next</button>
+            id="createLocation">Next</button>
         </div>
 
       </div>
@@ -327,39 +359,55 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-            <p class="card-text">
-              <h4>Create a Site</h4>
-              <p>To create a site we need the following information:</p>
-              
-              <div class="form-group-inline">
-                <label for="usr">Site Name:</label>
-                <input type="text" class="form-control"  name="txtSiteName" id="siteName">
-              </div>
+          <p class="card-text">
+            <h4>Create a Site</h4>
+            <p>To create a site we need the following information:</p>
 
-              <div class="form-group-inline">
-                <label for="usr">Time Zone:</label>
-                <select type="text" class="form-control" id="timeZone">
-                  <option selected>Choose Time Zone</option>
-                </select>
+            <div class="form-group-inline">
+              <div style="align-items: initial; display: flex;">
+                <label>Site Name:</label>
+                <a href="#" data-toggle="tooltip" title="Enter your desired site name &#10 e.g: Daily City">
+                  <i class="material-icons"> help </i>
+                </a>
               </div>
+              <input type="text" class="form-control" name="txtSiteName" id="siteName">
+            </div>
 
-              <div class="form-group-inline">
-                <label for="usr">Location:</label>
-                <input type="text" class="form-control"  name="txtLocation" id="inputLocation" disabled>
+            <div class="form-group-inline">
+              <div style="align-items: initial; display: flex;">
+                <label>Time Zone:</label>
+                <a href="#" data-toggle="tooltip" title="Select a Time Zone">
+                  <i class="material-icons"> help </i>
+                </a>
               </div>
-                      
-            </p>
+              <select type="text" class="form-control" id="timeZone">
+                <option selected>Choose Time Zone</option>
+              </select>
+            </div>
+
+            <div class="form-group-inline">
+              <div style="align-items: initial; display: flex;">
+                <label>Location:</label>
+                <a href="#" data-toggle="tooltip" title="This is the location created earlier">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
+              <input type="text" class="form-control" name="txtLocation" id="inputLocation" disabled>
+            </div>
+
+          </p>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#siteAndLocationStatusModal" onclick = "getSites()" id="createLocation">Next</button>
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#siteAndLocationStatusModal" onclick="getSites()" id="createLocation">Next</button>
         </div>
 
       </div>
     </div>
   </div>
 
-  
+
   <!-- Site Status Modal -->
   <div class="modal fade" id="siteStatusModal">
     <div class="modal-dialog modal-lg">
@@ -390,7 +438,7 @@
     </div>
   </div>
 
-  
+
   <!-- Site Failed Modal -->
   <div class="modal fade" id="siteFailedModal">
     <div class="modal-dialog modal-lg">
@@ -420,16 +468,16 @@
       </div>
     </div>
   </div>
-  
+
   <!-- SIP Trunk Modal -->
   <div class="modal fade" id="sipModal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" style=" max-width: 50% !important;">
       <div class="modal-content">
         <!-- Modal Header -->
         <form id="formCreateTrunk" class="needs-validation" novalidate method="dialog">
           <div class="modal-header">
             <h3>Provision Telephony - Twilio</h3>
-            <button type="button" class="close" data-dismiss="modal" onclick="createTrunk()" disabled>×</button>
+            <button type="button" class="close" data-dismiss="modal">×</button>
           </div>
 
           <!-- Modal body -->
@@ -444,19 +492,36 @@
               </p>
               <div class="form-row">
                 <div class="form-group-inline col-md-4 mb-3">
-                  <label>External Trunk Name:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>External Trunk Name:</label>
+                    <a href="#" data-toggle="tooltip" title="Enter your desired trunk name &#10 e.g: Dev Cloud">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtSIPExternalTrunk" required>
                   <div class="invalid-feedback"> Please provide a valid External Trunk Name. </div>
                   <div class="valid-feedback"> Looks good! </div>
                 </div>
                 <div class="form-group-inline col-md-4 mb-3">
-                  <label>Inbound SIP Termination Identifier:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>Inbound SIP Termination Identifier:</label>
+                    <a href="#" data-toggle="tooltip"
+                      title="Your termination URI is unique within your PureCloud Organization's region. &#10The termination URI will be used by the 3rd party PBX or Carrier to direct SIP traffic to PureCloud ">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtInboundSIP" required>
                   <div class="invalid-feedback"> Please provide a valid Inbound SIP Termination Identifier. </div>
                   <div class="valid-feedback"> Looks good! </div>
                 </div>
                 <div class="form-group-inline col-md-4 mb-3">
-                  <label>SIP Servers or Proxies:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>SIP Servers or Proxies:</label>
+                    <a href="#" data-toggle="tooltip"
+                      title="This is a list of SIP servers or intermediate proxies where all outgoing &#10request should be sent to, regardless of the destination address of the request.&#10 If no port is specified, the inbound listen port will be used.">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtSIPServers" required>
                   <div class="invalid-feedback"> Please provide a valid SIP Servers or Proxies. </div>
                   <div class="valid-feedback"> Looks good! </div>
@@ -464,19 +529,34 @@
               </div>
               <div class="form-row">
                 <div class="form-group-inline col-md-4">
-                  <label>User Name:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>User Name:</label>
+                    <a href="#" data-toggle="tooltip" title="User name to send when trunk is challenged for the realm.">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtUserName" required>
                   <div class="invalid-feedback"> Please provide a valid User Name. </div>
                   <div class="valid-feedback"> Looks good! </div>
                 </div>
                 <div class="form-group-inline col-md-4 mb-3">
-                  <label>Password:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>Password:</label>
+                    <a href="#" data-toggle="tooltip" title="Password to send when trunk is challenged for the realm.">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="password" class="form-control" id="txtSIPPassword" required>
                   <div class="invalid-feedback"> Please provide a valid password. </div>
                   <div class="valid-feedback"> Looks good! </div>
                 </div>
                 <div class="form-group-inline col-md-4 mb-3">
-                  <label>Realm:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>Realm:</label>
+                    <a href="#" data-toggle="tooltip" title="Realm must match the username and password to be sent.">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtSIPRealm" required>
                   <div class="invalid-feedback"> Please provide a valid Realm. </div>
                   <div class="valid-feedback"> Looks good! </div>
@@ -484,13 +564,25 @@
               </div>
               <div class="form-row">
                 <div class="form-group-inline col-md-5 mb-3">
-                  <label>Address:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>Address:</label>
+                    <a href="#" data-toggle="tooltip"
+                      title="Specific overriding caller ID adddress to use as the outgoing origination address. &#10May be a URI or raw phone number">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtSIPCallingAddress" required>
                   <div class="invalid-feedback"> Please provide a valid Address. </div>
                   <div class="valid-feedback"> Looks good! </div>
                 </div>
                 <div class="form-group-inline col-md-5 mb-3">
-                  <label>Name:</label>
+                  <div style="align-items: initial; display: flex;">
+                    <label>Name:</label>
+                    <a href="#" data-toggle="tooltip"
+                      title="Specific overriding caller ID name to use as the outgoing origination address. &#10May be a URI or raw phone number">
+                      <i class="material-icons"> help </i>
+                    </a>
+                  </div>
                   <input type="text" class="form-control" id="txtSIPCallingName" required>
                   <div class="invalid-feedback"> Please provide a valid Name. </div>
                   <div class="valid-feedback"> Looks good! </div>
@@ -500,7 +592,8 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" id="btnCreateTrunk" class="btn btn-success-modified" onclick="createTrunk()" disabled>Next</button>
+            <button type="submit" id="btnCreateTrunk" class="btn btn-success-modified" onclick="createTrunk()"
+              disabled>Next</button>
           </div>
         </form>
 
@@ -642,14 +735,19 @@
         <!-- Modal body -->
         <div class="modal-body">
           <p class="card-text">
-            <!-- <p>Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please
-              try to simulate an outbound call to verify that all of the telephony components are probably working.</p> -->
+
+            <div class="form-group-inline">
+              <label>Select Queue:</label>
+              <select type="text" class="form-control" id="selectQueue">
+                <option selected>Select Queue</option>
+              </select>
+            </div>
 
           </p>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Return to Home</button>
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" onclick="">Next</button>
         </div>
 
       </div>
@@ -661,4 +759,3 @@
 </html>
 
 <script src="./scripts/main.js"></script>
-<script src="./scripts/call-flow.js"></script>

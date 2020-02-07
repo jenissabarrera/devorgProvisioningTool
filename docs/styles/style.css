@@ -99,6 +99,17 @@
   background-image: linear-gradient( to right, #5D3D5D, #FF4F1F);
 }
 
+a {
+
+  color: #FF4F1F; 
+}
+
+a:hover {
+
+  color: #5D3D5E; 
+
+}
+
 
 
 
