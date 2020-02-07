@@ -34,7 +34,7 @@ function listProducts() {
   AuthorizationApi.getAuthorizationProducts()
     .then((data) => {
       console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
-      products = data.entities;
+      productsArray = data.entities;
       checkBYOC(productsArray);
     })
     .catch((err) => {
