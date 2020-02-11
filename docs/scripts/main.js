@@ -7,19 +7,26 @@ let AuthorizationApi = new platformClient.AuthorizationApi();
 let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
 let routingApi = new platformClient.RoutingApi();
+let usersApi = new platformClient.UsersApi();
 
 let letSiteId ="";
 let locationId = ""; 
 let locationText = "";
+let currentUserInfo = "";
 
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
 $(document).ready(() => {
-  client.loginImplicitGrant(clientId, redirectUri)
+  return client.loginImplicitGrant(clientId, redirectUri)
     .then(() => {
       console.log('Logged in');
       let token = client.authData.accessToken;
-    })
+  // get the current user information
+  return usersApi.getUsersMe()
+    }).then((userInfo) => {
+    currentUserInfo = userInfo;
+    console.log(`getAuthorizationProducts success! data: ${JSON.stringify(currentUserInfo, null, 2)}`);
+    })
     .catch((err) => console.error(err));
 })
 
@@ -32,7 +39,7 @@ function listProducts() {
   let productsArray = [];
   //  Commented out.
   // clearModal ();
-  AuthorizationApi.getAuthorizationProducts()
+  return AuthorizationApi.getAuthorizationProducts()
     .then((data) => {
       console.log(`getAuthorizationProducts success! data: ${JSON.stringify(data, null, 2)}`);
       productsArray = data.entities;
@@ -52,7 +59,6 @@ function checkBYOC(productsArray) {
       console.log("product id" + product.id)
       byocId = product.id;
     }
-
   });
 
   console.log("test test test..." + byocId)
@@ -100,7 +106,6 @@ function checkSipInput () {
      
     }
 }
-
 
 function createTrunk() {
 
@@ -520,8 +525,8 @@ function createOutboundRoute (trunkData) {
 $('#sipModal').on('hidden.bs.modal', function (e) {
   $(this).find("input").val('').end()
   document.getElementById("sipModal").className = "needs-validation";
-  
 })
+
 $('#sipModal').on('shown.bs.modal', function () {
   validateCreateTrunk();
 })
@@ -563,7 +568,6 @@ function initializeFlowCreation () {
       decodeRawCallFlow(callFlowJSON);
     }
   })
-
 }
 
 function decodeRawCallFlow (callFlowJSON) {
@@ -575,6 +579,53 @@ function encodeRawCallFlow (decodeRaw) {
   let encodeUri = decodeURIComponent(decodeRaw);
   console.log("encode URI" + (encodeUri));
 
+}
+
+// get the Roles of the dev org
+function getAuthorizationRoles () {
+  let opts = { 
+    'pageSize': 50,
+    'pageNumber': 1, 
+  };
+  
+  AuthorizationApi.getAuthorizationRoles(opts)
+    .then((rolesList) => {
+      let roles = "";
+      rolesList = rolesList.entities;
+      console.log(`getAuthorizationRoles success! data: ${JSON.stringify(rolesList, null, 2)}`);
+      rolesList.forEach(role => {
+        tempRoles ="\"" + role.id + "\"" ;
+        if(roles === "") {
+          roles = "["+tempRoles
+        }else {
+          roles = roles + "," + tempRoles;
+        }
+      });
+      roles = roles + "]"
+      console.log(roles);
+      putUserRoles (roles);
+    })
+    .catch((err) => {
+      console.log('There was a failure calling getAuthorizationRoles');
+      console.error(err);
+    });
+}
+// put all roles to the current user
+function putUserRoles (roles) {
+  let userId = currentUserInfo.id; 
+  body = roles;
+  console.log(body);
+  AuthorizationApi.putUserRoles(userId, body)
+    .then((data) => {
+      console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
+      $("#roleSuccessModal").modal();
+    })
+    .catch((err) => {
+      console.log('There was a failure calling putUserRoles');
+      console.error(err);
+      $("#roleFailedModal").modal();
+      document.getElementById("siteError").innerHTML =  err.body.message;
+    });
 }
 
 

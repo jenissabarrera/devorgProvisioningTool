@@ -46,14 +46,227 @@
 
     <div class="row">
       <div class="col-md-4">
-        <h2>Create a developer role</h2>
-        <p> Generate an admin role and assign your current user to it.</p>
-        <p><a class="btn btn-success-modified" href="#" role="button" disabled>Start »</a></p>
+        <h2>Create A Developer Role</h2>
+        <p> Assign all available roles to the current user.</p>
+        <p><a class="btn btn-success-modified" href="#" role="button" onclick="getAuthorizationRoles()" disabled>Start »</a></p>
       </div>
     </div>
 
   </div>
 
+   <!-- Location Status Modal -->
+   <div class="modal fade" id="locationSuccessStatusModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>Location is created successfully!</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#siteModal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Failed Modal -->
+  <div class="modal fade" id="locationFailedModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+              <p>Location was not successful. Please try again!</p>
+              <p id="locationError"></p>
+            </div>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Modal-->
+  <div class="modal fade" id="siteModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p class="card-text">
+            <h4>Create a Site</h4>
+            <p>To create a site we need the following information:</p>
+
+            <div class="form-group-inline">
+              <div style="align-items: initial; display: flex;">
+                <label>Site Name:</label>
+                <a href="#" data-toggle="tooltip" title="Enter your desired site name &#10 e.g: Daily City">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
+              <input type="text" class="form-control" name="txtSiteName" id="siteName">
+            </div>
+
+            <div class="form-group-inline">
+              <div style="align-items: initial; display: flex;">
+                <label>Time Zone:</label>
+                <a href="#" data-toggle="tooltip" title="Select a Time Zone">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
+              <select type="text" class="form-control" id="timeZone">
+                <option selected>Choose Time Zone</option>
+              </select>
+            </div>
+
+            <div class="form-group-inline">
+              <div style="align-items: initial; display: flex;">
+                <label>Location:</label>
+                <a href="#" data-toggle="tooltip" title="This is the location created earlier">
+                  <i class="material-icons"> help </i>
+                </a>
+              </div>
+              <input type="text" class="form-control" name="txtLocation" id="inputLocation" disabled>
+            </div>
+
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#siteAndLocationStatusModal" onclick="getSites()" id="createLocation">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Site Status Modal -->
+  <div class="modal fade" id="siteStatusModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p>Location and Site were created successfully!</p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
+            data-target="#sipModal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer role success modal -->
+  <div class="modal fade" id="roleSuccessModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Developer Role Creation</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <div class="icon-box">
+                <i class="material-icons">check_circle</i>
+              </div>
+              <p>All the roles has been added to your user account!</p>
+              <p id="siteError"></p>
+            </div>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+    <!-- BYOC Incapable -->
+    <div class="modal fade" id="roleFailedModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+  
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3>Developer Role Creation</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+  
+          <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+              <p>Developer role creation was not successful. Please try again!</p>
+              <p id="roleError"></p>
+            </div>
+          </p>
+        </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success-modified" data-dismiss="modal">Dismiss</button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
 
   <!-- BYOC Capable -->
   <div class="modal fade" id="byocenableModal">
