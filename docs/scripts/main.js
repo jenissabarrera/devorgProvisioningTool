@@ -8,11 +8,14 @@ let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
 let routingApi = new platformClient.RoutingApi();
 let usersApi = new platformClient.UsersApi();
+let successMessage = document.getElementById('successMessage');
+let failedMessage = document.getElementById('failedMessage');
 
 let letSiteId ="";
 let locationId = ""; 
 let locationText = "";
 let currentUserInfo = "";
+let nextModal = ""
 
 // Set PureCloud settings
 client.setEnvironment('mypurecloud.com');
@@ -35,7 +38,7 @@ $(document).ready(() => {
 //   $("#locationModal").removeData('bs.modal').empty();
 // }
 
-function listProducts() {
+$("#listProducts").click(function(){
   let productsArray = [];
   //  Commented out.
   // clearModal ();
@@ -50,7 +53,7 @@ function listProducts() {
       console.error(err);
     });
 
-}
+})
 
 function checkBYOC(productsArray) {
   let byocId = "";
@@ -61,16 +64,18 @@ function checkBYOC(productsArray) {
     }
   });
 
-  console.log("test test test..." + byocId)
+  // console.log("test test test..." + byocId)
 
-  if (byocId != "") {
-    $("#byocenableModal").modal();
+  if (byocId != "") {    
+    nextModal = "trunkOption";
+    showSuccessModal("Your org has BYOC Capability. Please proceed.");
   } else {
-    $("#byocdisableModal").modal();
+    showfailedModal("Your org has no BYOC Capability! Please contact administrator.");
   }
-
-
+  
 }
+
+
 
 function validateCreateTrunk() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -107,7 +112,7 @@ function checkSipInput () {
     }
 }
 
-function createTrunk() {
+$("#btnCreateTrunk").click(function () {
 
   $('#sipModal').modal('hide');
   let trunkBody = {
@@ -259,18 +264,15 @@ function createTrunk() {
       console.log(`postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);     
       siteOutboundroutes(trunkData)   
       
-      $("#sipStatusModalSuccess").modal();  
+      $("#twilioSuccessModal").modal();  
     })
     .catch((err) => {
       console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
       console.error(err);
-      console.error(err.body.message);
-      document.getElementById("trunkErrorMessage").innerHTML =  err.body.message;
-      $("#sipStatusFailed").modal();
+      let errorMessage = "Creating Trunk has failed. " + err.body.message;
+      showFailedModal(errorMessage);
     });
-
-
-}
+});
 
 $('#sipModal').on('hidden', function() {
   $(this).removeData('modal');
@@ -321,13 +323,14 @@ $("#createLocation").click(function () {
       locationId = data.id
       locationText = data.name
       // $('#formCreateTrunk').reset();
-      $("#locationSuccessStatusModal").modal();
+      // $("#locationSuccessStatusModal").modal();     
+      nextModal = "siteModal";
+      showSuccessModal("Location is created successfully. Please proceed.");
     })
     .catch((err) => {
       console.log('There was a failure calling postLocations');
-      console.error(err);
-      $("#locationFailedModal").modal();
-      document.getElementById("locationError").innerHTML =  err.body.message;
+      let errorMessage = "Creating location has failed. " + err.body.message;
+      showFailedModal(errorMessage);
     });
 })
 
@@ -353,8 +356,6 @@ function getTimezone () {
   .catch((err) => {
     console.log('There was a failure calling getTimezones');
     console.error(err);
-    $("#siteFailedModal").modal();
-    document.getElementById("siteError").innerHTML =  err.body.message;
   });
 }
 
@@ -380,7 +381,7 @@ function formatNumber (n) {
 }
 
 // Get the site list and find default site --PureCloud Voice - AWS-- which is used as Primary Site and Secondary Sites then create sites
-function getSites () {
+$("#getSites").click(function(){
   let opts = { 
     'pageSize': 25,
     'pageNumber': 1,
@@ -403,11 +404,8 @@ function getSites () {
   .catch((err) => {
     console.log('There was a failure calling getTelephonyProvidersEdgesSites');
     console.error(err);
-    $("#siteFailedModal").modal();
-      document.getElementById("siteError").innerHTML =  err.body.message;
-  });
-}
-
+})
+})
 // Create the site 
 function createSite (awsItem, locInfo) {
   // get information of the site
@@ -416,9 +414,9 @@ function createSite (awsItem, locInfo) {
   let awsItemSelfUri = awsItem.selfUri;
   // get the date
   let today = new Date();
-  dateConfig = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  startDateConfig = dateConfig+"T02:00:00.000";
-  endDateConfig = dateConfig+"T05:00:00.000";
+  let dateConfig = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  let startDateConfig = dateConfig+"T02:00:00.000";
+  let endDateConfig = dateConfig+"T05:00:00.000";
   
   let body = {
     "name": $("#siteName").val(),
@@ -453,13 +451,14 @@ function createSite (awsItem, locInfo) {
   .then((siteData) => {
     console.log(siteData);
     letSiteId = siteData.id;
-    $("#siteStatusModal ").modal();
+    nextModal = "sipModal";
+    showSuccessModal("Site is created successfully. Please proceed.");
   })
   .catch((err) => {
     console.log('There was a failure calling postTelephonyProvidersEdgesSites');
     console.error(err);
-    $("#siteFailedModal").modal();
-      document.getElementById("siteError").innerHTML =  err.body.message;
+    let errorMessage = "Creating Site has failed. " + err.body.message;
+    showFailedModal(errorMessage);
   });
 }
 
@@ -472,9 +471,9 @@ function siteOutboundroutes (trunkData) {
   // get outbound routes and delete them
   telephonyProvidersEdgeApi.getTelephonyProvidersEdgesSiteOutboundroutes(letSiteId, opts)
   .then((outboundRoute) => {
-    routeEntities = outboundRoute.entities 
+    let routeEntities = outboundRoute.entities 
     routeEntities.forEach(entity => {
-      entityId = entity.id;
+      let entityId = entity.id;
       telephonyProvidersEdgeApi.deleteTelephonyProvidersEdgesOutboundroute(entityId)
       .then(() => {
           console.log('deleteTelephonyProvidersEdgesOutboundroute returned successfully.');
@@ -531,8 +530,7 @@ $('#sipModal').on('shown.bs.modal', function () {
   validateCreateTrunk();
 })
 
-function getListofQueues () {
-
+$("#getListofQueues").click(function(){
   let opts = { 
     'pageSize': 100
   };
@@ -546,7 +544,7 @@ function getListofQueues () {
         let queueOption = document.createElement("option");
         queueOption.text = element.name;
         queueOption.value = element.id;
-        queueSelect.add(option);
+        queueSelect.add(queueOption);
       });
       initializeFlowCreation();
     })
@@ -555,7 +553,7 @@ function getListofQueues () {
       console.error(err);
     });
   
-}
+});
 
 
 function initializeFlowCreation () {
@@ -582,7 +580,7 @@ function encodeRawCallFlow (decodeRaw) {
 }
 
 // get the Roles of the dev org
-function getAuthorizationRoles () {
+$("#createDeveloperRole").click(function(){
   let opts = { 
     'pageSize': 50,
     'pageNumber': 1, 
@@ -590,6 +588,7 @@ function getAuthorizationRoles () {
   
   AuthorizationApi.getAuthorizationRoles(opts)
     .then((rolesList) => {
+      let tempRoles = ""
       let roles = "";
       rolesList = rolesList.entities;
       console.log(`getAuthorizationRoles success! data: ${JSON.stringify(rolesList, null, 2)}`);
@@ -609,11 +608,11 @@ function getAuthorizationRoles () {
       console.log('There was a failure calling getAuthorizationRoles');
       console.error(err);
     });
-}
-// put all roles to the current user
+});
+
 function putUserRoles (roles) {
   let userId = currentUserInfo.id; 
-  body = roles;
+  let body = roles;
   console.log(body);
   AuthorizationApi.putUserRoles(userId, body)
     .then((data) => {
@@ -626,7 +625,20 @@ function putUserRoles (roles) {
       $("#roleFailedModal").modal();
       document.getElementById("siteError").innerHTML =  err.body.message;
     });
-}
+};
+
+function showSuccessModal (message) {
+  successMessage.innerHTML = message;
+  $("#successStatusModal").modal();
+};
+
+function showFailedModal (message) {
+  errorMessage.innerHTML = message;
+  $("#failedStatusModal").modal();
+};
+
+$('#successModalButton').click(function () {$("#"+nextModal).modal();});
+
 
 
 
