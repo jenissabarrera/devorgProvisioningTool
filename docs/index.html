@@ -27,20 +27,20 @@
       <div class="col-md-4">
         <h2>Provision Telephony</h2>
         <p>Setup your telephony in an instant. Choose between Twillio or Nexmo</p>
-        <p><button type="submit" onclick="listProducts()" class="btn btn-success-modified">Start »</button></p>
+        <p><button type="submit" id="listProducts" class="btn btn-success-modified">Start »</button></p>
       </div>
 
       <div class="col-md-4">
         <h2>Dev Org Kick Starter</h2>
         <p>Setup your Purecloud essentials easily. Create accounts,groups,roles and queues for your Dev Org.</p>
-        <p><a class="btn btn-success-modified" href="#" role="button" disabled>Start
+        <p><a class="btn btn-success-modified" href="#" role="button" id="trial" disabled>Start
             »</a></p>
       </div>
       <div class="col-md-4">
         <h2>Architect Flow</h2>
         <p>Here's a downloadable architect flow for your Org which you can import and use to setup Architect Flow
           seamlessly</p>
-        <p><a class="btn btn-success-modified" href="#" role="button" onclick="getListofQueues()" disabled>Start »</a></p>
+        <p><a class="btn btn-success-modified" href="#" role="button" id="getListofQueues" disabled>Start »</a></p>
       </div>
     </div>
 
@@ -48,288 +48,14 @@
       <div class="col-md-4">
         <h2>Create A Developer Role</h2>
         <p> Assign all available roles to the current user.</p>
-        <p><a class="btn btn-success-modified" href="#" role="button" onclick="getAuthorizationRoles()" disabled>Start »</a></p>
+        <p><a class="btn btn-success-modified" href="#" role="button" id="createDeveloperRole" disabled>Start »</a></p>
       </div>
     </div>
 
   </div>
 
-   <!-- Location Status Modal -->
-   <div class="modal fade" id="locationSuccessStatusModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align:center">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons">check_circle</i>
-            </div>
-            <p>Location is created successfully!</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteModal">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Location Failed Modal -->
-  <div class="modal fade" id="locationFailedModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
-              <p>Location was not successful. Please try again!</p>
-              <p id="locationError"></p>
-            </div>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Site Modal-->
-  <div class="modal fade" id="siteModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <p class="card-text">
-            <h4>Create a Site</h4>
-            <p>To create a site we need the following information:</p>
-
-            <div class="form-group-inline">
-              <div style="align-items: initial; display: flex;">
-                <label>Site Name:</label>
-                <a href="#" data-toggle="tooltip" title="Enter your desired site name &#10 e.g: Daily City">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" name="txtSiteName" id="siteName">
-            </div>
-
-            <div class="form-group-inline">
-              <div style="align-items: initial; display: flex;">
-                <label>Time Zone:</label>
-                <a href="#" data-toggle="tooltip" title="Select a Time Zone">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <select type="text" class="form-control" id="timeZone">
-                <option selected>Choose Time Zone</option>
-              </select>
-            </div>
-
-            <div class="form-group-inline">
-              <div style="align-items: initial; display: flex;">
-                <label>Location:</label>
-                <a href="#" data-toggle="tooltip" title="This is the location created earlier">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" name="txtLocation" id="inputLocation" disabled>
-            </div>
-
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteAndLocationStatusModal" onclick="getSites()" id="createLocation">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Site Status Modal -->
-  <div class="modal fade" id="siteStatusModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align:center">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons">check_circle</i>
-            </div>
-            <p>Location and Site were created successfully!</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#sipModal">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Developer role success modal -->
-  <div class="modal fade" id="roleSuccessModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Developer Role Creation</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <div class="icon-box">
-                <i class="material-icons">check_circle</i>
-              </div>
-              <p>All the roles has been added to your user account!</p>
-              <p id="siteError"></p>
-            </div>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-    <!-- BYOC Incapable -->
-    <div class="modal fade" id="roleFailedModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-  
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h3>Developer Role Creation</h3>
-            <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
-  
-          <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
-              <p>Developer role creation was not successful. Please try again!</p>
-              <p id="roleError"></p>
-            </div>
-          </p>
-        </div>
-  
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success-modified" data-dismiss="modal">Dismiss</button>
-          </div>
-  
-        </div>
-      </div>
-    </div>
-
-  <!-- BYOC Capable -->
-  <div class="modal fade" id="byocenableModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony</h3>
-          <button type="button" class="close" data-dismiss="modal" onclick="refresh()">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align:center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons">check_circle</i>
-            </div>
-            <p>Your org has BYOC Capability. Please proceed.</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#mainModal">Next</button>
-        </div>
-
-
-      </div>
-    </div>
-  </div>
-
-  <!-- BYOC Incapable -->
-  <div class="modal fade" id="byocdisableModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align:center">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
-            </div>
-            <p>Your org has no BYOC Capability.</p>
-            <p>Please contact administrator.</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Dismiss</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
   <!-- Main Modal -->
-  <div class="modal fade" id="mainModal">
+  <div class="modal fade" id="trunkOption">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
@@ -496,66 +222,7 @@
     </div>
   </div>
 
-  <!-- Location Status Modal -->
-  <div class="modal fade" id="locationSuccessStatusModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align:center">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons">check_circle</i>
-            </div>
-            <p>Location is created successfully!</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteModal">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Location Failed Modal -->
-  <div class="modal fade" id="locationFailedModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
-              <p>Location was not successful. Please try again!</p>
-              <p id="locationError"></p>
-            </div>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
+  
   <!-- Site Modal-->
   <div class="modal fade" id="siteModal">
     <div class="modal-dialog modal-lg">
@@ -610,69 +277,8 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#siteAndLocationStatusModal" onclick="getSites()" id="createLocation">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Site Status Modal -->
-  <div class="modal fade" id="siteStatusModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align:center">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons">check_circle</i>
-            </div>
-            <p>Location and Site were created successfully!</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#sipModal">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Site Failed Modal -->
-  <div class="modal fade" id="siteFailedModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
-              <p>Site was not successful. Please try again!</p>
-              <p id="siteError"></p>
-            </div>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
+            data-target="#siteAndLocationStatusModal" id="getSites">Next</button>
+            <!-- id="getSites"  -->
         </div>
 
       </div>
@@ -802,70 +408,9 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" id="btnCreateTrunk" class="btn btn-success-modified" onclick="createTrunk()"
-              disabled>Next</button>
+            <button type="submit" id="btnCreateTrunk" class="btn btn-success-modified" disabled>Next</button>
           </div>
         </form>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- SIP Trunk Success Status Message -->
-  <div class="modal fade" id="sipStatusModalSuccess">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons">check_circle</i>
-            </div>
-            <p>BYOC SIP Trunk was successfully created!</p>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal"
-            data-target="#outboundRouteModal">Next</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- SIP Trunk Failed Status Message -->
-  <div class="modal fade" id="sipStatusFailed">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h3>Provision Telephony - Twilio</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body" style="text-align: center;">
-          <p class="card-text">
-            <div class="icon-box">
-              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
-              <p>BYOC SIP Trunk was not successful. Please try again!</p>
-              <p id="trunkErrorMessage"></p>
-            </div>
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
-        </div>
 
       </div>
     </div>
@@ -901,6 +446,65 @@
       </div>
     </div>
   </div>
+  
+  <!-- Success Status Modal -->
+  <div class="modal fade" id="successStatusModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align:center">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons">check_circle</i>
+            </div>
+            <p id="successMessage"></p>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" id="successModalButton" data-dismiss="modal" data-toggle="modal">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Failed Status Modal -->
+  <div class="modal fade" id="failedStatusModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3>Provision Telephony - Twilio</h3>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="text-align: center;">
+          <p class="card-text">
+            <div class="icon-box">
+              <i class="material-icons" style="color:#F53131;">cancel_presentation</i>
+              <!-- <p>Something Went Wrong!!!</p> -->
+              <p id="errorMessage"></p>
+            </div>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success-modified" data-dismiss="modal">Home</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Twilio Success Message -->
   <div class="modal fade" id="twilioSuccessModal">
@@ -915,9 +519,13 @@
 
         <!-- Modal body -->
         <div class="modal-body">
+          <div class="icon-box">
+            <i class="material-icons">check_circle</i>
+          </div>
           <p class="card-text">
+            <h5>Provisioning Telephony - Twilio</h5>
             <p>Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please
-              try to simulate an outbound call to verify that all of the telephony components are probably working.</p>
+              try to simulate an outbound call to verify that all of the telephony components are working.</p>
           </p>
         </div>
 
@@ -928,8 +536,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Twilio Success Message -->
 
   <!-- Twilio Success Message -->
   <div class="modal fade" id="architectFlowModal">
@@ -965,7 +571,6 @@
   </div>
 
 </body>
-
 </html>
 
-<script src="./scripts/main.js"></script>
+<script src="./scripts/main.js" type="module"></script>
