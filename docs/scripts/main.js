@@ -1,4 +1,5 @@
 import provisionTelephonyViews from './views/provisiontelephony.js'
+import architectFlowViews from './views/architectflow.js'
 
 
 const clientId = '83d37bf5-e050-47bf-9937-0314b259c9c4';
@@ -14,6 +15,7 @@ $(document).ready(() => {
       console.log('Logged in');
       let token = client.authData.accessToken;
       provisionTelephonyViews.btnProvisionTelephonyEventListener();
+      architectFlowViews.btnInitiateArchitectDownloadEventListener();
       
     })
     .catch((err) => console.error(err));

@@ -251,8 +251,7 @@ const provisionTelephonyViews = {
     infoModal.show("Provision Telephony - Twilio", 'Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please try to simulate an outbound call to verify that all of the telephony components are probably working.', "Dismiss", "btnFinalModal");
     let finalBtn = document.getElementById("btnFinalModal")
     finalBtn.setAttribute("data-dismiss","modal" )
-    $("#info-modal").modal();
-
+    $("#info-modal").modal()
   }
 
 }

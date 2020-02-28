@@ -4,7 +4,7 @@ modalTemplate.innerHTML = `
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
       
-            <form id="createTrunkModal" class="needs-validation" novalidate method="dialog">
+            <form class="needs-validation" novalidate method="dialog">
               <div class="modal-header">
                 <h3 id = 'infoModalHeader'>Header</h3>
                 <button class="close" data-dismiss="modal">×</button>

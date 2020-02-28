@@ -39,9 +39,6 @@ export default {
       document.getElementById('modal-footer-button').innerHTML = button;
       document.getElementById('modal-footer-button').id = btnId;
     },
-
-    
-
   
 }
 
