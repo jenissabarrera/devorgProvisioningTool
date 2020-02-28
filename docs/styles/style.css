@@ -15,14 +15,15 @@
   .form-control.active.focus, .form-control.active:focus, .form-control.focus, .form-control.focus:active, .form-control:active:focus, .form-control:focus {
     background-image: #2A60C8 !important;
     outline: 10;
+    border-color: #2A60C8 !important;
     -webkit-box-shadow: #2A60C8 !important;
     box-shadow: #2A60C8 !important;
   }
   .was-validated.active.focus, .was-validated.active:focus, .was-validated.focus, .was-validated.focus:active, .was-validated:active:focus, .was-validated:focus {
-    background-image: none;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+    background-image: none !important;
+    outline: 0 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
   }
 
   .btn-success-modified {
@@ -109,6 +110,14 @@ a:hover {
   color: #FF4F1F; 
 
 }
+
+.form-control.focus {
+
+  border-color: #2A60C8 !important;
+  box-shadow: #2A60C8 !important;
+
+}
+
 
 
 

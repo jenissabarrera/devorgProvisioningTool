@@ -1,7 +1,8 @@
-import provisionTelephonyFunctions from '../pages/provisionTelephony.js.js'
-import infoModal from '../components/modals/info-modal.js.js'
-import formModal from '../components/modals/form-modal.js.js'
-import errorModal from '../components/modals/error-modal.js.js'
+import provisionTelephonyFunctions from '../pages/provisionTelephony.js'
+import infoModal from '../components/modals/info-modal.js'
+import formModal from '../components/modals/form-modal.js'
+import errorModal from '../components/modals/error-modal.js'
+import successModal from '../components/modals/success-modal.js'
 
 const provisionTelephonyViews = {
 
@@ -29,26 +30,26 @@ const provisionTelephonyViews = {
     }, false)
   },
 
-  btnCreateTrunkEventListener() {
+  btnCreateSIPTrunkListener() {
     document.getElementById("btnCreateSIPTrunk").addEventListener("click", function () {
-      provisionTelephonyViews.validateCreateTrunk();
+      provisionTelephonyFunctions.createTrunk();
     }, false)
   },
 
+  btnOutboundRouteModalListener() {
+    document.getElementById("btnOutboundRouteModal").addEventListener("click", function () {
+      provisionTelephonyViews.displayOutboundRouteModal();
+    }, false)
+  },
+
+
   // Function related modals
+
   displaybyocEnabledModal() {
-    let newInfoModal = infoModal.new();
-    let temporaryBody = `  
-    <p class="card-text">
-    <div class="icon-box">
-      <i class="material-icons">check_circle</i>
-    </div>
-    <p class="body-content" id= "modal-body-content">Your org has BYOC Capability. Please proceed.</p>
-  </p>
-    `
-    document.body.appendChild(newInfoModal);
-    infoModal.show("Provision Telephony", temporaryBody, "Next", "btnByocEnable");
-    $("#info-modal").modal();
+    let newSuccessModal = successModal.new();
+    document.body.appendChild(newSuccessModal);
+    successModal.show("Provision Telephony", "Your org has BYOC Capability. Please proceed.", "Next", "btnByocEnable");
+    $("#success-modal").modal();
     provisionTelephonyViews.btnByocEnableEventListener();
   },
 
@@ -57,6 +58,25 @@ const provisionTelephonyViews = {
     document.body.appendChild(newErrorModal);
     infoModal.show("Provision Telephony", "Your org has no BYOC Capability.Please contact administrator.", "Dismiss");
     $("#error-modal").modal();
+  },
+
+  displaySipTrunkSuccess() {
+    document.getElementById("info-modal").remove()
+    let newSuccessModal = successModal.new();
+    document.body.appendChild(newSuccessModal);
+    successModal.show("Provision Telephony - Twilio", "Outbound Route for Site using new SIP trunk was successfully created!", "Next", "btnOutboundRouteModal");
+    $("#success-modal").modal();
+    provisionTelephonyViews.btnOutboundRouteModalListener() 
+
+  },
+
+  displaySipTrunkFailed(errorMessage) {
+    document.getElementById("info-modal").remove()
+    let newErrorModal = errorModal.new();
+    document.body.appendChild(newErrorModal);
+    errorModal.show("Provision Telephony - Twilio", errorMessage, "Dismiss");
+    $("#error-modal").modal();
+
   },
 
   selectTelephony() {
@@ -76,7 +96,7 @@ const provisionTelephonyViews = {
   </div>
     </button>
   </div> `;
-    document.getElementById("info-modal").remove();
+    document.getElementById("success-modal").remove();
     let newInfoModal = infoModal.new();
     document.body.appendChild(newInfoModal);
     document.getElementById("info-modal").querySelector(".modal-footer").style.display = "none"
@@ -213,33 +233,25 @@ const provisionTelephonyViews = {
               </div>
             </div> `
 
-        
+
     document.getElementById("info-modal").remove()
     let newInfoModal = formModal.new();
     document.body.appendChild(newInfoModal);
     infoModal.show("Provision Telephony - Twilio", temporaryBody, "Next", "btnCreateSIPTrunk");
+    document.getElementById("btnCreateSIPTrunk").disabled = true
     $("#info-modal").modal();
-    provisionTelephonyViews.btnCreateTrunkEventListener();
-
+    provisionTelephonyFunctions.validateCreateTrunk();
+    provisionTelephonyViews.btnCreateSIPTrunkListener();
   },
 
-  validateCreateTrunk() {
-  
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    let forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    let validation = Array.prototype.filter.call(forms, function (form) {
-      form.addEventListener('input', function (event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-
-        } else if (form.checkValidity() === true) {
-          // provisionTelephonyFunctions.checkSipInput();
-        }
-        form.classList.add('was-validated');
-      }, true)
-    })
+  displayOutboundRouteModal () {
+    document.getElementById("success-modal").remove()
+    let newInfoModal = formModal.new();
+    document.body.appendChild(newInfoModal);
+    infoModal.show("Provision Telephony - Twilio", 'Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please try to simulate an outbound call to verify that all of the telephony components are probably working.', "Dismiss", "btnFinalModal");
+    let finalBtn = document.getElementById("btnFinalModal")
+    finalBtn.setAttribute("data-dismiss","modal" )
+    $("#info-modal").modal();
 
   }
 

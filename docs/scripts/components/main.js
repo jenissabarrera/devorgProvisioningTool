@@ -1,1 +1,0 @@
-import modal from './modals/info-modal.js';
