@@ -6,7 +6,6 @@ const platformClient = require('platformClient');
 let AuthorizationApi = new platformClient.AuthorizationApi();
 let telephonyProvidersEdgeApi = new platformClient.TelephonyProvidersEdgeApi();
 let locationsApi = new platformClient.LocationsApi();
-let routingApi = new platformClient.RoutingApi();
 
 
 

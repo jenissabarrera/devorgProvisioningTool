@@ -1,6 +1,10 @@
+import architectFlowViews from '../views/architectflow.js'
+
 const platformClient = require('platformClient');
 let routingApi = new platformClient.RoutingApi();
 let encodeUri = "";
+let encodeProcessed ="";
+
 const architectFlowFunctions = {
 
     getListofQueues () {
@@ -49,7 +53,7 @@ const architectFlowFunctions = {
       },
 
       encodeRawCallFlow (decodeRaw) {
-        let encodeUri = decodeURIComponent(decodeRaw);
+        encodeUri = decodeURIComponent(decodeRaw);
         console.log("encode URI" + (encodeUri));
       },
       modifyCallFlow (selectedQueueId,selectedQueueText) {
@@ -84,11 +88,11 @@ const architectFlowFunctions = {
           encodeProcessCallFlow (decodeURI) {
             encodeProcessed = window.btoa(decodeURI);
             console.log(encodeProcessed)
+            architectFlowViews.btnDownloadFlowEventListener();
           
           },
 
-          downloadFlow (filename, encodeProcessed) {
-  
+          downloadFlow (filename) {  
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeProcessed);
             element.setAttribute('download', filename);

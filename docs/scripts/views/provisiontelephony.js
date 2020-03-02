@@ -90,9 +90,9 @@ const provisionTelephonyViews = {
  
     </button>
   
-    <button type="button" id="btnTwillio" class="card bg-primary-modified" data-dismiss="modal" data-toggle="modal" style="color: white;">
+    <button type="button" id="btnNexmo" class="card bg-primary-modified" data-dismiss="modal" data-toggle="modal" style="color: white;">
     <div class="card-body text-center">
-    <p class="card-text"> <a href="#" style="color: white;"> Twillio </a> </p>
+    <p class="card-text"> <a href="#" style="color: white;"> Nexmo </a> </p>
   </div>
     </button>
   </div> `;

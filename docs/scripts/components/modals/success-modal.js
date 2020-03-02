@@ -43,5 +43,10 @@ export default {
       document.getElementById('modal-footer-button').innerHTML = button;
       document.getElementById('modal-footer-button').id = btnId;
     },
+
+    hide(){
+      let el = document.getElementById('success-modal');
+      el.classList.remove('is-active');
+  }
   
 }
