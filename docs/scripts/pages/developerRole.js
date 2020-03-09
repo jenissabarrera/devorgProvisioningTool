@@ -1,5 +1,5 @@
 import provisionTelephonyViews from '../views/provisionTelephony.js'
-import loadingModalView from '../components/loadModal.js'
+import loadingModalView from '../components/modals.js'
 
 const platformClient = require('platformClient');
 let usersApi = new platformClient.UsersApi();

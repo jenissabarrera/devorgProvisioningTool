@@ -1,7 +1,7 @@
 let modalTemplate = document.createElement('template');
 modalTemplate.innerHTML = 
 `
-<div id="info-modal" class="modal fade" >
+<div id="form-modal" class="modal fade" >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -36,7 +36,7 @@ const formModal = {
     document.getElementById('modal-body').innerHTML = body;
     document.getElementById('modal-footer-button').innerHTML = button;
     document.getElementById('modal-footer-button').id = btnId;
-    $('#info-modal').modal();
+    $('#form-modal').modal();
   }
 
 }

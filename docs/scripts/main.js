@@ -1,6 +1,6 @@
 import provisionTelephonyViews from './views/provisiontelephony.js'
 import architectFlowViews from './views/architectflow.js'
-import loadModalView from './components/loadModal.js'
+import loadModalView from './components/modals.js'
 import developerRoleFlowViews from './views/developerRole.js'
 
 const clientId = '83d37bf5-e050-47bf-9937-0314b259c9c4';
@@ -15,10 +15,12 @@ $(document).ready(() => {
         .then(() => {
             console.log('Logged in');
             let token = client.authData.accessToken;
-            provisionTelephonyViews.btnProvisionTelephonyEventListener();
+            provisionTelephonyViews.btnEventListeners('btnProvisionTelephony');
+            provisionTelephonyViews.btnEventListeners('btnLearnMore');
             architectFlowViews.btnInitiateArchitectDownloadEventListener();
             developerRoleFlowViews.btnDeveloperRoleEventListener();
             loadModalView.setupLoadingEl();
+            
         })
         .catch((err) => console.error(err));
 })

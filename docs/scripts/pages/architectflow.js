@@ -8,6 +8,7 @@ let encodeProcessed ="";
 const architectFlowFunctions = {
 
     getListofQueues () {
+
         let opts = { 
           'pageSize': 100
         };
@@ -101,6 +102,14 @@ const architectFlowFunctions = {
             document.body.removeChild(element);
         
         },
+
+
+
+
+      
+
+
+
 }
 
 export default architectFlowFunctions

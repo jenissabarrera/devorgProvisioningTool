@@ -1,5 +1,5 @@
 import provisionTelephonyViews from '../views/provisionTelephony.js'
-import loadingModalView from '../components/loadModal.js'
+import loadingModalView from '../components/modals.js'
 
 // All functionalities related to provisioning telephony was placed here.
 const platformClient = require('platformClient');
@@ -11,7 +11,7 @@ let locationsApi = new platformClient.LocationsApi();
 let locationId = '';
 let locationText = '';
 let letSiteId = '';
-
+let sipEndPoints = '';
 
 const provisionTelephonyFunctions = {
 
@@ -130,8 +130,7 @@ const provisionTelephonyFunctions = {
               },
               value: {
                 default: [],
-                instance: ['54.172.60.0/23', '34.203.250.0/23', '54.244.51.0/24', '54.65.63.192/26', '3.112.80.0/24',
-                  '54.169.127.128/26', '3.1.77.0/24']
+                instance: sipEndPoints
               }
             },
             trunk_protocol: {
@@ -464,6 +463,14 @@ const provisionTelephonyFunctions = {
 
     formatNumber(n) {
         return n > 9 ? '' + n: '0' + n;
+    },
+
+    determineSipEndpoint(sipOption) {
+        if(sipOption==='btnTwillio') {
+            sipEndPoints = ['54.172.60.0/23', '34.203.250.0/23', '54.244.51.0/24', '54.65.63.192/26', '3.112.80.0/24', '54.169.127.128/26', '3.1.77.0/24']
+        }else {
+            sipEndPoints = ['173.193.199.24/32','174.37.245.34/32','5.10.112.121/31', '119.81.44.6/31']
+        }
     }
 }
 

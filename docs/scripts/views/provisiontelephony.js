@@ -1,100 +1,75 @@
 import provisionTelephonyFunctions from '../pages/provisionTelephony.js'
-// import infoModal from '../components/modals/info-modal.js'
 import formModal from '../components/modals/form-modal.js'
 import errorModal from '../components/modals/error-modal.js'
 import successModal from '../components/modals/success-modal.js'
-import loadingModalView from '../components/loadModal.js'
+import loadingModalView from '../components/modals.js'
+import infoModal from '../components/modals/info-modal.js'
 
 const provisionTelephonyViews = {
-    // All button on click related functions
-
-    btnProvisionTelephonyEventListener() {
-        document.getElementById('btnProvisionTelephony').addEventListener('click', function () {
-            provisionTelephonyFunctions.listProducts();
-        }, false)
-    },
-    btnByocEnableEventListener() {
-        document.getElementById('btnByocEnable').addEventListener('click', function () {
-            provisionTelephonyViews.selectTelephony();
-        }, false)
-    },
-    btnTwilioEventListener() {
-        document.getElementById('btnTwillio').addEventListener('click', function () {
-            provisionTelephonyViews.displayTwillioModal();
-        }, false)
-    },
-
-    btnStartProvisionEventListener() {
-        document.getElementById('btnStartProvision').addEventListener('click', function () {
-            provisionTelephonyViews.displayLocationModal();
-        }, false)
-    },
-
-    btnOpenSiteModalListener() {
-        document.getElementById('btnDisplaySiteModal').addEventListener('click', function () {
-            provisionTelephonyViews.displaySiteModal();
-        }, false)
-    },
-
-    btnOpenTrunkModalListener() {
-        document.getElementById('btnTrunkModal').addEventListener('click', function () {
-            provisionTelephonyViews.displaySipTrunkModal();
-        }, false)
-    },
-    
-    btnCreateSIPTrunkListener() {
-        document.getElementById('btnCreateSIPTrunk').addEventListener('click', function () {
-            loadingModalView.showloadingModal('Sip Trunk is being created...');
-            provisionTelephonyFunctions.createTrunk();
-        }, false)
-    },
-    
-    btnLocationModalListener() {
-        document.getElementById('btnCreateLocation').addEventListener('click', function () {
-            loadingModalView.showloadingModal('Location is being created...');
-            provisionTelephonyFunctions.createLocation();
-        }, false)
-    },
-
-    btnCloseModalListener() {
-        document.getElementById('btnClose').addEventListener('click', function () {
-            loadingModalView.hideLoadingModal();
-        }, false)
-    },
-
-    btnSiteModalListener() {
-        document.getElementById('btnCreateSite').addEventListener('click', function () {
-            loadingModalView.showloadingModal('Getting Telephony Providers Edges Sites...');
-            provisionTelephonyFunctions.getEdgeSite();
+    // btn event listener cases
+    btnEventListeners(btnID) {
+        document.getElementById(btnID).addEventListener('click', function () {
+            switch(btnID) {
+                case 'btnByocEnable':
+                    console.log(btnID)
+                    provisionTelephonyViews.selectTelephony();
+                    break;
+                case 'btnLearnMore':
+                    provisionTelephonyViews.tbdButtonFunction();
+                    break;
+                case 'btnDisplaySiteModal':
+                    provisionTelephonyViews.displaySiteModal();
+                    break;
+                case 'btnTrunkModal':
+                    provisionTelephonyViews.displaySipTrunkModal();
+                    break;
+                case 'btnClose':
+                    loadingModalView.hideLoadingModal();
+                    break;
+                case 'btnCreateSite':
+                    loadingModalView.showloadingModal('Getting Telephony Providers Edges Sites...');
+                    provisionTelephonyFunctions.getEdgeSite();
+                    break;
+                case 'btnCreateLocation':
+                    loadingModalView.showloadingModal('Location is being created...');
+                    provisionTelephonyFunctions.createLocation();
+                    break;
+                case 'btnCreateSIPTrunk':
+                    loadingModalView.showloadingModal('Sip Trunk is being created...');
+                    provisionTelephonyFunctions.createTrunk();
+                    break;
+                case 'btnStartProvision':
+                    provisionTelephonyViews.displayLocationModal();
+                    break;
+                case 'btnTwillio':
+                    provisionTelephonyFunctions.determineSipEndpoint(this.getAttribute('id'));
+                    provisionTelephonyViews.displayProvisioningModal();
+                    break;
+                case 'btnNexmo':
+                    provisionTelephonyViews.tbdButtonFunction();
+                    // provisionTelephonyFunctions.determineSipEndpoint(this.getAttribute('id'));
+                    // provisionTelephonyViews.displayProvisioningModal();
+                    break;
+                case 'btnProvisionTelephony':
+                    provisionTelephonyFunctions.listProducts();
+                    break;
+            }    
         }, false)
     },
 
     // Function related modals
-    //  Success modal function
+    // Success modal function
     displaySuccessModal(title, message, nextAction, btnID) {
-        provisionTelephonyViews.showNewModal(successModal);
-        loadingModalView.hideLoadingModal();
+        loadingModalView.showNewModal(successModal);
         successModal.show(title,message, nextAction, btnID)
-        switch(btnID) {
-            case 'btnByocEnable':
-                provisionTelephonyViews.btnByocEnableEventListener();
-                break;
-            case 'btnDisplaySiteModal':
-                provisionTelephonyViews.btnOpenSiteModalListener();
-                break;
-            case 'btnTrunkModal':
-                provisionTelephonyViews.btnOpenTrunkModalListener();
-                break;
-            case 'btnClose':
-                provisionTelephonyViews.btnCloseModalListener();
-                break;
-        }  
+        console.log(btnID)
+        this.btnEventListeners(btnID);  
     },
 
     // Failed modal function
     displayFailedModal(title, message, nextAction) {
         loadingModalView.hideLoadingModal();
-        provisionTelephonyViews.showNewModal(errorModal);
+        loadingModalView.showNewModal(errorModal);
         errorModal.show(title, message, nextAction)
     },
 
@@ -116,13 +91,14 @@ const provisionTelephonyViews = {
           </button>
         </div> 
         `;    
-        provisionTelephonyViews.showNewModal(formModal);
-        document.getElementById('info-modal').querySelector('.modal-footer').style.display = 'none'
+        loadingModalView.showNewModal(formModal);
+        document.getElementById('form-modal').querySelector('.modal-footer').style.display = 'none'
         formModal.show('Select Telephony', temporaryBody, '', '');
-        provisionTelephonyViews.btnTwilioEventListener();
+        this.btnEventListeners('btnTwillio');
+        this.btnEventListeners('btnNexmo');
     },
 
-    displayTwillioModal() {
+    displayProvisioningModal() {
         let temporaryBody = 
         `
         <p class="card-text">
@@ -132,14 +108,15 @@ const provisionTelephonyViews = {
           <p>Create a BYOC SIP Trunk to Twilio</p>
         </p> 
         `
-        provisionTelephonyViews.showNewModal(formModal);
-        formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnStartProvision');
-        provisionTelephonyViews.btnStartProvisionEventListener();
+        loadingModalView.showNewModal(infoModal);
+        infoModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnStartProvision');
+        this.btnEventListeners('btnStartProvision');
     },
 
     displaySipTrunkModal() {
 
-        let temporaryBody = `
+        let temporaryBody = 
+        `
         <div class="card-text">
           <p>Create BYOC SIP Trunk</p>
           <p>Now I’ll provision a SIP trunk for your new site that is linked to your Twilio SIP trunk. I need the following information:</p>
@@ -231,6 +208,7 @@ const provisionTelephonyViews = {
             <div class="form-group-inline col-md-5 mb-3">
               <div style="align-items: initial; display: flex;">
                 <label>Name:</label>
+
                 <a href="#" data-toggle="tooltip"
                   title="Specific overriding caller ID name to use as the outgoing origination address. &#10May be a URI or raw phone number">
                   <i class="material-icons"> help </i>
@@ -243,9 +221,9 @@ const provisionTelephonyViews = {
           </div>
         </div> 
         `
-        provisionTelephonyViews.showNewModal(formModal);
+        loadingModalView.showNewModal(formModal);
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateSIPTrunk');
-        provisionTelephonyViews.btnCreateSIPTrunkListener(); 
+        this.btnEventListeners('btnCreateSIPTrunk'); 
     },
 
     displayLocationModal () {
@@ -331,10 +309,10 @@ const provisionTelephonyViews = {
           </div>
         </p>
         `
-        provisionTelephonyViews.showNewModal(formModal);
+        loadingModalView.showNewModal(formModal);
         provisionTelephonyFunctions.countryList();
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateLocation'); 
-        provisionTelephonyViews.btnLocationModalListener();
+        this.btnEventListeners('btnCreateLocation');
     },
 
     displaySiteModal () {
@@ -367,27 +345,14 @@ const provisionTelephonyViews = {
           </div>
         </p>
         `
-        provisionTelephonyViews.showNewModal(formModal);
+        loadingModalView.showNewModal(formModal);
         provisionTelephonyFunctions.getTimezone();
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateSite');
-        provisionTelephonyViews.btnSiteModalListener();
+        this.btnEventListeners('btnCreateSite');
     },
 
-    // function to open new modal and delete previous modal
-    showNewModal(modal) {
-        let formModal = document.getElementById('info-modal')
-        let successModal= document.getElementById('success-modal')
-        loadingModalView.hideLoadingModal();
-        if (typeof(formModal) != 'undefined' && formModal != null) {
-            console.log('remove the infomodal')
-            formModal.remove();
-        }
-        if (typeof(successModal) != 'undefined' && successModal != null) {
-            console.log('remove the succeess')
-            successModal.remove();
-        }
-        let newModal = modal.new();
-        document.body.appendChild(newModal);
+    tbdButtonFunction() {
+        alert("This function is currently unavailable!")
     }
 }
 

@@ -1,8 +1,5 @@
 import formModal from '../components/modals/form-modal.js'
-import errorModal from '../components/modals/error-modal.js'
-import successModal from '../components/modals/success-modal.js'
-import loadingModalView from '../components/loadModal.js'
-import provisionTelephonyViews from './provisiontelephony.js'
+import loadingModalView from '../components/modals.js'
 import createDeveloperRoleFunctions from '../pages/developerRole.js'
 
 const createDeveloperRoleView = {
@@ -39,7 +36,7 @@ const createDeveloperRoleView = {
           </div>
         </p>
         `
-        provisionTelephonyViews.showNewModal(formModal);
+        loadingModalView.showNewModal(formModal);
         createDeveloperRoleFunctions.getOrgUser();
         formModal.show('Create a Developer Role', temporaryBody, 'Next', 'btnCreateDev');
         createDeveloperRoleView.btnCreateRoleEventListener();

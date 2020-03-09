@@ -1,6 +1,7 @@
 import architectFlowFunctions from '../pages/architectflow.js'
 import infoModal from '../components/modals/info-modal.js'
 import successModal from '../components/modals/success-modal.js'
+import loadingModalView from '../components/modals.js'
 
 const architectFlowViews = {
 
@@ -20,8 +21,12 @@ const architectFlowViews = {
 
     btnDownloadFlowEventListener() {
         document.getElementById("btnDownloadFlow").addEventListener("click", function () {
+            loadingModalView.showloadingModal("Downloading Architect Flow file...")
             let filename = "SampleCallFlow.i3InboundFlow";
             architectFlowFunctions.downloadFlow(filename);
+            loadingModalView.hideLoadingModal();
+            loadingModalView.showNewModal(successModal);
+            successModal.show("Architect Flow", "Architect Flow successfully downloaded.","Finish", "")
         }, false)
     },
 
@@ -41,15 +46,12 @@ const architectFlowViews = {
           </select>
         </div>
 
-      </p>
-        
+        </p>       
         `
-        let newInfoModal = infoModal.new();
-        document.body.appendChild(newInfoModal);
-        successModal.show("Architect Flow", temporaryBody, "Download", "btnDownloadFlow");
+        loadingModalView.showNewModal(infoModal);
+        infoModal.show("Architect Flow", temporaryBody, "Download", "btnDownloadFlow")
         let downloadBtn = document.getElementById("btnDownloadFlow");
         downloadBtn.setAttribute("data-dismiss", "modal");
-        $("#info-modal").modal();
         architectFlowViews.selectQueueEventListener();
     },
 }
