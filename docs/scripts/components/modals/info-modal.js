@@ -1,8 +1,6 @@
-
-
 let modalTemplate = document.createElement('template');
 modalTemplate.innerHTML = `
-<div id="info-modal" class="modal fade" >
+<div id="info-modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
@@ -29,19 +27,15 @@ modalTemplate.innerHTML = `
 
 export default {
 
-    new() {
-        return document.importNode(modalTemplate.content, true);
-    },
+  new() {
+    return document.importNode(modalTemplate.content, true);
+  },
 
-    show(title,body,button,btnId) {
-      document.getElementById('infoModalHeader').innerHTML = title;
-      document.getElementById('modal-body').innerHTML = body;
-      document.getElementById('modal-footer-button').innerHTML = button;
-      document.getElementById('modal-footer-button').id = btnId;
-    },
-  
+  show(title, body, button, btnId) {
+    document.getElementById('infoModalHeader').innerHTML = title;
+    document.getElementById('modal-body').innerHTML = body;
+    document.getElementById('modal-footer-button').innerHTML = button;
+    document.getElementById('modal-footer-button').id = btnId;
+  },
+
 }
-
-
-
-

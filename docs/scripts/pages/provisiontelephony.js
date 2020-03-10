@@ -245,11 +245,6 @@ const provisionTelephonyFunctions = {
   }
   
 
-
-  
-
-
-
 }
 
 export default provisionTelephonyFunctions

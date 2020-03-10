@@ -21,16 +21,13 @@ const architectFlowViews = {
 
     btnDownloadFlowEventListener() {
         document.getElementById("btnDownloadFlow").addEventListener("click", function () {
-            let filename = "SampleCallFlow.i3InboundFlow";
-            architectFlowFunctions.downloadFlow(filename);
+            let fileName = "SampleCallFlow.i3InboundFlow";
+            architectFlowFunctions.downloadFlow(fileName);
         }, false)
     },
 
-
-
     displayArchitectFlowModal() {
         architectFlowFunctions.getListofQueues();
-       
 
         let temporaryBody = `
         <p class="card-text">

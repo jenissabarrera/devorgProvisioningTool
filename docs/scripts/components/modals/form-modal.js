@@ -1,7 +1,7 @@
 let modalTemplate = document.createElement('template');
 modalTemplate.innerHTML = `
-      <div id="info-modal" class="modal fade" >
-          <div class="modal-dialog modal-lg">
+      <div id="info-modal" class="modal fade" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
       
             <form class="needs-validation" novalidate method="dialog">

@@ -1,5 +1,3 @@
-
-
 let modalTemplate = document.createElement('template');
 modalTemplate.innerHTML = `
 <div id="success-modal" class="modal fade" >
@@ -33,20 +31,15 @@ modalTemplate.innerHTML = `
 
 export default {
 
-    new() {
-        return document.importNode(modalTemplate.content, true);
-    },
+  new() {
+    return document.importNode(modalTemplate.content, true);
+  },
 
-    show(title,body,button,btnId) {
-      document.getElementById('infoModalHeader').innerHTML = title;
-      document.getElementById('modal-body').innerHTML = body;
-      document.getElementById('modal-footer-button').innerHTML = button;
-      document.getElementById('modal-footer-button').id = btnId;
-    },
+  show(title, body, button, btnId) {
+    document.getElementById('infoModalHeader').innerHTML = title;
+    document.getElementById('modal-body').innerHTML = body;
+    document.getElementById('modal-footer-button').innerHTML = button;
+    document.getElementById('modal-footer-button').id = btnId;
+  },
 
-    hide(){
-      let el = document.getElementById('success-modal');
-      el.classList.remove('is-active');
-  }
-  
 }
