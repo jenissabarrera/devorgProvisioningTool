@@ -221,10 +221,12 @@ const provisionTelephonyViews = {
           </div>
         </div> 
         `
-        document.getElementById("btnCreateSIPTrunk").disabled = true
+        
         loadingModalView.showNewModal(formModal);
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateSIPTrunk');
-        this.btnEventListeners('btnCreateSIPTrunk'); 
+        this.btnEventListeners('btnCreateSIPTrunk');
+        document.getElementById("btnCreateSIPTrunk").disabled = true 
+        provisionTelephonyFunctions.validateCreateTrunk();
     },
 
     displayLocationModal () {
