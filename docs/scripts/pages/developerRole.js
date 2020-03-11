@@ -1,4 +1,4 @@
-import provisionTelephonyViews from '../views/provisionTelephony.js'
+import provisionTelephonyViews from '../views/provisiontelephony.js'
 import loadingModalView from '../components/modals.js'
 
 const platformClient = require('platformClient');
