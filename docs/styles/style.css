@@ -216,3 +216,8 @@ a:hover {
 .loader-default[data-inverse]:after {
 	animation-direction: reverse
 }
+
+.modal-body {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+} 
