@@ -1,4 +1,4 @@
-import provisionTelephonyViews from '../views/provisionTelephony.js'
+import provisionTelephonyViews from '../views/provisiontelephony.js'
 import loadingModalView from '../components/modals.js'
 
 // All functionalities related to provisioning telephony was placed here.

@@ -1,4 +1,4 @@
-import provisionTelephonyFunctions from '../pages/provisionTelephony.js'
+import provisionTelephonyFunctions from '../pages/provisiontelephony.js'
 import formModal from '../components/modals/form-modal.js'
 import errorModal from '../components/modals/error-modal.js'
 import successModal from '../components/modals/success-modal.js'
