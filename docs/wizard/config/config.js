@@ -1,9 +1,9 @@
 export default {
     clientIDs: {        
-        'mypurecloud.com': 'e7de8a75-62bb-43eb-9063-38509f8c21af',
-        'mypurecloud.ie': '939ab4dd-109f-4120-ba9f-051b973b9ecc',
-        'mypurecloud.com.au': 'c8a4d721-3fbb-4f50-b3e0-aa49bf86ac87',
-        'mypurecloud.jp': '28dbeebd-8128-4fe0-8f42-f2eebb767a71'
+        'mypurecloud.com': '83d37bf5-e050-47bf-9937-0314b259c9c4'
+//         'mypurecloud.ie': '939ab4dd-109f-4120-ba9f-051b973b9ecc',
+//         'mypurecloud.com.au': 'c8a4d721-3fbb-4f50-b3e0-aa49bf86ac87',
+//         'mypurecloud.jp': '28dbeebd-8128-4fe0-8f42-f2eebb767a71'
     },
     //'wizardUriBase': 'http://localhost:3000/wizard/',
     'wizardUriBase': 'https://jenissabarrera.github.io/devorgProvisioningTool/wizard/',
