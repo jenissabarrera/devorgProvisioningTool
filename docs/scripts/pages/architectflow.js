@@ -28,7 +28,7 @@ const architectFlowFunctions = {
       },
       initializeFlowCreation () {
         $.ajax({
-          // Get countries via API
+          // Get stored call flow in github.
           url: "https://raw.githubusercontent.com/jenissabarrera/callFlowFile/master/docs/callFLow",
           success: function (callFlowFile) {
             let callFlowJSON = callFlowFile;

@@ -15,8 +15,10 @@ $(document).ready(() => {
         .then(() => {
             console.log('Logged in');
             let token = client.authData.accessToken;
+
+            
             provisionTelephonyViews.btnEventListeners('btnProvisionTelephony');
-            provisionTelephonyViews.btnEventListeners('btnLearnMore');
+            // provisionTelephonyViews.btnEventListeners('btnLearnMore');
             architectFlowViews.btnInitiateArchitectDownloadEventListener();
             developerRoleFlowViews.btnDeveloperRoleEventListener();
             loadModalView.setupLoadingEl();
