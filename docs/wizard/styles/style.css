@@ -103,7 +103,7 @@ p {
 }
 
 /* Buttons */
-button {
+button,button:focus {
     border-radius: 5px 5px;
     padding: 15px 32px;
     text-align: center;
@@ -273,6 +273,4 @@ button {
 .modal .modal-message {
     margin-top: 20px;
     font-size: 20px;
-},
-button:focus { 
-    outline: 0; }
+}
