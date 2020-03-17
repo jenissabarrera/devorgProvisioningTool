@@ -43,7 +43,7 @@ export default {
                 'permissionPolicies': [
                     {
                         'domain': 'integration',
-                        'entityName': 'exampleDevOrgProvisioningTool',
+                        'entityName': 'examplePremiumApp',
                         'actionSet': ['*'],
                         'allowConditions': false
                     }
@@ -63,7 +63,7 @@ export default {
         'app-instance': [
             {
                 'name': 'Agent Widget',
-                'url': 'https://jenissabarrera.github.io/devorgProvisioningTool/index.html?lang={{pcLangTag}}&environment={{pcEnvironment}}',
+                'url': 'https://mypurecloud.github.io/purecloud-premium-app/index.html?lang={{pcLangTag}}&environment={{pcEnvironment}}',
                 'type': 'widget',
                 'groups': ['Agents']
             }
