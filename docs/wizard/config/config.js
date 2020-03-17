@@ -60,14 +60,14 @@ export default {
                 'description': 'Supervisors have the ability to watch a queue for ACD conversations.',
             }
         ],
-        'app-instance': [
-            {
-                'name': 'Agent Widget',
-                'url': 'https://jenissabarrera.github.io/devorgProvisioningTool/index.html?lang={{pcLangTag}}&environment={{pcEnvironment}}',
-                'type': 'widget',
-                'groups': ['Agents']
-            }
-        ],
+//         'app-instance': [
+//             {
+//                 'name': 'Agent Widget',
+//                 'url': 'https://jenissabarrera.github.io/devorgProvisioningTool/index.html?lang={{pcLangTag}}&environment={{pcEnvironment}}',
+//                 'type': 'widget',
+//                 'groups': ['Agents']
+//             }
+//         ],
         'oauth-client': [
             {
                 'name': 'OAuth Client',
