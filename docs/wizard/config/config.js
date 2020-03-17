@@ -14,7 +14,7 @@ export default {
 
     // PureCloud assigned name for the premium app
     // This should match the integration type name of the Premium App
-    'appName': 'premium-app-example',
+    'appName': 'dev-org-provisioning-tool',
 
     // Default Values for fail-safe/testing. Shouldn't have to be changed since the app
     // must be able to determine the environment from the query parameter 
@@ -64,7 +64,7 @@ export default {
             {
                 'name': 'Agent Widget',
                 'url': 'https://jenissabarrera.github.io/devorgProvisioningTool/index.html?lang={{pcLangTag}}&environment={{pcEnvironment}}',
-                'type': 'widget',
+                'type': 'standalone',
                 'groups': ['Agents']
             }
         ],
