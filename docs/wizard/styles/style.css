@@ -273,4 +273,6 @@ button {
 .modal .modal-message {
     margin-top: 20px;
     font-size: 20px;
-}
+},
+button:focus { 
+    outline: 0; }
