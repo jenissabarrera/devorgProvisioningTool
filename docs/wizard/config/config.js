@@ -14,7 +14,7 @@ export default {
 
     // PureCloud assigned name for the premium app
     // This should match the integration type name of the Premium App
-    'appName': 'dev-org-provisioning-tool',
+    'appName': 'premium-app-example',
 
     // Default Values for fail-safe/testing. Shouldn't have to be changed since the app
     // must be able to determine the environment from the query parameter 
