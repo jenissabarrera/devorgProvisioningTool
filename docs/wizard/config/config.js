@@ -64,7 +64,7 @@ export default {
             {
                 'name': 'Agent Widget',
                 'url': 'https://jenissabarrera.github.io/devorgProvisioningTool/index.html?lang={{pcLangTag}}&environment={{pcEnvironment}}',
-                'type': 'standalone',
+                'type': 'widget',
                 'groups': ['Agents']
             }
         ],
