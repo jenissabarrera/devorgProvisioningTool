@@ -1,15 +1,15 @@
 export default {
     clientIDs: {        
-        'mypurecloud.com': '83d37bf5-e050-47bf-9937-0314b259c9c4'
+       'mypurecloud.com': '83d37bf5-e050-47bf-9937-0314b259c9c4'
 //         'mypurecloud.ie': '939ab4dd-109f-4120-ba9f-051b973b9ecc',
 //         'mypurecloud.com.au': 'c8a4d721-3fbb-4f50-b3e0-aa49bf86ac87',
 //         'mypurecloud.jp': '28dbeebd-8128-4fe0-8f42-f2eebb767a71'
     },
-    //'wizardUriBase': 'http://localhost:3000/wizard/',
+    //'wizardUriBase': 'http://localhost:8080/wizard/',
     'wizardUriBase': 'https://jenissabarrera.github.io/devorgProvisioningTool/wizard/',
 
     // The actual URL of the landing page of your web app.
-    //'premiumAppURL': 'http://localhost:3000',
+    //'premiumAppURL': 'http://localhost:8080/premium-app-sample/',
     'premiumAppURL': 'https://jenissabarrera.github.io/devorgProvisioningTool/',
 
     // PureCloud assigned name for the premium app
