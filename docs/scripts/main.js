@@ -22,10 +22,27 @@ $(document).ready(() => {
             architectFlowViews.btnInitiateArchitectDownloadEventListener();
             developerRoleFlowViews.btnDeveloperRoleEventListener();
             loadModalView.setupLoadingEl();
+
+            // To be placed to right section, trigger hide of nav bar.
+            document.getElementById("topNavBar").addEventListener('click', function () {
+                let navBar = document.getElementById("topNavBar");
+                (navBar.style.display === "none") ? navBar.style.display = "block" : navBar.style.display = "none";
+            })
+            
+            // Trigger uninstall button to uninstall app.
+            document.getElementById("btnUninstall").addEventListener('click', () => window.location='./wizard/uninstall.html')
+
+
             
         })
         .catch((err) => console.error(err));
 })
+
+
+
+
+
+
 
 
 

@@ -5,12 +5,21 @@ import loadingModalView from '../components/modals.js'
 
 const architectFlowViews = {
 
+    /**
+     * Trigger for btnInitiateArchitectDownload button click
+     * @returns {function} Architect Flow Modal
+     */
     btnInitiateArchitectDownloadEventListener() {
         document.getElementById("btnInitiateArchitectDownload").addEventListener("click", function () {
             architectFlowViews.displayArchitectFlowModal();
         }, false)
     },
 
+    
+    /**
+     * Add list of queues dynamically to selectQueue dropdown
+     * @returns {string and functions} queueId and queueText and modifyCallFlow 
+     */
     selectQueueEventListener() {
         document.getElementById("selectQueue").addEventListener('change', function () {
             let selectedQueueId = selectQueue.options[selectQueue.selectedIndex].value;
@@ -19,6 +28,11 @@ const architectFlowViews = {
         })
     },
 
+    
+    /**
+     * Trigger download of architect flow file in user's browser
+     * @returns {string and function} filename,functions: downloadFlow,hideLoadingModal,showNewModal 
+     */
     btnDownloadFlowEventListener() {
         document.getElementById("btnDownloadFlow").addEventListener("click", function () {
             loadingModalView.showloadingModal("Downloading Architect Flow file...")
@@ -26,15 +40,17 @@ const architectFlowViews = {
             architectFlowFunctions.downloadFlow(filename);
             loadingModalView.hideLoadingModal();
             loadingModalView.showNewModal(successModal);
-            successModal.show("Architect Flow", "Architect Flow successfully downloaded.","Finish", "")
+            successModal.show("Architect Flow", "Architect Flow successfully downloaded.", "Finish", "")
         }, false)
     },
 
 
-
+    /**
+     * Access info modal, modify it's content and display it as Architect Flow Modal. And create download button.
+     * @returns {Functions} getListofQueues,showNewModal,
+     */
     displayArchitectFlowModal() {
         architectFlowFunctions.getListofQueues();
-       
 
         let temporaryBody = `
         <p class="card-text">

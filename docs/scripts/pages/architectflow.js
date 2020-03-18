@@ -7,6 +7,10 @@ let encodeProcessed ="";
 
 const architectFlowFunctions = {
 
+    /**
+     * List all available queues from the org.
+     * @returns {Promise} routingApi response
+     */
     getListofQueues () {
 
         let opts = { 
@@ -26,6 +30,11 @@ const architectFlowFunctions = {
           });
         
       },
+  
+      /**
+       * Access standard call flow that was stored in github and  will be downloaded later
+       * @returns {JSON file} JSON call flow.
+       */
       initializeFlowCreation () {
         $.ajax({
           // Get stored call flow in github.
@@ -37,7 +46,12 @@ const architectFlowFunctions = {
         })
       
       },
-
+    
+      /**
+       * Create dropdown dynamically. Pass values from getListofQueues function
+       * @param {Array} queueData 
+       * @returns {select} queuelist dropdown data
+       */
       createQueueList (queueData) {
         console.log(queueData)
         let queueSelect = document.getElementById("selectQueue");
@@ -46,16 +60,35 @@ const architectFlowFunctions = {
         queueOption.value = queueData.id;
         queueSelect.add(queueOption);
       },
-
+      
+      /**
+       * Decode base 64 encoded string from  downloaded call flow  
+       * @param {JSON} callFlowJSON 
+       * @returns encodeRawCallFlow function
+       */
       decodeRawCallFlow (callFlowJSON) {
         let decodeRaw = window.atob(callFlowJSON);
         architectFlowFunctions.encodeRawCallFlow(decodeRaw);
       },
 
+
+      
+      /**
+       * Decode URI from decodeRawCallFlow function
+       * @param {URI} decodeRaw 
+       * @returns decodeURIComponent
+       */
       encodeRawCallFlow (decodeRaw) {
         encodeUri = decodeURIComponent(decodeRaw);
         console.log("encode URI" + (encodeUri));
       },
+      
+      /**
+       * Modify decoded URI, insert the queue that was selected by the user in the JSON file.
+       * @param {string} selectedQueueId 
+       * @param {string} selectedQueueText 
+       * @returns {function} decodeProcessedFlow
+       */
       modifyCallFlow (selectedQueueId,selectedQueueText) {
         let encodeUriJSON ="";
         encodeUriJSON = JSON.parse(encodeUri)
@@ -79,12 +112,23 @@ const architectFlowFunctions = {
          
         },
 
+        /**
+         * Reverse the process earlier, encode the URI
+         * @param {URI} encodeUri 
+         * @returns {function} encodeProcessCallFlow
+         */
         decodeProcessedFlow (encodeUri) {
             let decodeURI = "";
             decodeURI = encodeURIComponent(encodeUri);
             architectFlowFunctions.encodeProcessCallFlow(decodeURI);
           },
 
+          
+          /**
+           * Encode the URI to a string in base 64
+           * @param {string} decodeURI 
+           * @returns {function} btnDownloadFlowEventListener
+           */
           encodeProcessCallFlow (decodeURI) {
             encodeProcessed = window.btoa(decodeURI);
             console.log(encodeProcessed)
@@ -92,6 +136,12 @@ const architectFlowFunctions = {
           
           },
 
+    
+          /**
+           * Download the encoded file in the users browser.
+           * @param {string} filename
+           * @returns download file 
+           */
           downloadFlow (filename) {  
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeProcessed);
@@ -102,13 +152,6 @@ const architectFlowFunctions = {
             document.body.removeChild(element);
         
         },
-
-
-
-
-      
-
-
 
 }
 

@@ -6,7 +6,12 @@ import loadingModalView from '../components/modals.js'
 import infoModal from '../components/modals/info-modal.js'
 
 const provisionTelephonyViews = {
-    // btn event listener cases
+    
+    /**
+     * Pass value to btnEventListeners event listener and test it to meet it's corresponding function base on condition.
+     * @param {ID} btnID
+     * @returns {function} Depends on parameter and condition.
+     */
     btnEventListeners(btnID) {
         document.getElementById(btnID).addEventListener('click', function () {
             switch(btnID) {
@@ -57,8 +62,14 @@ const provisionTelephonyViews = {
         }, false)
     },
 
-    // Function related modals
-    // Success modal function
+    /**
+     * Modify success modal's content and displays it.
+     * @param {String} title 
+     * @param {String} message 
+     * @param {String} nextAction 
+     * @param {String} btnID
+     * @returns {modal} success modal
+     */
     displaySuccessModal(title, message, nextAction, btnID) {
         loadingModalView.showNewModal(successModal);
         successModal.show(title,message, nextAction, btnID)
@@ -66,13 +77,23 @@ const provisionTelephonyViews = {
         this.btnEventListeners(btnID);  
     },
 
-    // Failed modal function
+    /**
+     * Modify error modal's content and displays it.
+     * @param {String} title 
+     * @param {String} message 
+     * @param {String} nextAction 
+     */
     displayFailedModal(title, message, nextAction) {
         loadingModalView.hideLoadingModal();
         loadingModalView.showNewModal(errorModal);
         errorModal.show(title, message, nextAction)
     },
 
+    /**
+     * Choose telephony between Twillio and Nexmo, Nexmo is not yet functional.
+     * @returns {modal} info modal
+     * @returns {function} trigger btnEventListeners
+     */
     selectTelephony() {
         let temporaryBody = 
         `
@@ -97,7 +118,12 @@ const provisionTelephonyViews = {
         this.btnEventListeners('btnTwillio');
         this.btnEventListeners('btnNexmo');
     },
-
+    
+    /**
+     * Access info modal, modify its content. Inform user on what will be provisioned. Display as Provisioning Modal.
+     * @returns {modal} Provisioning Modal
+     * @returns {function} Trigger btnEventListeners
+     */
     displayProvisioningModal() {
         let temporaryBody = 
         `
@@ -113,6 +139,13 @@ const provisionTelephonyViews = {
         this.btnEventListeners('btnStartProvision');
     },
 
+    
+    /**
+     * Access form modal, input form contents that will be filled up by users in creating Sip Trunk. And displays the modal.
+     * @returns {modal} Sip Trunk Modal
+     * @returns {function} Triggers btnEventListeners
+     * @returns {function} Validate input
+     */
     displaySipTrunkModal() {
 
         let temporaryBody = 
