@@ -5,7 +5,7 @@ modalTemplate.innerHTML = `
       <div class="modal-content">      
         <div class="modal-header">
           <h3 id = 'infoModalHeader'>Header</h3>
-          <button class="close" data-dismiss="modal">×</button>
+          <button class="close" data-dismiss="modal" id="close-info">×</button>
         </div>
         
         <div id ="modal-body" class="modal-body" style="text-align:center;">
@@ -14,6 +14,7 @@ modalTemplate.innerHTML = `
 
         <div class="modal-footer">
           <button type="button" id="modal-footer-button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal">Next</button>
+          <div class="invalid-feedback"> Sample Feedback </div>
         </div>
 
       </div>
@@ -33,7 +34,14 @@ export default {
         document.getElementById('modal-footer-button').innerHTML = button;
         document.getElementById('modal-footer-button').id = btnId;
         $('#info-modal').modal();
+        this.close();
     },
+    close() {
+        let infoModal = document.getElementById('info-modal')
+        document.getElementById('close-info').addEventListener('click', function () {
+            infoModal.remove();
+        }, false)
+    }
   
 }
 

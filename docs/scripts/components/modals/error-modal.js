@@ -7,7 +7,8 @@ modalTemplate.innerHTML = `
         <!-- Modal Header -->
         <div class="modal-header">
         <h3 id = "infoModalHeader">Header</h3>
-          <button type="button" class="close" data-dismiss="modal">×</button>
+
+          <button type="button" class="close" id="close-err" data-dismiss="modal">×</button>
         </div>
 
         <!-- Modal body -->
@@ -40,5 +41,12 @@ export default {
       document.getElementById('modal-body-content').innerHTML = body;
       document.getElementById('modal-footer-button').innerHTML = button;
       $('#error-modal').modal();
+      this.close();
+    },
+    close() {
+      let errorModal = document.getElementById('error-modal')
+      document.getElementById('close-err').addEventListener('click', function () {
+          errorModal.remove();
+      }, false)
     }
 }

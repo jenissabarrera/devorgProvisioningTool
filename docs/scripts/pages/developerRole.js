@@ -6,6 +6,11 @@ let usersApi = new platformClient.UsersApi();
 let AuthorizationApi = new platformClient.AuthorizationApi();
 
 const createDeveloperRoleFunctions = {
+
+    /**
+     * get list of users
+     * @returns {function} create dropdown of user function
+     */
     getOrgUser () {
         let opts = { 
             'pageSize': 100,
@@ -23,6 +28,10 @@ const createDeveloperRoleFunctions = {
             });
     },
     
+    /**
+     * create developer user function
+     * @returns {function} putUser function
+     */
     createDevUser () {
         let opts = { 
             'pageSize': 50,
@@ -55,11 +64,16 @@ const createDeveloperRoleFunctions = {
             });
     },
     
+    /**
+     * add roles to a user
+     * @param {array} roles 
+     * @returns {function} display success or failed modal
+     */
     putUserRoles (roles) {
         let userId = document.getElementById('selectUser').value; 
         let username = document.getElementById(userId).text; 
         let body = roles;
-        // console.log(userId  + ' ' + username);
+        
         AuthorizationApi.putUserRoles(userId, body)
             .then((data) => {
                 console.log(`putUserRoles success! data: ${JSON.stringify(data, null, 2)}`);
@@ -74,6 +88,11 @@ const createDeveloperRoleFunctions = {
             });
     },
 
+    /**
+     * create dropdown list
+     * @param {option} obj 
+     * @returns {function} create list function 
+     */
     ceateUserDropDownOption(obj){
         let select = document.getElementById('selectUser');
         for(var key in obj) {
@@ -81,7 +100,13 @@ const createDeveloperRoleFunctions = {
         }
     },
 
-    
+    /**
+     * create dropdown
+     * @param {element} el 
+     * @param {string} text 
+     * @param {string} value 
+     * @returns {option} returns option
+     */
     createList(el, text, value) {
         let option = document.createElement('option');
         option.text = text;

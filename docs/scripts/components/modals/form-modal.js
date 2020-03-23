@@ -1,26 +1,21 @@
 let modalTemplate = document.createElement('template');
 modalTemplate.innerHTML = 
 `
-<div id="form-modal" class="modal fade" >
+<div id="form-modal" role="dialog" class="modal fade" >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
     <form class="needs-validation" novalidate method="dialog">
       <div class="modal-header">
         <h3 id = 'infoModalHeader'>Header</h3>
-        <button class="close" data-dismiss="modal">×</button>
+        <button class="close" data-dismiss="modal" id="close-form">×</button>
       </div>
-
       
-      <div id ="modal-body" class="modal-body" style="text-align:center;">
-      
+      <div id ="modal-body" class="modal-body">     
       </div>
-
       <div class="modal-footer">
-        <button type="button" id="modal-footer-button" class="btn btn-success-modified" data-dismiss="modal" data-toggle="modal">Next</button>
+        <button type="submit" id="modal-footer-button" class="btn btn-success-modified" data-toggle="modal" >Next</button>
       </div>
-      </form>
-
+    </form>
     </div>
   </div>
 </div>
@@ -37,8 +32,17 @@ const formModal = {
     document.getElementById('modal-footer-button').innerHTML = button;
     document.getElementById('modal-footer-button').id = btnId;
     $('#form-modal').modal();
+    this.close();
+  },
+  hide() {
+    $('#form-modal').modal('hide');
+  },
+  close() {
+    let formModal = document.getElementById('form-modal')
+    document.getElementById('close-form').addEventListener('click', function () {
+      formModal.remove();
+    }, false)
   }
-
 }
 
 export default formModal

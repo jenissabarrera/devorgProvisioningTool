@@ -1,8 +1,9 @@
-import provisionTelephonyFunctions from '../pages/provisiontelephony.js'
+
+import provisionTelephonyFunctions from '../pages/provisionTelephony.js'
 import formModal from '../components/modals/form-modal.js'
 import errorModal from '../components/modals/error-modal.js'
 import successModal from '../components/modals/success-modal.js'
-import loadingModalView from '../components/modals.js'
+import universalModal from '../components/modals.js'
 import infoModal from '../components/modals/info-modal.js'
 
 const provisionTelephonyViews = {
@@ -16,7 +17,6 @@ const provisionTelephonyViews = {
         document.getElementById(btnID).addEventListener('click', function () {
             switch(btnID) {
                 case 'btnByocEnable':
-                    console.log(btnID)
                     provisionTelephonyViews.selectTelephony();
                     break;
                 case 'btnLearnMore':
@@ -29,19 +29,7 @@ const provisionTelephonyViews = {
                     provisionTelephonyViews.displaySipTrunkModal();
                     break;
                 case 'btnClose':
-                    loadingModalView.hideLoadingModal();
-                    break;
-                case 'btnCreateSite':
-                    loadingModalView.showloadingModal('Getting Telephony Providers Edges Sites...');
-                    provisionTelephonyFunctions.getEdgeSite();
-                    break;
-                case 'btnCreateLocation':
-                    loadingModalView.showloadingModal('Location is being created...');
-                    provisionTelephonyFunctions.createLocation();
-                    break;
-                case 'btnCreateSIPTrunk':
-                    loadingModalView.showloadingModal('Sip Trunk is being created...');
-                    provisionTelephonyFunctions.createTrunk();
+                    universalModal.hideLoadingModal();
                     break;
                 case 'btnStartProvision':
                     provisionTelephonyViews.displayLocationModal();
@@ -52,6 +40,7 @@ const provisionTelephonyViews = {
                     break;
                 case 'btnNexmo':
                     provisionTelephonyViews.tbdButtonFunction();
+                // temporarily commented out --------------------------------------------------------
                     // provisionTelephonyFunctions.determineSipEndpoint(this.getAttribute('id'));
                     // provisionTelephonyViews.displayProvisioningModal();
                     break;
@@ -60,6 +49,18 @@ const provisionTelephonyViews = {
                     break;
             }    
         }, false)
+    },  
+    btnCreateSIPTrunk() {
+        universalModal.showloadingModal('Sip Trunk is being created...');
+        provisionTelephonyFunctions.createTrunk();
+    },
+    btnCreateLocation() {
+        universalModal.showloadingModal('Location is being created...');
+        provisionTelephonyFunctions.createLocation();
+    },
+    btnCreateSite() {
+        universalModal.showloadingModal('Getting Telephony Providers Edges Sites...');
+        provisionTelephonyFunctions.getEdgeSite();
     },
 
     /**
@@ -71,7 +72,7 @@ const provisionTelephonyViews = {
      * @returns {modal} success modal
      */
     displaySuccessModal(title, message, nextAction, btnID) {
-        loadingModalView.showNewModal(successModal);
+        universalModal.showNewModal(successModal);
         successModal.show(title,message, nextAction, btnID)
         console.log(btnID)
         this.btnEventListeners(btnID);  
@@ -84,8 +85,8 @@ const provisionTelephonyViews = {
      * @param {String} nextAction 
      */
     displayFailedModal(title, message, nextAction) {
-        loadingModalView.hideLoadingModal();
-        loadingModalView.showNewModal(errorModal);
+        universalModal.hideLoadingModal();
+        universalModal.showNewModal(errorModal);
         errorModal.show(title, message, nextAction)
     },
 
@@ -112,13 +113,13 @@ const provisionTelephonyViews = {
           </button>
         </div> 
         `;    
-        loadingModalView.showNewModal(formModal);
+        universalModal.showNewModal(formModal);
         document.getElementById('form-modal').querySelector('.modal-footer').style.display = 'none'
         formModal.show('Select Telephony', temporaryBody, '', '');
         this.btnEventListeners('btnTwillio');
         this.btnEventListeners('btnNexmo');
     },
-    
+
     /**
      * Access info modal, modify its content. Inform user on what will be provisioned. Display as Provisioning Modal.
      * @returns {modal} Provisioning Modal
@@ -134,12 +135,11 @@ const provisionTelephonyViews = {
           <p>Create a BYOC SIP Trunk to Twilio</p>
         </p> 
         `
-        loadingModalView.showNewModal(infoModal);
+        universalModal.showNewModal(infoModal);
         infoModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnStartProvision');
         this.btnEventListeners('btnStartProvision');
     },
 
-    
     /**
      * Access form modal, input form contents that will be filled up by users in creating Sip Trunk. And displays the modal.
      * @returns {modal} Sip Trunk Modal
@@ -151,117 +151,107 @@ const provisionTelephonyViews = {
         let temporaryBody = 
         `
         <div class="card-text">
-          <p>Create BYOC SIP Trunk</p>
-          <p>Now I’ll provision a SIP trunk for your new site that is linked to your Twilio SIP trunk. I need the following information:</p>
-          <div class="form-row">
-            <div class="form-group-inline col-md-4 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label>External Trunk Name:</label>
-                <a href="#" data-toggle="tooltip" title="Enter your desired trunk name &#10 e.g: Dev Cloud">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtSIPExternalTrunk" required>
-              <div class="invalid-feedback"> Please provide a valid External Trunk Name. </div>
-              <div class="valid-feedback"> Looks good! </div>
+        <p>Create BYOC SIP Trunk</p>
+        <p>Now I’ll provision a SIP trunk for your new site that is linked to your Twilio SIP trunk. I need the following information:</p>
+          <div class="form-group-inline ">
+            <div style="align-items: initial; display: flex;">
+              <label>External Trunk Name:</label>
+              <a href="#" data-toggle="tooltip" title="Enter your desired trunk name &#10 e.g: Dev Cloud">
+                <i class="material-icons"> help </i>
+              </a>
             </div>
-            <div class="form-group-inline col-md-4 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label style="font-size: 14px">Inbound SIP Termination Identifier:</label>
-                <a href="#" data-toggle="tooltip"
-                  title="Your termination URI is unique within your PureCloud Organization"s region. &#10The termination URI will be used by the 3rd party PBX or Carrier to direct SIP traffic to PureCloud ">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtInboundSIP" required>
-              <div class="invalid-feedback"> Please provide a valid Inbound SIP Termination Identifier. </div>
-              <div class="valid-feedback"> Looks good! </div>
-            </div>
-            <div class="form-group-inline col-md-4 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label>SIP Servers or Proxies:</label>
-                <a href="#" data-toggle="tooltip"
-                  title="This is a list of SIP servers or intermediate proxies where all outgoing &#10request should be sent to, regardless of the destination address of the request.&#10 If no port is specified, the inbound listen port will be used.">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtSIPServers" required>
-              <div class="invalid-feedback"> Please provide a valid SIP Servers or Proxies. </div>
-              <div class="valid-feedback"> Looks good! </div>
-            </div>
+            <input type="text" class="form-control" id="txtSIPExternalTrunk" required>
+            <div class="invalid-feedback">This field is required</div>
           </div>
-          <div class="form-row">
-            <div class="form-group-inline col-md-4">
-              <div style="align-items: initial; display: flex;">
-                <label>User Name:</label>
-                <a href="#" data-toggle="tooltip" title="User name to send when trunk is challenged for the realm.">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtUserName" required>
-              <div class="invalid-feedback"> Please provide a valid User Name. </div>
-              <div class="valid-feedback"> Looks good! </div>
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label style="font-size: 14px">Inbound SIP Termination Identifier:</label>
+              <a href="#" data-toggle="tooltip"
+                title="Your termination URI is unique within your PureCloud Organization"s region. &#10The termination URI will be used by the 3rd party PBX or Carrier to direct SIP traffic to PureCloud ">
+                <i class="material-icons"> help </i>
+              </a>
             </div>
-            <div class="form-group-inline col-md-4 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label>Password:</label>
-                <a href="#" data-toggle="tooltip" title="Password to send when trunk is challenged for the realm.">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="password" class="form-control" id="txtSIPPassword" required>
-              <div class="invalid-feedback"> Please provide a valid password. </div>
-              <div class="valid-feedback"> Looks good! </div>
-            </div>
-            <div class="form-group-inline col-md-4 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label>Realm:</label>
-                <a href="#" data-toggle="tooltip" title="Realm must match the username and password to be sent.">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtSIPRealm" required>
-              <div class="invalid-feedback"> Please provide a valid Realm. </div>
-              <div class="valid-feedback"> Looks good! </div>
-            </div>
+            <input type="text" class="form-control" id="txtInboundSIP" required>
+            <div class="invalid-feedback">This field is required</div>
           </div>
-          <div class="form-row">
-            <div class="form-group-inline col-md-5 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label>Address:</label>
-                <a href="#" data-toggle="tooltip"
-                  title="Specific overriding caller ID adddress to use as the outgoing origination address. &#10May be a URI or raw phone number">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtSIPCallingAddress" required>
-              <div class="invalid-feedback"> Please provide a valid Address. </div>
-              <div class="valid-feedback"> Looks good! </div>
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label>SIP Servers or Proxies:</label>
+              <a href="#" data-toggle="tooltip"
+                title="This is a list of SIP servers or intermediate proxies where all outgoing &#10request should be sent to, regardless of the destination address of the request.&#10 If no port is specified, the inbound listen port will be used.">
+                <i class="material-icons"> help </i>
+              </a>
             </div>
-            <div class="form-group-inline col-md-5 mb-3">
-              <div style="align-items: initial; display: flex;">
-                <label>Name:</label>
-
-                <a href="#" data-toggle="tooltip"
-                  title="Specific overriding caller ID name to use as the outgoing origination address. &#10May be a URI or raw phone number">
-                  <i class="material-icons"> help </i>
-                </a>
-              </div>
-              <input type="text" class="form-control" id="txtSIPCallingName" required>
-              <div class="invalid-feedback"> Please provide a valid Name. </div>
-              <div class="valid-feedback"> Looks good! </div>
-            </div>
+            <input type="text" class="form-control" id="txtSIPServers" required>
+            <div class="invalid-feedback">This field is required</div>
           </div>
-        </div> 
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label>User Name:</label>
+              <a href="#" data-toggle="tooltip" title="User name to send when trunk is challenged for the realm.">
+                <i class="material-icons"> help </i>
+              </a>
+            </div>
+            <input type="text" class="form-control" id="txtUserName" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label>Password:</label>
+              <a href="#" data-toggle="tooltip" title="Password to send when trunk is challenged for the realm.">
+                <i class="material-icons"> help </i>
+              </a>
+            </div>
+            <input type="password" class="form-control" id="txtSIPPassword" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label>Realm:</label>
+              <a href="#" data-toggle="tooltip" title="Realm must match the username and password to be sent.">
+                <i class="material-icons"> help </i>
+              </a>
+            </div>
+            <input type="text" class="form-control" id="txtSIPRealm" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label>Address:</label>
+              <a href="#" data-toggle="tooltip"
+                title="Specific overriding caller ID adddress to use as the outgoing origination address. &#10May be a URI or raw phone number">
+                <i class="material-icons"> help </i>
+              </a>
+            </div>
+            <input type="text" class="form-control" id="txtSIPCallingAddress" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>
+          <div class="form-group-inline">
+            <div style="align-items: initial; display: flex;">
+              <label>Name:</label>
+  
+              <a href="#" data-toggle="tooltip"
+                title="Specific overriding caller ID name to use as the outgoing origination address. &#10May be a URI or raw phone number">
+                <i class="material-icons"> help </i>
+              </a>
+            </div>
+            <input type="text" class="form-control" id="txtSIPCallingName" required>
+            <div class="invalid-feedback">This field is required</div>
+          </div>        
+      </div> 
         `
-        
-        loadingModalView.showNewModal(formModal);
+        universalModal.showNewModal(formModal);
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateSIPTrunk');
-        this.btnEventListeners('btnCreateSIPTrunk');
-        document.getElementById("btnCreateSIPTrunk").disabled = true 
-        provisionTelephonyFunctions.validateCreateTrunk();
+        universalModal.validateForm('trunkValidation');
+        this.btnEventListeners('trunkValidation'); 
     },
 
+    /**
+     * modify form modal and append Location modal information
+     * @returns {modal} Location Modal
+     * @returns {function} assign information to modal
+     * @returns {function} validate input
+     */
     displayLocationModal () {
         let temporaryBody = 
         `
@@ -276,7 +266,7 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtLocation" id="location" required>
-
+            <div class="invalid-feedback">This field is required!</div>
           </div>
 
           <div class="form-group-inline">
@@ -287,6 +277,7 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtAddress" id="address" required>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
 
           <div class="form-group-inline">
@@ -297,6 +288,8 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtCity" id="city" required>
+
+            <div class="invalid-feedback">This field is required!</div>
           </div>
 
           <div class="form-group-inline">
@@ -307,6 +300,8 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtState" id="state" required>
+
+            <div class="invalid-feedback">This field is required!</div>
           </div>
 
           <div class="form-group-inline">
@@ -317,6 +312,8 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtZip" id="zip" required>
+
+            <div class="invalid-feedback">This field is required!</div>
           </div>
 
           <div class="form-group-inline">
@@ -327,8 +324,9 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <select type="text" class="form-control" id="selectCountry" required>
-              <option selected>Choose Country</option>
+              <option value="" disabled selected>Choose Country</option>
             </select>
+            <div class="invalid-feedback"> Please select a Country. </div>
           </div>
 
           <div class="input-field form-group-inline">
@@ -340,17 +338,24 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <label for="emergencyNumber" class="static-value"></label>
-            <input type="tel" maxlength="13" required id="emergencyNumber" class="form-control"
+            <input type="tel" minlength="10" maxlength="13" required id="emergencyNumber" class="form-control"
               name="emergencyNumberInput" placeholder="+XX XXX XXX XXXX" required>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
         </p>
         `
-        loadingModalView.showNewModal(formModal);
+        universalModal.showNewModal(formModal);
         provisionTelephonyFunctions.countryList();
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateLocation'); 
-        this.btnEventListeners('btnCreateLocation');
+        universalModal.validateForm('locationValidation');
     },
 
+    /**
+     * modify form modal and append Site modal information
+     * @returns {modal} Site Modal
+     * @returns {function} assign information to modal
+     * @returns {function} validate input
+     */
     displaySiteModal () {
         let temporaryBody = 
         `
@@ -365,7 +370,9 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
-            <input type="text" class="form-control" name="txtSiteName" id="siteName">
+
+            <input type="text" class="form-control" name="txtSiteName" id="siteName" required>
+            <div class="invalid-feedback">This field is required!</div>
           </div>
 
           <div class="form-group-inline">
@@ -375,21 +382,29 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
-            <select type="text" class="form-control" id="timeZone">
-              <option selected>Choose Time Zone</option>
+            <select type="text" class="form-control" id="timeZone" required>
+              <option value="" selected>Choose Time Zone</option>
             </select>
+            <div class="invalid-feedback"> Please select a Time zone. </div>
           </div>
         </p>
         `
-        loadingModalView.showNewModal(formModal);
+        universalModal.showNewModal(formModal);
         provisionTelephonyFunctions.getTimezone();
         formModal.show('Provision Telephony - Twilio', temporaryBody, 'Next', 'btnCreateSite');
-        this.btnEventListeners('btnCreateSite');
+        universalModal.validateForm('siteValidation');
     },
+
+    /**
+     * Temporary function for unavailable buttons
+     * @returns {alert} 
+     */
 
     tbdButtonFunction() {
         alert("This function is currently unavailable!")
     }
 }
 
+
 export default provisionTelephonyViews
+

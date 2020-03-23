@@ -8,7 +8,8 @@ modalTemplate.innerHTML =
     <div class="modal-content">    
       <div class="modal-header">
         <h3 id = "infoModalHeader">Header</h3>
-        <button class="close" data-dismiss="modal">×</button>
+
+        <button class="close" data-dismiss="modal" id="close-success">×</button>
       </div>
 
       <div class="modal-body" style="text-align: center;">
@@ -34,16 +35,22 @@ export default {
     },
 
     show(title,body,button,btnId) {
-      document.getElementById('infoModalHeader').innerHTML = title;
-      document.getElementById('modal-body').innerHTML = body;
-      document.getElementById('modal-footer-button').innerHTML = button;
-      document.getElementById('modal-footer-button').id = btnId;
-      $('#success-modal').modal();
+        document.getElementById('infoModalHeader').innerHTML = title;
+        document.getElementById('modal-body').innerHTML = body;
+        document.getElementById('modal-footer-button').innerHTML = button;
+        document.getElementById('modal-footer-button').id = btnId;
+        $('#success-modal').modal();
+        this.close();
     },
 
     hide(){
-      let el = document.getElementById('success-modal');
-      el.classList.remove('is-active');
-  }
-  
+        let el = document.getElementById('success-modal');
+        el.classList.remove('is-active');
+    },
+    close() {
+        let successModal = document.getElementById('success-modal')
+        document.getElementById('close-success').addEventListener('click', function () {
+            successModal.remove();
+        }, false)
+    }
 }

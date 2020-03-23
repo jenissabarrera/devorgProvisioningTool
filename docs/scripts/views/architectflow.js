@@ -1,11 +1,11 @@
 import architectFlowFunctions from '../pages/architectflow.js'
-import infoModal from '../components/modals/info-modal.js'
+import formModal from '../components/modals/form-modal.js'
 import successModal from '../components/modals/success-modal.js'
-import loadingModalView from '../components/modals.js'
+import universalModal from '../components/modals.js'
 
 const architectFlowViews = {
 
-    /**
+   /**
      * Trigger for btnInitiateArchitectDownload button click
      * @returns {function} Architect Flow Modal
      */
@@ -15,7 +15,6 @@ const architectFlowViews = {
         }, false)
     },
 
-    
     /**
      * Add list of queues dynamically to selectQueue dropdown
      * @returns {string and functions} queueId and queueText and modifyCallFlow 
@@ -28,22 +27,20 @@ const architectFlowViews = {
         })
     },
 
-    
+
     /**
      * Trigger download of architect flow file in user's browser
      * @returns {string and function} filename,functions: downloadFlow,hideLoadingModal,showNewModal 
      */
-    btnDownloadFlowEventListener() {
-        document.getElementById("btnDownloadFlow").addEventListener("click", function () {
-            loadingModalView.showloadingModal("Downloading Architect Flow file...")
+
+    btnDownloadFlowEventListener() {    
+            universalModal.showloadingModal("Downloading Architect Flow file...")
             let filename = "SampleCallFlow.i3InboundFlow";
             architectFlowFunctions.downloadFlow(filename);
-            loadingModalView.hideLoadingModal();
-            loadingModalView.showNewModal(successModal);
-            successModal.show("Architect Flow", "Architect Flow successfully downloaded.", "Finish", "")
-        }, false)
+            universalModal.hideLoadingModal();
+            universalModal.showNewModal(successModal);
+            successModal.show("Architect Flow", "Architect Flow successfully downloaded.","Finish", "")
     },
-
 
     /**
      * Access info modal, modify it's content and display it as Architect Flow Modal. And create download button.
@@ -51,23 +48,21 @@ const architectFlowViews = {
      */
     displayArchitectFlowModal() {
         architectFlowFunctions.getListofQueues();
-
-        let temporaryBody = `
+        let temporaryBody = 
+        `
         <p class="card-text">
-
         <div class="form-group-inline">
           <label>Select queue you want to use for the flow</label>
-          <select type="text" class="form-control" id="selectQueue" name="selectQueue">
-            <option selected>Select Queue</option>
+          <select type="text" class="form-control" id="selectQueue" name="selectQueue" required>
+            <option value ="" selected>Select Queue</option>
           </select>
+          <div class="invalid-feedback"> Please select a Queue. </div>
         </div>
-
-        </p>       
+        </p>         
         `
-        loadingModalView.showNewModal(infoModal);
-        infoModal.show("Architect Flow", temporaryBody, "Download", "btnDownloadFlow")
-        let downloadBtn = document.getElementById("btnDownloadFlow");
-        downloadBtn.setAttribute("data-dismiss", "modal");
+        universalModal.showNewModal(formModal);
+        formModal.show("Architect Flow", temporaryBody, "Download", "btnDownloadFlow")
+        universalModal.validateForm('archValidation');
         architectFlowViews.selectQueueEventListener();
     },
 }

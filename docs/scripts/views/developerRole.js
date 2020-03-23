@@ -1,46 +1,79 @@
 import formModal from '../components/modals/form-modal.js'
-import loadingModalView from '../components/modals.js'
+import universalModal from '../components/modals.js'
 import createDeveloperRoleFunctions from '../pages/developerRole.js'
 
 const createDeveloperRoleView = {
 
-    btnDeveloperRoleEventListener() {
-        document.getElementById('btnDeveloperRole').addEventListener('click', function () {
-            loadingModalView.showloadingModal('Getting users name...');
-            createDeveloperRoleView.displayDeveloperModal();
-        }, false)
-    },
-    btnCreateRoleEventListener() {
-        document.getElementById('btnCreateDev').addEventListener('click', function () {
-            loadingModalView.showloadingModal('Fetching all default permission...');
-            createDeveloperRoleFunctions.createDevUser()
+    /**
+     * eventlistener for developer role button
+     * @returns {function} developer role modal
+     */
+    btnEventListener() {
+        document.getElementById("btnDeveloperRole").addEventListener('click', function () {
+            console.log('hello')
+            universalModal.showloadingModal('Getting users name...');
+            createDeveloperRoleView.displayDeveloperModal();  
         }, false)
     },
 
+    /**
+     * triggers functions that create developer role
+     * @return {function}
+     */
+    btnCreateDev() {
+        universalModal.showloadingModal('Fetching all default permission...');
+        createDeveloperRoleFunctions.createDevUser()
+    },
+
+    /**
+     * modify and call success modal
+     * @param {string} title 
+     * @param {string} message 
+     * @param {string} nextAction 
+     * @param {string} btnID 
+     * @return {modal} success function
+     */
+    displaySuccessModal(title, message, nextAction, btnID) {
+        universalModal.showNewModal(successModal);
+        successModal.show(title,message, nextAction, btnID)
+        this.btnEventListeners(btnID);  
+    },
+
+    /**
+     * modify and display failed modal
+     * @param {string} title 
+     * @param {string} message 
+     * @param {string} nextAction 
+     * @returns {modal} failed modal
+     */
+    displayFailedModal(title, message, nextAction) {
+        universalModal.hideLoadingModal();
+        universalModal.showNewModal(errorModal);
+        errorModal.show(title, message, nextAction)
+    },
+
+    /**
+     * append developer role modal body
+     * @returns {modal}
+     */
     displayDeveloperModal () {
         let temporaryBody = 
         `
         <p class="card-text">
-          <p>Select a user to grant a Developer role.</p>
-
           <div class="form-group-inline">
-            <div style="align-items: initial; display: flex;">
-              <label>Select User:</label>
-              <a href="#" data-toggle="tooltip" title="Select a user from the dropdown">
-                <i class="material-icons"> help </i>
-              </a>
-            </div>
-            <select type="text" class="form-control" id="selectUser">
-                <option selected>Select User</option>
+            <label>Select a user you want to assign a Developer role</label>
+            <select type="text" class="form-control" id="selectUser" required>
+                <option value ="" selected>Select User</option>
             </select>
+            <div class="invalid-feedback"> Please select a User. </div>
           </div>
         </p>
         `
-        loadingModalView.showNewModal(formModal);
-        createDeveloperRoleFunctions.getOrgUser();
+        universalModal.showNewModal(formModal);
         formModal.show('Create a Developer Role', temporaryBody, 'Next', 'btnCreateDev');
-        createDeveloperRoleView.btnCreateRoleEventListener();
-    }
+        createDeveloperRoleFunctions.getOrgUser();
+        universalModal.validateForm('devValidation');
+    }   
 }
 
 export default createDeveloperRoleView

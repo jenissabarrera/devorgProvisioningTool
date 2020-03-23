@@ -1,12 +1,11 @@
 import architectFlowViews from '../views/architectflow.js'
-
 const platformClient = require('platformClient');
 let routingApi = new platformClient.RoutingApi();
 let encodeUri = "";
 let encodeProcessed ="";
 
 const architectFlowFunctions = {
-
+  
     /**
      * List all available queues from the org.
      * @returns {Promise} routingApi response
@@ -28,9 +27,7 @@ const architectFlowFunctions = {
             console.log('There was a failure calling getRoutingQueues');
             console.error(err);
           });
-        
       },
-  
       /**
        * Access standard call flow that was stored in github and  will be downloaded later
        * @returns {JSON file} JSON call flow.
@@ -46,7 +43,7 @@ const architectFlowFunctions = {
         })
       
       },
-    
+        
       /**
        * Create dropdown dynamically. Pass values from getListofQueues function
        * @param {Array} queueData 
@@ -60,7 +57,7 @@ const architectFlowFunctions = {
         queueOption.value = queueData.id;
         queueSelect.add(queueOption);
       },
-      
+
       /**
        * Decode base 64 encoded string from  downloaded call flow  
        * @param {JSON} callFlowJSON 
@@ -70,8 +67,6 @@ const architectFlowFunctions = {
         let decodeRaw = window.atob(callFlowJSON);
         architectFlowFunctions.encodeRawCallFlow(decodeRaw);
       },
-
-
       
       /**
        * Decode URI from decodeRawCallFlow function
@@ -111,47 +106,42 @@ const architectFlowFunctions = {
         architectFlowFunctions.decodeProcessedFlow(encodeUri);
          
         },
-
-        /**
-         * Reverse the process earlier, encode the URI
-         * @param {URI} encodeUri 
-         * @returns {function} encodeProcessCallFlow
-         */
-        decodeProcessedFlow (encodeUri) {
-            let decodeURI = "";
-            decodeURI = encodeURIComponent(encodeUri);
-            architectFlowFunctions.encodeProcessCallFlow(decodeURI);
-          },
-
-          
-          /**
-           * Encode the URI to a string in base 64
-           * @param {string} decodeURI 
-           * @returns {function} btnDownloadFlowEventListener
-           */
-          encodeProcessCallFlow (decodeURI) {
-            encodeProcessed = window.btoa(decodeURI);
-            console.log(encodeProcessed)
-            architectFlowViews.btnDownloadFlowEventListener();
-          
-          },
-
-    
-          /**
-           * Download the encoded file in the users browser.
-           * @param {string} filename
-           * @returns download file 
-           */
-          downloadFlow (filename) {  
-            let element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeProcessed);
-            element.setAttribute('download', filename);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
         
-        },
+      /**
+       * Reverse the process earlier, encode the URI
+       * @param {URI} encodeUri 
+       * @returns {function} encodeProcessCallFlow
+       */
+      decodeProcessedFlow (encodeUri) {
+        let decodeURI = "";
+        decodeURI = encodeURIComponent(encodeUri);
+        architectFlowFunctions.encodeProcessCallFlow(decodeURI);
+      },
+
+      /**
+       * Encode the URI to a string in base 64
+       * @param {string} decodeURI 
+       * @returns {function} btnDownloadFlowEventListener
+       */
+      encodeProcessCallFlow (decodeURI) {
+        encodeProcessed = window.btoa(decodeURI);
+        console.log(encodeProcessed)   
+      },
+
+      /**
+       * Download the encoded file in the users browser.
+       * @param {string} filename
+       * @returns download file 
+       */
+      downloadFlow (filename) {  
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeProcessed);
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      },
 
 }
 

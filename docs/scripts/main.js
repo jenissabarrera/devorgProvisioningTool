@@ -16,13 +16,14 @@ $(document).ready(() => {
             console.log('Logged in');
             let token = client.authData.accessToken;
 
-            
-            provisionTelephonyViews.btnEventListeners('btnProvisionTelephony');
-            // provisionTelephonyViews.btnEventListeners('btnLearnMore');
-            architectFlowViews.btnInitiateArchitectDownloadEventListener();
-            developerRoleFlowViews.btnDeveloperRoleEventListener();
-            loadModalView.setupLoadingEl();
 
+            // Eventlisteners for main buttons
+            provisionTelephonyViews.btnEventListeners('btnProvisionTelephony');
+            provisionTelephonyViews.btnEventListeners('btnLearnMore');
+            architectFlowViews.btnInitiateArchitectDownloadEventListener();
+            developerRoleFlowViews.btnEventListener();
+            loadModalView.setupLoadingEl();
+            
             // To be placed to right section, trigger hide of nav bar.
             document.getElementById("topNavBar").addEventListener('click', function () {
                 let navBar = document.getElementById("topNavBar");
@@ -32,18 +33,9 @@ $(document).ready(() => {
             // Trigger uninstall button to uninstall app.
             document.getElementById("btnUninstall").addEventListener('click', () => window.location='./wizard/uninstall.html')
 
-
-            
         })
         .catch((err) => console.error(err));
 })
-
-
-
-
-
-
-
 
 
 
