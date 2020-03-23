@@ -1,7 +1,7 @@
 import loadingModal from './modals/loading-modal.js';
 import provTelephony from '../views/provisiontelephony.js';
 import devRole from '../views/developerRole.js';
-import ArchFlow from '../views/architectflow.js';
+import archFlow from '../views/architectflow.js';
 import formModal from './modals/form-modal.js';
 const manipulateModals={
     
@@ -90,7 +90,7 @@ const manipulateModals={
                 }else if(nextAction ==='devValidation') {
                     devRole.btnCreateDev();
                 }else if(nextAction ==='archValidation') {
-                    ArchFlow.btnDownloadFlowEventListener();
+                    archFlow.btnDownloadFlowEventListener();
                 }
             }
             form.classList.add('was-validated');

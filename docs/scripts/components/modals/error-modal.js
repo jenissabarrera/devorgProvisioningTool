@@ -7,6 +7,7 @@ modalTemplate.innerHTML = `
         <!-- Modal Header -->
         <div class="modal-header">
         <h3 id = "infoModalHeader">Header</h3>
+
           <button type="button" class="close" id="close-err" data-dismiss="modal">×</button>
         </div>
 

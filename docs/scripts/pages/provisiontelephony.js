@@ -1,4 +1,4 @@
-import provisionTelephonyViews from '../views/provisionTelephony.js'
+import provisionTelephonyViews from '../views/provisiontelephony.js'
 import loadingModalView from '../components/modals.js'
 
 // All functionalities related to provisioning telephony was placed here.
@@ -16,8 +16,8 @@ let sipEndPoints = '';
 const provisionTelephonyFunctions = {
 
     /**
-     * get list of organization
-     * @returns {function} checkBTOC function
+     * Gets list of all enabled products in the org of the user.
+     * @returns {function} checkBYOC function
      */
     listProducts() {
         let productsArray = [];
@@ -33,11 +33,13 @@ const provisionTelephonyFunctions = {
             });
     },
 
+
     /**
-     * check for byoc product
-     * @param {array} productsArray list of products 
-     * @returns {modal} success of failed modal
+     * Checks if BYOC is listed in the list of enabled products for the org.
+     * @param {array} productsArray list of all products 
+     * @returns {modal} Success or Failed depends on the list of products
      */
+
     checkBYOC(productsArray) {
         let byocId = '';
         productsArray.forEach(product => {
@@ -57,8 +59,45 @@ const provisionTelephonyFunctions = {
     },
 
     /**
-     * calls the postTelephonyProvidersEdgesTrunkbasesettings function
+     * Validates all the input in create trunk form. 
      * @returns {function} create outbound route
+     */
+    validateCreateTrunk() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        let forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        let validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('input', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                else if (form.checkValidity() === true)  {
+                    provisionTelephonyFunctions.checkSipInput();
+                } 
+                form.classList.add('was-validated');
+            }, true)
+        })
+    },
+     /**
+     * Checks if all required fields are filled out 
+     * @returns {function} validateCreateTrunk function
+     */
+    checkSipInput() {      
+        if(document.getElementById('txtSIPExternalTrunk').value != '' && document.getElementById('txtInboundSIP').value != ''
+        && document.getElementById('txtSIPServers').value != '' && document.getElementById('txtSIPCallingAddress').value != ''{
+            document.getElementById('btnCreateSIPTrunk').disabled = false
+
+        }
+        else {
+            provisionTelephonyFunctions.validateCreateTrunk()
+            form.classList.add('needs-validation');
+        }
+    },
+
+    /**
+     * Pass input field values for API to process and create trunk.
+     * @returns {modal} Success and Info modal or Failed modal
      */
     createTrunk() {
         let trunkBody = {
@@ -205,6 +244,7 @@ const provisionTelephonyFunctions = {
                 console.log(`postTelephonyProvidersEdgesTrunkbasesettings success! data: ${JSON.stringify(trunkData, null, 2)}`);     
                 loadingModalView.updateLoadingModal('Outbound Route Being set up...')
                 provisionTelephonyFunctions.siteOutboundroutes(trunkData);
+
                 return provisionTelephonyViews.displaySuccessModal('Provision Telephony', 
                 'Provisioning Complete. <br /> Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please try to simulate an outbound call to verify that all of the telephony components are probably working.', 
                 'Finish', '');
@@ -216,6 +256,7 @@ const provisionTelephonyFunctions = {
             });  
     },
     
+
     /**
      * create location by calling postTelephonyProvidersEdgesTrunkbasesettingspostTelephonyProvidersEdgesTrunkbasesettings
      * @returns {modal} success or failed modal
@@ -252,6 +293,7 @@ const provisionTelephonyFunctions = {
             });
     },
     
+
     /**
      * get country list
      * @returns {function} create dropdown
@@ -270,10 +312,12 @@ const provisionTelephonyFunctions = {
         });  
     },
 
+
     /**
      * get timezone by calling getTelephonyProvidersEdgesTimezones
      * @returns {function} create dropdown
      */
+
     getTimezone () {
         let opts = { 
             'pageSize': 1000,
@@ -298,11 +342,13 @@ const provisionTelephonyFunctions = {
           });
     },
 
+
     /**
      * create options
      * @param {array} timeZone 
      * @returns {options} 
      */
+
     addTimezoneToSelect(timeZone) { 
         let thisTime = timeZone.offset;
         let country = timeZone.id;  
@@ -316,10 +362,12 @@ const provisionTelephonyFunctions = {
         select.add(option);
     },
 
+
     /**
      * get time zone by calling getTelephonyProvidersEdgesSites
      * @returns {function} create site
      */
+
     getEdgeSite() {      
         let opts = { 
             'pageSize': 25,
@@ -344,6 +392,7 @@ const provisionTelephonyFunctions = {
                 console.error(err);
             })
     },
+
     
     /**
      * create location by calling postTelephonyProvidersEdgesSites
@@ -351,6 +400,7 @@ const provisionTelephonyFunctions = {
      * @param {json} locInfo 
      * @returns {modal} success or failed modal
      */
+
     createSite (awsItem, locInfo) {
         // get information of the site
         loadingModalView.updateLoadingModal('Site is Being Created...')
@@ -411,6 +461,7 @@ const provisionTelephonyFunctions = {
      * @param {json} trunkData 
      * @returns {function} 
      */
+
     siteOutboundroutes(trunkData) {
         let opts = { 
             'pageSize': 25,
@@ -445,6 +496,7 @@ const provisionTelephonyFunctions = {
      * @param {json} trunkData 
      * @returns {}
      */
+
     createOutboundRoute (trunkData) {
         let trunkId = trunkData.id;
         let trunkName = trunkData.name;
@@ -472,6 +524,7 @@ const provisionTelephonyFunctions = {
             });
     },
 
+
     /**
      * create select option
      * @param {element} el 
@@ -479,6 +532,7 @@ const provisionTelephonyFunctions = {
      * @param {string} value
      * @returns {option} 
      */
+
     createList(el, text, value) {
         let option = document.createElement('option');
         option.text = text;
@@ -487,11 +541,13 @@ const provisionTelephonyFunctions = {
         el.add(option);
     },
 
+
     /**
      * format timezone
      * @param {int} n 
      * @returns {string} formatted timezone
      */
+
     formatNumber(n) {
         return n > 9 ? '' + n: '0' + n;
     },
@@ -500,6 +556,7 @@ const provisionTelephonyFunctions = {
      * check what sip end point is needed
      * @param {string} sipOption 
      */
+
     determineSipEndpoint(sipOption) {
         if(sipOption==='btnTwillio') {
             sipEndPoints = ['54.172.60.0/23', '34.203.250.0/23', '54.244.51.0/24', '54.65.63.192/26', '3.112.80.0/24', '54.169.127.128/26', '3.1.77.0/24']

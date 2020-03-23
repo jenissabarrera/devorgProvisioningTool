@@ -168,10 +168,12 @@ a:hover {
 	}
 }
 
+
 .modal-body{
   max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
+
 
 .loader[data-text]:before {
 	position: fixed;
@@ -220,4 +222,23 @@ a:hover {
 
 .loader-default[data-inverse]:after {
 	animation-direction: reverse
+
+}
+
+.modal-body {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+} 
+
+.topnav {
+  background-color: #f2f2f2;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+
 }

@@ -8,6 +8,7 @@ modalTemplate.innerHTML =
     <div class="modal-content">    
       <div class="modal-header">
         <h3 id = "infoModalHeader">Header</h3>
+
         <button class="close" data-dismiss="modal" id="close-success">×</button>
       </div>
 
@@ -52,6 +53,4 @@ export default {
             successModal.remove();
         }, false)
     }
-
-  
 }

@@ -1,10 +1,11 @@
+import architectFlowViews from '../views/architectflow.js'
 const platformClient = require('platformClient');
 let routingApi = new platformClient.RoutingApi();
 let encodeUri = "";
 let encodeProcessed ="";
 
 const architectFlowFunctions = {
-    
+  
     /**
      * List all available queues from the org.
      * @returns {Promise} routingApi response
@@ -25,16 +26,15 @@ const architectFlowFunctions = {
           .catch((err) => {
             console.log('There was a failure calling getRoutingQueues');
             console.error(err);
-          });        
+          });
       },
-      
       /**
        * Access standard call flow that was stored in github and  will be downloaded later
        * @returns {JSON file} JSON call flow.
        */
       initializeFlowCreation () {
         $.ajax({
-          // Get countries via API
+          // Get stored call flow in github.
           url: "https://raw.githubusercontent.com/jenissabarrera/callFlowFile/master/docs/callFLow",
           success: function (callFlowFile) {
             let callFlowJSON = callFlowFile;
@@ -43,7 +43,7 @@ const architectFlowFunctions = {
         })
       
       },
-
+        
       /**
        * Create dropdown dynamically. Pass values from getListofQueues function
        * @param {Array} queueData 
@@ -142,6 +142,7 @@ const architectFlowFunctions = {
         element.click();
         document.body.removeChild(element);
       },
+
 }
 
 export default architectFlowFunctions

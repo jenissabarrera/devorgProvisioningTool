@@ -14,7 +14,7 @@ const architectFlowViews = {
             architectFlowViews.displayArchitectFlowModal();
         }, false)
     },
-    
+
     /**
      * Add list of queues dynamically to selectQueue dropdown
      * @returns {string and functions} queueId and queueText and modifyCallFlow 
@@ -27,10 +27,12 @@ const architectFlowViews = {
         })
     },
 
+
     /**
      * Trigger download of architect flow file in user's browser
      * @returns {string and function} filename,functions: downloadFlow,hideLoadingModal,showNewModal 
      */
+
     btnDownloadFlowEventListener() {    
             universalModal.showloadingModal("Downloading Architect Flow file...")
             let filename = "SampleCallFlow.i3InboundFlow";

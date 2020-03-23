@@ -1,3 +1,4 @@
+
 import provisionTelephonyFunctions from '../pages/provisionTelephony.js'
 import formModal from '../components/modals/form-modal.js'
 import errorModal from '../components/modals/error-modal.js'
@@ -6,6 +7,7 @@ import universalModal from '../components/modals.js'
 import infoModal from '../components/modals/info-modal.js'
 
 const provisionTelephonyViews = {
+    
     /**
      * Pass value to btnEventListeners event listener and test it to meet it's corresponding function base on condition.
      * @param {ID} btnID
@@ -47,8 +49,7 @@ const provisionTelephonyViews = {
                     break;
             }    
         }, false)
-    },
-  
+    },  
     btnCreateSIPTrunk() {
         universalModal.showloadingModal('Sip Trunk is being created...');
         provisionTelephonyFunctions.createTrunk();
@@ -287,6 +288,7 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtCity" id="city" required>
+
             <div class="invalid-feedback">This field is required!</div>
           </div>
 
@@ -298,6 +300,7 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtState" id="state" required>
+
             <div class="invalid-feedback">This field is required!</div>
           </div>
 
@@ -309,6 +312,7 @@ const provisionTelephonyViews = {
               </a>
             </div>
             <input type="text" class="form-control" name="txtZip" id="zip" required>
+
             <div class="invalid-feedback">This field is required!</div>
           </div>
 
@@ -366,6 +370,7 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
+
             <input type="text" class="form-control" name="txtSiteName" id="siteName" required>
             <div class="invalid-feedback">This field is required!</div>
           </div>
@@ -394,9 +399,12 @@ const provisionTelephonyViews = {
      * Temporary function for unavailable buttons
      * @returns {alert} 
      */
+
     tbdButtonFunction() {
         alert("This function is currently unavailable!")
     }
 }
 
+
 export default provisionTelephonyViews
+

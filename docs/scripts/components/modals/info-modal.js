@@ -42,7 +42,7 @@ export default {
             infoModal.remove();
         }, false)
     }
-
+  
 }
 
 

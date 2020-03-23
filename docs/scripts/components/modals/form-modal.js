@@ -4,7 +4,6 @@ modalTemplate.innerHTML =
 <div id="form-modal" role="dialog" class="modal fade" >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
     <form class="needs-validation" novalidate method="dialog">
       <div class="modal-header">
         <h3 id = 'infoModalHeader'>Header</h3>
@@ -13,7 +12,6 @@ modalTemplate.innerHTML =
       
       <div id ="modal-body" class="modal-body">     
       </div>
-
       <div class="modal-footer">
         <button type="submit" id="modal-footer-button" class="btn btn-success-modified" data-toggle="modal" >Next</button>
       </div>

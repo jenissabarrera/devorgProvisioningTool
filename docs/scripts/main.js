@@ -16,7 +16,8 @@ $(document).ready(() => {
             console.log('Logged in');
             let token = client.authData.accessToken;
 
-            // eventlisteners for main buttons
+
+            // Eventlisteners for main buttons
             provisionTelephonyViews.btnEventListeners('btnProvisionTelephony');
             provisionTelephonyViews.btnEventListeners('btnLearnMore');
             architectFlowViews.btnInitiateArchitectDownloadEventListener();
@@ -35,7 +36,6 @@ $(document).ready(() => {
         })
         .catch((err) => console.error(err));
 })
-
 
 
 
