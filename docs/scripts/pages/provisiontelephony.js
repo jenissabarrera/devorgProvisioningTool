@@ -85,7 +85,7 @@ const provisionTelephonyFunctions = {
      */
     checkSipInput() {      
         if(document.getElementById('txtSIPExternalTrunk').value != '' && document.getElementById('txtInboundSIP').value != ''
-        && document.getElementById('txtSIPServers').value != '' && document.getElementById('txtSIPCallingAddress').value != ''{
+        && document.getElementById('txtSIPServers').value != '' && document.getElementById('txtSIPCallingAddress').value != '') {
             document.getElementById('btnCreateSIPTrunk').disabled = false
 
         }
