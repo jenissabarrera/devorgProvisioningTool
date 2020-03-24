@@ -242,3 +242,8 @@ a:hover {
   padding: 14px 16px;
 
 }
+
+button :focus {
+ outline: 0;
+
+}

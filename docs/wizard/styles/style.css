@@ -110,6 +110,7 @@ button,button:focus {
     font-weight: 600;
     font-size: 1em;
     cursor: pointer;
+    outline: 0;
 }
 
 .btn-info {
