@@ -47,6 +47,9 @@ const provisionTelephonyViews = {
                 case 'btnProvisionTelephony':
                     provisionTelephonyFunctions.listProducts();
                     break;
+                case 'btnDisplaySimulateCall':
+                  provisionTelephonyViews.displaySimulateCallModal();
+                      break;
             }    
         }, false)
     },  
@@ -392,6 +395,23 @@ const provisionTelephonyViews = {
     },
 
     /**
+     * Displays instruction on how to simulate the newly created trunk.
+     * @returns {modal} Simulation instruction
+     */
+    displaySimulateCallModal() {
+      let temporaryBody = 
+      `
+      <p class="card-text">
+        <p>Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab 
+        please try to simulate an outbound call to verify that all of the telephony components are probably working.</p>
+      </p> 
+      `
+      universalModal.showNewModal(infoModal);
+      infoModal.show('Provision Telephony - Twilio', temporaryBody, 'Dismiss', '');
+     
+  },
+
+    /**
      * Temporary function for unavailable buttons
      * @returns {alert} 
      */
@@ -399,6 +419,8 @@ const provisionTelephonyViews = {
     tbdButtonFunction() {
         alert("This function is currently unavailable!")
     }
+
+    
 }
 
 

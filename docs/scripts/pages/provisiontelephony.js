@@ -246,8 +246,8 @@ const provisionTelephonyFunctions = {
                 provisionTelephonyFunctions.siteOutboundroutes(trunkData);
 
                 return provisionTelephonyViews.displaySuccessModal('Provision Telephony', 
-                'Provisioning Complete. <br /> Please go to the newly created Site under Admin->Telephony->Sites and on the “Simulate Call” tab please try to simulate an outbound call to verify that all of the telephony components are probably working.', 
-                'Finish', '');
+                'Trunk was successfully created!', 
+                'Next', 'btnDisplaySimulateCall');
             })
             .catch((err) => {
                 console.log('There was a failure calling postTelephonyProvidersEdgesTrunkbasesettings');
@@ -284,7 +284,7 @@ const provisionTelephonyFunctions = {
                 console.log(`postLocations success! data: ${JSON.stringify(data, null, 2)}`);
                 locationId = data.id
                 locationText = data.name        
-                return provisionTelephonyViews.displaySuccessModal('Provision Telephony', 'Location created', 'Next', 'btnDisplaySiteModal');
+                return provisionTelephonyViews.displaySuccessModal('Provision Telephony', 'Location was successfully created', 'Next', 'btnDisplaySiteModal');
             })
             .catch((err) => {
                 console.log('There was a failure calling postLocations');
@@ -445,7 +445,7 @@ const provisionTelephonyFunctions = {
             .then((siteData) => {
                 console.log(siteData);
                 letSiteId = siteData.id;
-                return provisionTelephonyViews.displaySuccessModal('Provision Telephony', 'Site Created...', 'Next', 'btnTrunkModal');
+                return provisionTelephonyViews.displaySuccessModal('Provision Telephony', 'Site was successfully created!', 'Next', 'btnTrunkModal');
             })
             .catch((err) => {
                 console.log('There was a failure calling postTelephonyProvidersEdgesSites');
