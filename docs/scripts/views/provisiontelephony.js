@@ -1,5 +1,5 @@
 
-import provisionTelephonyFunctions from '../pages/provisionTelephony.js'
+import provisionTelephonyFunctions from '../pages/provisiontelephony.js'
 import formModal from '../components/modals/form-modal.js'
 import errorModal from '../components/modals/error-modal.js'
 import successModal from '../components/modals/success-modal.js'
@@ -192,8 +192,7 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
-            <input type="text" class="form-control" id="txtUserName" required>
-            <div class="invalid-feedback">This field is required</div>
+            <input type="text" class="form-control" id="txtUserName">
           </div>
           <div class="form-group-inline">
             <div style="align-items: initial; display: flex;">
@@ -202,8 +201,7 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
-            <input type="password" class="form-control" id="txtSIPPassword" required>
-            <div class="invalid-feedback">This field is required</div>
+            <input type="password" class="form-control" id="txtSIPPassword">
           </div>
           <div class="form-group-inline">
             <div style="align-items: initial; display: flex;">
@@ -212,8 +210,7 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
-            <input type="text" class="form-control" id="txtSIPRealm" required>
-            <div class="invalid-feedback">This field is required</div>
+            <input type="text" class="form-control" id="txtSIPRealm">
           </div>
           <div class="form-group-inline">
             <div style="align-items: initial; display: flex;">
@@ -235,8 +232,7 @@ const provisionTelephonyViews = {
                 <i class="material-icons"> help </i>
               </a>
             </div>
-            <input type="text" class="form-control" id="txtSIPCallingName" required>
-            <div class="invalid-feedback">This field is required</div>
+            <input type="text" class="form-control" id="txtSIPCallingName">
           </div>        
       </div> 
         `
