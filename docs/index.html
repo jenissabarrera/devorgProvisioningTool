@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://sdk-cdn.mypurecloud.com/javascript/68.0.0/purecloud-platform-client-v2.min.js"></script>
+
+    <script src="./scripts/main.js" type="module"></script>
+    <title>Dev Org Provisioning Tool</title>
+  </head>
+
+  <body>
+
+    <div class="topnav" id="topNavBar">
+      <div class="topnav-right">
+        <a href="#about"><button type="submit" id="btnUninstall" class="btn btn-success-modified">Uninstall</button></a>
+      </div>
+    </div>
+    <!-- Welcome Banner -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">Welcome to the Developer Org Provisioning Tool!</h1>
+        <p style="color: white;">What would you like to do?</p>
+        <p>
+          <p><button type="submit" id="btnLearnMore" class="btn btn-primary btn-lg">Learn more »</button></p>
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Row of columns -->
+      <div class="row">
+        
+        <div class="col-md-4">
+          <h2>Provision Telephony</h2>
+          <p>Setup your telephony in an instant. Choose between Twillio or Nexmo</p>
+          <p><button type="submit" id="btnProvisionTelephony" class="btn btn-success-modified">Start »</button></p>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <h2>Dev Org Kick Starter</h2>
+          <p>Setup your Purecloud essentials easily. Create user accounts, groups, and queues for your Dev Org.</p>
+          <p><button type="submit" id="tempID" class="btn btn-success-modified">Start »</button></p>
+        </div> -->
+      
+        <div class="col-md-4">
+          <h2>Architect Flow</h2>
+          <p>Here's a downloadable architect flow for your Org which you can import and use to setup Architect Flow
+          seamlessly.</p>
+          <p><button type="submit" id="btnInitiateArchitectDownload" class="btn btn-success-modified">Start »</button></p>
+        </div>
+        
+        <div class="col-md-4">
+          <h2>Create a developer role</h2>
+          <p> Generate an admin role and assign your current user to it.</p>
+          <p><button type="submit" id="btnDeveloperRole" class="btn btn-success-modified">Start »</button></p>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>
+
